@@ -10,7 +10,7 @@ Here lies the base repo for the Formulatrix Software Engineering Bootcamp. C# Ec
     ```
     Make the project based on those blueprint(solution)
     ```sh
-    dotnet new 'console' -lang "C#" -n "ProjectName" -o "ProjectFolderName"
+    dotnet new 'console' -lang "C#" -n "ProjectName" -o "CSPROJName"
     ```    
-
+    csproj itu apa ya?
 * dkwamdk
