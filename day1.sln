@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project Sharp", "Project Sharp\Project Sharp.csproj", "{DBD25968-6C13-45D8-BF0B-517225A2C171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +12,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBD25968-6C13-45D8-BF0B-517225A2C171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBD25968-6C13-45D8-BF0B-517225A2C171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBD25968-6C13-45D8-BF0B-517225A2C171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBD25968-6C13-45D8-BF0B-517225A2C171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
