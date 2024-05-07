@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\bin\Debug\net8.0\ProjectQ.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\bin\Debug\net8.0\ProjectQ.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\bin\Debug\net8.0\ProjectQ.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\bin\Debug\net8.0\ProjectQ.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\bin\Debug\net8.0\ProjectQ.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\refint\ProjectQ.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ProjectQ.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Work2\ProjectQ\obj\Debug\net8.0\ref\ProjectQ.dll

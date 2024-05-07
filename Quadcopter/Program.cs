@@ -2,30 +2,48 @@
 // Console.WriteLine("Hello, World!");
 using System;
 
+namespace quadcopter{
 class Program{
     static void Main(){
-        Quadcopter Karry = new Quadcopter();
-        // Take off
-        Karry.takeOff();
-        // Move
-        Console.WriteLine($"Battery is : {Karry.getBattery()}, Gravity : {Karry.getGravity()}m/s^2");
-        Karry.Move();
-        // Estimate flight time remaining
-        Console.WriteLine($"Estimated flight time is : {Karry.estimateFlightTime(2)}s");
-        // Landing
-        Console.WriteLine(Karry.isControl());
-        Karry.Land();
+        // Hey this is mine
+        Quadcopter AJ204 = new Quadcopter("Tarry", 12, 2);
+        Console.WriteLine(AJ204.estimateFlightTime());
+        Console.WriteLine(AJ204.getManufacturer());
+
+        // name, mikrokontroller, battery, destinedPlanPathLength
+        Quadcopter Karry = new Quadcopter("Karry","Flighhawk", 98, 3, true);
+        Console.WriteLine(Karry.estimateFlightTime());
+        Quadcopter Musk = new Quadcopter("Musk","ArduPilot", 67, 5, true);
+        Console.WriteLine(Musk.estimateFlightTime());
+        Console.WriteLine(Musk.getManufacturer());
     }
 }
 
 // Adding a new class! It's a cat Quadcopter
 class Quadcopter{
-    string name = "Cat Quadcopter";
-    string producer = "Flighthawk";
+    // 
+    public string name;
+    public string microcontroller;
     float gravity = 9.81f;
-    int battery = 100;
-    bool controller = true;
+    public int battery;
+    bool controller;
+    int longpath;
 
+    // Constructor of the class
+    public Quadcopter(String name, String microcontroller, int battery, int longpath, bool controller){
+        this.name = name;
+        this.microcontroller = microcontroller;
+        this.battery = battery;
+        this.longpath = longpath * this.battery;
+        this.controller = controller;
+    }
+    // Constructor, in case we don't know its manufacturer or its personal make
+    public Quadcopter(String name, int battery, int longpath){
+        this.name = name;
+        this.battery = battery;
+        this.longpath = longpath * this.battery;
+    }
+    // Method or what you can do
     public void takeOff(){
         Console.WriteLine($"{name} Take off! Move out");
     }
@@ -36,15 +54,28 @@ class Quadcopter{
         Console.WriteLine("I'M FLYINGGG!!!");
     }
     public float getGravity(){
-        return gravity;
+        return this.gravity;
     }
     public int getBattery(){
-        return battery;
+        return this.battery;
+    }
+    public String getManufacturer(){
+        if(this.microcontroller == null){
+            return "There is no manufacturere stated in this Quadcopter";
+        }else{
+            return this.microcontroller;
+        }
     }
     public bool isControl(){
-        return controller;
+        if(this.controller){
+            return this.controller;
+        }else{
+            return false;
+        }
     }
-    public int estimateFlightTime(int longpath){
-        return battery*longpath;
+    public int estimateFlightTime(){
+        return this.longpath;
     }
+}
+
 }
