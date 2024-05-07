@@ -4,6 +4,9 @@ Here lies the base repo for the Formulatrix Software Engineering Bootcamp. C# Ec
 ## Progress
 * 1st day--> Build initial repo for the rest of the ongoing bootcamp, making an example of the branch, and installing the essential tools for the bootcamp (.NET(still dont know what is this), C# VSCode Extension, and SourceTree(Just like towergit)). 
 
+    For the first creation of the C# Project structure, the workflow of the creation is as follow
+    ` solution(sln) --> project(.csproj) --> assembly --> [.exe, .dll]`
+
     Adding a new solution blueprint, how do it? Below
     ```sh
     dotnet new sln -n "filename"

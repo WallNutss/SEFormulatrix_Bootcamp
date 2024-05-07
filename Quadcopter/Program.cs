@@ -1,9 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.WriteLine("Hello, World!");
+using System;
 
 class Program{
     static void Main(){
-        quadcopter Karry = new quadcopter();
+        Quadcopter Karry = new Quadcopter();
         // Take off
         Karry.takeOff();
         // Move
@@ -18,7 +19,7 @@ class Program{
 }
 
 // Adding a new class! It's a cat Quadcopter
-class quadcopter{
+class Quadcopter{
     string name = "Cat Quadcopter";
     string producer = "Flighthawk";
     float gravity = 9.81f;
