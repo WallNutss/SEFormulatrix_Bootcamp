@@ -18,7 +18,7 @@ public class Motor{
     }
     // Method here
     public void getAttr(){
-        Console.WriteLine($"Quadcopter Motor Brand is: {this.motorBrand} build in {this.yearBuilt}");
+        Console.WriteLine($"Quadcopter Motor Brand is {this.motorBrand} build in {this.yearBuilt}");
         Console.WriteLine($"This motor has max power speed of {this.maxMotorSpeed} rpm");
         Console.WriteLine($"While this motor has min power speed of {this.minMotorSpeed} rpm");
     }
