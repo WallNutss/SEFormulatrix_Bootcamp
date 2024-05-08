@@ -106,12 +106,52 @@ public Circle:Shape, IShape{
         Console.Writeline("Draw a circle in Interface!");
     }
     // If its using Abstract classifier access
-    public override void Draw(){
+    public override void Draw(){ // use override access 
         Console.Writeline("Draw a circle in Abstract Modifier");
     }
     // If using abstract classifier, the ChangeColor method will be inhereted here in Circle Class
 }
 ```
+
+`static` classifier adalah salah satu konvensi yang enak jika ingin membuat sebuah function tapi nggak mau repot memasukkannya kedalam sebuah `var` untuk dimasukkan
+
+Previous assignment, for modularity there is components that we need to assign to a new variable to even access them, but with `static` classifier, we can use the function just by call their class. See example below:
+
+// Without static
+```csharp
+public class Program{
+    static void Main(){
+        var engine = new Engine(); 
+        engine.engineLast(); // See? We need var engine to even access the Engine Class
+    }
+}
+
+public class Engine{
+    public string engineType = "Diesel";
+    public int engineLast(){
+        return 1000;
+    }
+}
+```
+
+// With static
+```csharp
+public class Program{
+    static void Main(){
+        Engine.engineLast(); // See? so simple
+    }
+}
+
+public static class Engine{
+    public static string engineType = "Diesel";
+    public static int engineLast(){
+        return 1000;
+    }
+}
+```
+
+So if you want to directly access a field(variable) or a method(function), you need to add a static access modifier in front of them. Adding `static` in their parent class is preferable.
+
 
 
 
