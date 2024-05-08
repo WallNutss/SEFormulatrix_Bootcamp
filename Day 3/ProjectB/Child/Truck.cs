@@ -2,7 +2,7 @@ namespace Child;
 using Parents;
 using Components;
 
-public class Truck:Vehicle
+public class Truck:Vehicle, Isound, IFlash
 {
     public Engine engine;
     public Wheel wheel;
@@ -15,8 +15,13 @@ public class Truck:Vehicle
         this.engine = engine;
         this.wheel = wheel;
     }
-
-    public override void hordSound(){
+    public override void applyWiper(){
+        Console.Write("Wiper truck On!!");
+    }
+    public void Flash(){
+        Console.WriteLine("Truck : Flashbang!!!");
+    }
+    public void HornSound(){
         Console.WriteLine("Ton Ton!");
     }
     public void getAttrTruck(){

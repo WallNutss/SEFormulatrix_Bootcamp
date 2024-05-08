@@ -2,7 +2,7 @@ namespace Child;
 using Parents;
 using Components;
 
-public class Sedan:Vehicle
+public class Sedan:Vehicle, Isound, IFlash
 {
     public Engine engine;
     public Wheel wheel;
@@ -16,8 +16,14 @@ public class Sedan:Vehicle
         this.wheel = wheel;
     }
 
-    public override void hordSound(){
+    public void HornSound(){
         Console.WriteLine("Tom Tom!");
+    }
+    public void Flash(){
+        Console.WriteLine("Sedan : Flashbang!!!");
+    }
+    public override void applyWiper(){
+        Console.Write("Wiper Sedan On!!");
     }
     public void getAttrSedan(){
         Console.WriteLine($"This Sedan has {this.fuelAmmount} Liters left with capacity {this.capacity} ton");

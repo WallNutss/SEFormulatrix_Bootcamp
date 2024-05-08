@@ -5,7 +5,7 @@ namespace Parents;
 // Capacity, and they can apply brakes, but
 // vehicle can have different engine and 
 // different wheel types, sooo
-public class Vehicle
+abstract public class Vehicle
 {
     public int fuelAmmount;
     public float capacity;
@@ -13,8 +13,5 @@ public class Vehicle
     public void applyBrakes(){
         Console.WriteLine("Applying brakes!");
     }
-
-    public virtual void hordSound(){
-        Console.WriteLine("Tin Tin!");
-    }
+    public abstract void applyWiper();
 }

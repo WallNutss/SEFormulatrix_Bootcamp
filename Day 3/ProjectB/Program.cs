@@ -24,13 +24,19 @@ public class Program{
         // Print the information
         // Well can it be busB?
         busA.getAttrBus();
-        busA.hordSound();
-        Console.WriteLine("\n===========================");
+        busA.HornSound();
+        busA.Flash();
+        busA.Door();
+        Console.WriteLine("===========================\n");
+
         sedanA.getAttrSedan();
-        sedanA.hordSound();
-        Console.WriteLine("\n===========================");
+        sedanA.HornSound();
+        sedanA.Flash();
+        Console.WriteLine("===========================\n");
+
         truckA.getAttrTruck();
-        truckA.hordSound();
-        Console.WriteLine("\n===========================");
+        truckA.HornSound();
+        truckA.Flash();
+        Console.WriteLine("===========================\n");
     }
 }
