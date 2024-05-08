@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\bin\Debug\net8.0\ProjectA.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\bin\Debug\net8.0\ProjectA.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\bin\Debug\net8.0\ProjectA.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\bin\Debug\net8.0\ProjectA.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\bin\Debug\net8.0\ProjectA.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\refint\ProjectA.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ProjectA.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 3\ProjectA\obj\Debug\net8.0\ref\ProjectA.dll

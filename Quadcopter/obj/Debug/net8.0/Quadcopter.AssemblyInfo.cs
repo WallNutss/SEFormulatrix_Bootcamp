@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Quadcopter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08c49e383607e090d5b8ae72b1330789c97a0e22")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7f9a0d8de1efb199ae8cb4e842f9d420ebadffed")]
 [assembly: System.Reflection.AssemblyProductAttribute("Quadcopter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Quadcopter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

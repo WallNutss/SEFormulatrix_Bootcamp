@@ -43,4 +43,28 @@ public class Motor{
 But the problem is that I still don't get it how I achieve if I want to use another namespace as my calculation group with it parameter from another namespace and called it in my main program
 
 Now, it's inheritance. 
+Inheretence basically like super _init__ like python. So basically in python you go like this (I got this from ROS Gazebo class Node)
+```python
+from rclpy.node Import Node
+
+class bigClass(Node){
+    super().__init__('')
+    # Something to code
+}
+```
+in C#, we can do something similar like this
+```csharp
+public class Parents{
+    // Constructor and Method here
+}
+
+public class Child:Parents{
+    public Child():base(){
+        // Code here
+    }
+}
+```
+
+### 3rd Day
+
 
