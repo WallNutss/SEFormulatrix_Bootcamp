@@ -68,5 +68,50 @@ public class Child:Parents{
 ### 3rd Day
 In 3rd day, Types, Polyphremism, and Override Method was introduce here. The way I see it, we can use Override if there is derived childs from parent class that some of them have this behaviour and some of them are not. So, we can further save time from typing it. Override is special to method/function.
 
+Ada juga pelajari tentang interface. Interface and Abstrack in C# is such a dumb idea. Probably wise to see some example of interface. Yeah interface is just for method. Bedanya pake modifier `abstrack` itu sama seperti `virtual`, saat method itu diganti pada class child itu kita bisa menggantinya dan bahkan di abstrak boleh ada isinya, sedangkan interface itu cuma boleh ada cetakan method doang
+
+// Isi code contoh penggunaan abstract
+```csharp
+abstract class Shape{
+    public abstract void Draw();
+    public void ChangeColor(){
+        Console.Writeline("Change color now!");
+    }
+    // and so on, we can put some abstract method here + some method blueprints that we want to derivate to the child. In this case the ChangeColor Method
+}
+```
+
+// Isi penggunaan Interface
+```csharp
+interface IShape{
+    void Draw();
+    void MakeWay();
+    // And so on, interface only provide blueprints method
+}
+```
+
+// Pengunaan Abstract dan Interface
+```csharp
+public class Program{
+    static void Main(){
+        var circle = new Circle()
+        circle.Draw();  // Draw a circle
+        circle.Changecolor(); // Change Color now (if using abstract classifier)
+    }
+}
+
+public Circle:Shape, IShape{
+    // If its using Interface
+    public void Draw(){
+        Console.Writeline("Draw a circle in Interface!");
+    }
+    // If its using Abstract classifier access
+    public override void Draw(){
+        Console.Writeline("Draw a circle in Abstract Modifier");
+    }
+    // If using abstract classifier, the ChangeColor method will be inhereted here in Circle Class
+}
+```
+
 
 
