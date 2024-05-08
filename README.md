@@ -66,5 +66,7 @@ public class Child:Parents{
 ```
 
 ### 3rd Day
+In 3rd day, Types, Polyphremism, and Override Method was introduce here. The way I see it, we can use Override if there is derived childs from parent class that some of them have this behaviour and some of them are not. So, we can further save time from typing it. Override is special to method/function.
+
 
 
