@@ -153,5 +153,123 @@ public static class Engine{
 So if you want to directly access a field(variable) or a method(function), you need to add a static access modifier in front of them. Adding `static` in their parent class is preferable.
 
 
+### 4th Day
+Today, we learn more about stack and memory application usage of the C#. Generics is more about the replacement of the operator overloading.
+
+Generics are the things concept that makes our life easier, the replacement of operator overloading if we still undecided which type of types we want but we still want to reuse those function. For example, let say we have swapper function, and we want to swap it like this
+
+```csharp
+using System;
+					
+public class Program
+{
+	public static void Swap(ref int x, ref int y){
+		int s = x;
+		x = y;
+		y = s;
+	}
+	
+	public static void Main()
+	{
+		int x = 3;
+		int y = 4;
+		
+		Program.Swap(ref x,ref y);
+			
+		x.Dump(); // 4
+		y.Dump(); // 3
+	}
+}
+```
+
+then what happens when all of the sudden, we also want to use the Swap() method to swap between strings? Well we have to again retype it the Swap() method all over again to meet those demands. But with generics, we can hold those decision until the function receive them, its like this
+
+``` csharp
+using System;
+					
+public class Program
+{
+	public static void Swap<T>(ref T x, ref T y){
+		T s = x;
+		x = y;
+		y = s;
+	}
+	
+	public static void Main()
+	{
+		string x = "Indonesia";
+		string y = "Japan";
+		
+		Program.Swap<string>(ref x,ref y);
+			
+		x.Dump(); // Japan
+		y.Dump(); // Indonesia
+	}
+}
+```
+`<T>` in `swap` function act as a mediator, as a 'generic' to replace what type of things we want to set, so we don't have to bother retyping it all over again. Where `<T>` value is connected when we first call the `swap` function as you can see after that there is `<string>` type there. So there you have it. You also can use them to make some of like <b>Field Method Generics</b> in the class.
+
+Struct --> Just field/data variables. It is a value type only where struct cannot do inherince to other where Class --> Field & Method can do. Struct is another type of a class. So struct <b>IS NOT</b> a static, but more like a class.
+
+And there is Generics Constrain. Yeah idk what is this! maybe try again later? Yeah lets just skip this. Yes uhumm
+
+// This is dumb, idk, extension method dumb
+```csharp
+using System;
+					
+public static class Program
+{
+	public static void Cetak(this object x){
+		Console.WriteLine(x);
+	}
+	
+	public static void Main()
+	{
+		int x = 8;
+		Cetak(x); // output 8
+		object y = 7;
+		y.Cetak(); // This can do, output 7
+		
+	}
+}
+```
+
+Ref, In , Out, SAFEEEE!!!!
+```csharp
+using System;
+					
+public static class Program
+{
+	public static void Main()
+	{
+		int refParameter = 27;
+		int inParameter = 13;
+		int outParameter;
+		
+		exampMethod(ref refParameter, in inParameter, out outParameter);
+		
+		Console.WriteLine(refParameter);
+		Console.WriteLine(inParameter);
+		Console.WriteLine(outParameter);
+	}
+	
+	public static void exampMethod(ref int refParameter, in int inParameter, out int outParameter){
+		refParameter += 10;
+		
+		//try{
+		//	inParameter += 10;
+		//}
+		//catch(Exception e){
+		//}
+		outParameter = 5;
+	}
+
+}
+```
+
+Just treat ref as global, in as constant, and out is cool(idk lol)
+
+
+
 
 
