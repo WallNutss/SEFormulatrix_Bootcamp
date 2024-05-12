@@ -269,6 +269,44 @@ public static class Program
 
 Just treat ref as global, in as constant, and out is cool(idk lol)
 
+### 4th Day Unrecorded
+So, let's talk about enum, it is a little bit tricy, but in my perspective and my own reasoning, I define as enum is just an array of things(especially int) where we replace/try to making sure it replaced with a more common sense, a word. IT is useful when we talking about state treatment. We can setup enum like this
+
+
+```csharp
+public enum Months{ // Lets try to create an enumaration of month of kabisat year
+    Jan,
+    Feb,
+    Mar,
+    Apr,
+    May,
+    Jun,
+    Jul,
+    Aug,
+    Sep,
+    Oct,
+    Nov,
+    Des
+}
+
+class Program{
+    static void Main(){
+        Console.WriteLine(Months.Apr); // This will console 3
+    }
+}
+```
+
+So as you can seem, enum or enumeration is just a way to name our index, and (maybe lol) make our life easier, as I yet to find the usefullness of enum. Maybe something like state control?
+```csharp
+public enum State{
+	PLAYING,
+	PAUSED,
+	GAME_OVER
+}
+```
+maybe something like this will be proved useful. So enums is just really, an integer constant that <b>associated</b> with some kind of playwords, and we <b>do not</b> limit only with numbers, where it can be associated with more broad concept, maybe like example above we will associated those word months with <b>How many layoff happens in one month or how much salary does a person receive each month in a company</b> and etc. So, this kind of thing.
+
+
 
 
 
