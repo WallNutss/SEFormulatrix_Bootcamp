@@ -405,6 +405,33 @@ Yeah now it comes to Event Handler, but fuck fuck fuck what the fuck is this fuc
 
 So, I think we can use Event Handler as a Notification System, such as when People buy something, need kind some kind of feedback. But....
 
+<b>Try Catch in C#</b> like any other programming languange it's pretty simple and straightforward manner. Try-Catch in C# should look like this
+
+```csharp
+try{
+    // Code here
+}catch(Exception e){
+    // Throw error here
+}
+```
+and an Example look like this
+```csharp
+public class Program
+{
+	public static void Main()
+	{
+		try{
+            Run();
+        }catch(Exception e){
+            Console.WriteLine(e);
+        }
+	}
+    static void Run(){
+        Run();
+    }
+} // This will throw stack overflow error
+```
+
 
 
 

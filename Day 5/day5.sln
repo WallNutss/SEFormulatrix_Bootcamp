@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates", "Delegates\Dele
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{D40A7854-827E-400E-A70A-5A0386093642}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Properties", "Properties\Properties.csproj", "{7847E074-10EF-4337-8E76-3D6DA9A0C1F0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40A7854-827E-400E-A70A-5A0386093642}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40A7854-827E-400E-A70A-5A0386093642}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40A7854-827E-400E-A70A-5A0386093642}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40A7854-827E-400E-A70A-5A0386093642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7847E074-10EF-4337-8E76-3D6DA9A0C1F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7847E074-10EF-4337-8E76-3D6DA9A0C1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7847E074-10EF-4337-8E76-3D6DA9A0C1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7847E074-10EF-4337-8E76-3D6DA9A0C1F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
