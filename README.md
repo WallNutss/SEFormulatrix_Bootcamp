@@ -229,7 +229,6 @@ public static class Program
 		Cetak(x); // output 8
 		object y = 7;
 		y.Cetak(); // This can do, output 7
-		
 	}
 }
 ```
@@ -269,7 +268,9 @@ public static class Program
 
 Just treat ref as global, in as constant, and out is cool(idk lol)
 
+yeah I kinda skip the enum part, yeah lol.
 
+Now for the params, so in fact, object method does need to return something, so it factually not a void at all.
 
 
 
