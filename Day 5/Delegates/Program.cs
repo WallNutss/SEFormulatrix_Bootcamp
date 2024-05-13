@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.WriteLine("Hello, World!");
-
+using System.Reflection;
 public delegate int MyDelegate(int x);
 
 class Saturate{
@@ -17,14 +17,20 @@ class Saturate{
 class Program{
     static void Main(){
         MyDelegate roar = new MyDelegate(Saturate.Print);
-        object result = roar(3);
-        Console.WriteLine(result);
 
         Console.WriteLine("Before adding mush method");
         roar += Saturate.Mush;
         Console.WriteLine("After adding mush method");
 
-        object result2 = roar(4); // Invoke or run all method reside in the roar delegates
-        Console.WriteLine(result2);
+        int result = roar(5);
+        //result.Dump();
+
+        Delegate[] dels = roar.GetInvocationList();
+
+        // Accessing each return
+        foreach(Delegate dg in dels){
+            Console.WriteLine(dg.GetMethodInfo().Name + ": " +
+            ((MyDelegate)dg).Invoke(5));
+        }
     }
 }
