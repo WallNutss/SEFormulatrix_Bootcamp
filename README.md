@@ -329,5 +329,78 @@ yeah I kinda skip the enum part, yeah lol.
 
 Now for the params, so in fact, object method does need to return something, so it factually not a void at all.
 
+### 5th Day
+So for value type and reference type. When first inisiate their value by default is that value type tend to fill it with zero and reference type with null.
+
+Ok so now we come to delegates. From the documentary, a delegate is a reference type that represents the method signature of a method. Yeah, me neither. I don't know the functionality here. Maybe just need to know about it. Yeah gooddamn what the fuck delegates mean. But here some example
+
+```csharp
+public delegate void MyDelegate(string word);
+
+class Saturate{
+    public static void Print(string word){
+        Console.WriteLine($"Hai! {word}");
+    }
+    public static void Mush(string word){
+        Console.WriteLine($"Kumbala Mush {word}!");
+    }
+}
+
+class Program{
+    static void Main(){
+        MyDelegate roar = new MyDelegate(Saturate.Print);
+        roar("Yoar");
+        roar += Saturate.Mush;
+        roar("Donot");
+    }
+}
+```
+
+So, how about we add another method to the assigned delegates?
+```csharp
+static void Main(){
+    MyDelegate roar = new MyDelegate(Saturate.Print);
+    roar.Invoke("Yoar");
+    Console.WriteLine("Before adding mush method");
+    roar += Saturate.Mush;
+    Console.WriteLine("After adding mush method ");
+    roar.Invoke("Donot"); // Invoke or run all method reside in the roar delegates
+}
+```
+
+So, when delegates use a return type value, it will call the last method it will see with example below
+```csharp
+public delegate int MyDelegate(int x);
+
+class Saturate{
+    public static int Print(int x){
+        // Console.WriteLine($"Hai! {word}");
+        return (x + x);
+    }
+    public static int Mush(int x){
+        // Console.WriteLine($"Kumbala Mush {word}!");
+        return (x * x);
+    }
+}
+
+class Program{
+    static void Main(){
+        MyDelegate roar = new MyDelegate(Saturate.Print);
+        object result = roar(3);
+        Console.WriteLine(result); // Will console 6
+
+        Console.WriteLine("Before adding mush method");
+        roar += Saturate.Mush;
+        Console.WriteLine("After adding mush method");
+
+        object result2 = roar(4);
+        Console.WriteLine(result2); // Will console only 16, because mush was added last to roar();
+    }
+}
+```
+
+So, there is no meaning whatsoever using delegates when it have a return type. But maybe it will be useful when it was used as a broadcast function. Save time.
+
+
 
 
