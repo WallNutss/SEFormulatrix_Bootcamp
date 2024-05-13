@@ -209,7 +209,26 @@ public class Program
 ```
 `<T>` in `swap` function act as a mediator, as a 'generic' to replace what type of things we want to set, so we don't have to bother retyping it all over again. Where `<T>` value is connected when we first call the `swap` function as you can see after that there is `<string>` type there. So there you have it. You also can use them to make some of like <b>Field Method Generics</b> in the class.
 
-Struct --> Just field/data variables. It is a value type only where struct cannot do inherince to other where Class --> Field & Method can do. Struct is another type of a class. So struct <b>IS NOT</b> a static, but more like a class.
+Struct --> Just field/data variables. It is a value type only where struct cannot do inherince to other where Class --> Field & Method can do. Struct is another type of a class. So struct <b>IS NOT</b> a static, but more like a class. Nope never mind, Struct can contain a method, just look at this example provided by SE FMLX at Module Operator Overloading. Yeah I', just gonna ask it later tomorrow. For now, just push it agian to remote.
+
+```csharp
+public struct Point
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public Point(int x, int y) // Isn't this constructor?
+    {
+        X = x;
+        Y = y;
+    }
+
+    public static Point operator + (Point p1, Point p2) // and isn't this a method? fuck idk
+    {
+        return new Point(p1.X + p2.X, p1.Y + p2.Y);
+    }
+}
+```
 
 And there is Generics Constrain. Yeah idk what is this! maybe try again later? Yeah lets just skip this. Yes uhumm
 
@@ -267,6 +286,44 @@ public static class Program
 ```
 
 Just treat ref as global, in as constant, and out is cool(idk lol)
+
+### 4th Day Unrecorded
+So, let's talk about enum, it is a little bit tricy, but in my perspective and my own reasoning, I define as enum is just an array of things(especially int) where we replace/try to making sure it replaced with a more common sense, a word. IT is useful when we talking about state treatment. We can setup enum like this
+
+
+```csharp
+public enum Months{ // Lets try to create an enumaration of month of kabisat year
+    Jan,
+    Feb,
+    Mar,
+    Apr,
+    May,
+    Jun,
+    Jul,
+    Aug,
+    Sep,
+    Oct,
+    Nov,
+    Des
+}
+
+class Program{
+    static void Main(){
+        Console.WriteLine(Months.Apr); // This will console 3
+    }
+}
+```
+
+So as you can seem, enum or enumeration is just a way to name our index, and (maybe lol) make our life easier, as I yet to find the usefullness of enum. Maybe something like state control?
+```csharp
+public enum State{
+	PLAYING,
+	PAUSED,
+	GAME_OVER
+}
+```
+maybe something like this will be proved useful. So enums is just really, an integer constant that <b>associated</b> with some kind of playwords, and we <b>do not</b> limit only with numbers, where it can be associated with more broad concept, maybe like example above we will associated those word months with <b>How many layoff happens in one month or how much salary does a person receive each month in a company</b> and etc. So, this kind of thing.
+
 
 yeah I kinda skip the enum part, yeah lol.
 
