@@ -2,14 +2,14 @@
 // Console.WriteLine("Hello, World!");
 
 using System;
-
+//using System.EventHandler;
 // Declare a delegate type with the signature for the event handler method.
 public delegate void ButtonClickedEventHandler(object sender, EventArgs e);
 
 // Declare a class with an event of the delegate type.
 public class Button
 {
-    public event ButtonClickedEventHandler Clicked;
+    public event System.EventHandler Clicked;
 		// In the class that raises the event, create a method to invoke the event.
     private void button1_Click(object sender, System.EventArgs e)
 {  
@@ -48,6 +48,9 @@ public static class Program
         Button button = new Button();
         button.Clicked += form.HandleButtonClick; // if this not commented, code in line 51 will always return true
 		// Finally, raise the event by calling the event invoker method.
+        button.OnClicked();
+        button.Clicked -= form.HandleButtonClick;
+
         button.OnClicked();
     }
 }

@@ -403,6 +403,7 @@ So, there is no meaning whatsoever using delegates when it have a return type. B
 
 Yeah now it comes to Event Handler, but fuck fuck fuck what the fuck is this fuck. EventArgs is a documentation of the Event Handler. Keknya aku paham alurnya, cuma ya itu, ini isinya buat apa, rada aneh
 
+So, I think we can use Event Handler as a Notification System, such as when People buy something, need kind some kind of feedback. But....
 
 
 
