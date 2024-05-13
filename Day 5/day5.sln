@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates", "Delegates\Delegates.csproj", "{CFDB5C65-E681-4DFC-8F1D-EC345C9747CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "EventHandler\EventHandler.csproj", "{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{CFDB5C65-E681-4DFC-8F1D-EC345C9747CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDB5C65-E681-4DFC-8F1D-EC345C9747CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFDB5C65-E681-4DFC-8F1D-EC345C9747CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DF3EBB-A69B-4A3E-9D2A-0BD4BC368DAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
