@@ -432,6 +432,8 @@ public class Program
 } // This will throw stack overflow error
 ```
 
+And that's it! Now moving on to properties. Properties can also be a conditional.
+
 
 
 
