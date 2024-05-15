@@ -443,6 +443,12 @@ Today and in the next five day, we have been assigned to make a class diagram, w
 - [x] Make the overflow graph of the process
 - [x] Make the class diagram with OOP in mind
 
+Concept that want to be implemented
+- Inheritence
+- Interface
+- Enums
+- Delegates
+
 
 
 
