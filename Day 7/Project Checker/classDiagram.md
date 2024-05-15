@@ -3,12 +3,26 @@ classDiagram
     %% OOP Structure
     Pieces <|-- IKing
     Player <|-- Pieces
-    Pieces : -object pieces
+    Program <|-- Player
+    Program <|-- Board
+    Program <|-- EventSystemHandler
+    Program <|-- GameStatus
+    Pieces <|-- PlayerType 
+    Pieces <|-- PieceType 
+    
 
 
 
     %% MAIN PROGRAM/GAME CONTROLLER
     class Program{
+      + Board board
+      + firstPlayer Player
+      + secondPlayer Player
+      + GameStatus gameStatus
+      + EventSystemHandler eventHandler
+      + InitBoard()
+      + GameState()
+      + TurnHandler()
 
     }
 
@@ -18,6 +32,7 @@ classDiagram
       - int ID
       - int rowCoord
       - int colCoord
+      - bool upgraded
       - int playerType : PlayerType
       + MoveForward()
       + OverTake()
@@ -25,8 +40,16 @@ classDiagram
     class Player{
       <<Abstract>>
       - string namePlayer
-      - object pieces
+      - Pieces [ ] pieces
       - int scorePlayer
+      + PlayerTurn()  
+    }
+
+    class Board{
+      <<Public>>
+      - int [ ][ ] boardDimension
+
+
     }
 
     %% Defining Interface
@@ -38,8 +61,9 @@ classDiagram
     %% Defining Event Handler
     class EventSystemHandler{
       <<Service>>
-      + PlayerMovement()
+      + PieceMovement()
       + PieceOvertaken()
+      + PieceUpgraded()
       + GameStatus()
       + ScoreDisplay()
     }
@@ -49,6 +73,8 @@ classDiagram
       <<Enumeration>>
       GAME_START
       GAME_RUNNING
+      PLAYERA_WIN
+      PLAYERB_WIN
       GAME_FINISHED
       GAME_DRAW
     }
@@ -56,5 +82,11 @@ classDiagram
       <<Enumeration>>
       PlayerA
       PlayerB
+    }
+    
+    class PieceType{
+      <<Enumeration>>
+      Piece
+      King
     }
 ```

@@ -108,6 +108,24 @@ Jadi harusnya kek gini
 ├── Enums (Game Status)
 ```
 
-Eh ini goblo harus apa wkakakaka.
+Eh ini goblo harus apa wkakakaka. Jadi harusnya begini lagi rambahannya
+Notification System
+```
+─ Player Movement
+─ Game Status
+─ Score Display
+─ Piece Upgraded (King)
+```
+
+dimana Bisa lebih mempresentasikan lebih baik lagi untuk Game Status seperti ini
+Game Status
+```
+─ Game Start
+─ Game Running
+─ First Player Win
+─ Second Player win
+─ Game Draw
+```
+
 
 
