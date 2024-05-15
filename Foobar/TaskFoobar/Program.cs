@@ -30,6 +30,6 @@ class Program{
             }
         }
 
-        Foobar.Task(input);
+            Foobar.Task(input);
     }
 }
