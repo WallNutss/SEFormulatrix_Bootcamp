@@ -1,0 +1,25 @@
+Story:
+Checker is an ancient project, based on roman games long ago
+like 1900BC ago. The concept of the game is quite simple
+Each pieces(checker) can only move diagonally on dark squares.
+Each pieces can move two times length if the next step there is
+an opponent check and behind it is empty. Check can move multiple times
+if condition
+1. If opponent check is on diagonally square and square behind it empty
+and if land also we can capture another check with condition above, we can 
+jump multiple times
+
+Object :
+Player (A)
+Pieces (B)
+Board game (C)
+King Pieces (D)
+Pocket Board (E)
+
+Relation : 
+- Game start, 12 Pieces Spawn
+- Board game store pieces location
+- Player move pieces
+- Player move King pieces
+- Pocket collects pieces
+- Player Score from Pocket

@@ -435,5 +435,14 @@ public class Program
 And that's it! Now moving on to properties. Properties can also be a conditional.
 
 
+### 7th Day
+Today and in the next five day, we have been assigned to make a class diagram, where in my case is to make about the Checker Class Diagram.
+
+- [x] Learn the history and how to play Checker
+- [x] Construct the functional prosess of Checker Play
+- [x] Make the overflow graph of the process
+- [x] Make the class diagram with OOP in mind
+
+
 
 
