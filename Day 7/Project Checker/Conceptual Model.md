@@ -28,7 +28,7 @@ IPiece will be the baseprint of the Pieces
 IPlayer will be the baseprint of the Player
 ```
 
-Class
+Class Parent
 ```
     ├─ Pieces(Model) <-- IPieces
         ├── King(Model)        
@@ -40,9 +40,9 @@ Class
 Component Class
 ```
 ├─ Pieces
+   ─ ID(int) --> Field
    ─ rowCoord(int) --> Field
    ─ colCoord(int) --> Field
-   ─ ID(int) --> Field
    ─ Owner --> Player.Type 
    ─ MoveForward()
    ─ OverTake()
@@ -93,11 +93,21 @@ So the Folder should be Like this
 ├── Event Handler (Notification System)
 ├── Enums (Game Status)
 ```
+(15/05/2024 ; 15.31 p.m.)
 
-So the code should look like this
-```csharp
-Interface 
+============  FIRST REVISION ============
 
+Harusnya kalo gitu bukan IPieces nggak sih? Tapi IPieceKing.
+Karena buat apa naro di Interface semua, mending bikin base class Parent. Sama kek Player, buat apa naro?
+Jadi harusnya kek gini
 ```
+├── Interfaces (IKing)
+├── Abstract Base Class (Pieces, Player)
+├── Child Class (PlayerA, PlayerB)
+├── Event Handler (Notification System)
+├── Enums (Game Status)
+```
+
+Eh ini goblo harus apa wkakakaka.
 
 
