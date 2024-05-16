@@ -127,5 +127,90 @@ Game Status
 ─ Game Draw
 ```
 
+Ok lanjut lagi, nah kan jadinya ada beberapa problem nih, mending kulist  
+1. Permasalahan inherit King Class saat Pieces Upgrade (Ini Konseptualnya dan relasinya gimana ya)
+2. Apa biar enak, dipisah aja buat modelnya sapa, buat jalanin programnya sapa? Soalnya untuk sekarang itu semuanya kutaro didalam Main Program [APPROVE] --> Program mainly untuk jalanin, model game buat Construction dari awal model. Jadi tinggal panggil gini
+   ```csharp
+   class Program{
+      GameSystem Game = new();
+      GameModel Model = new();
+      initBoard(Model.Board, Model. Player);
+
+      While(Game.GameStatus == GAME_RUNNING){
+         // Start game simulation here
+         Game.GameRunning();
+      }
+   }
+
+   // Where GameRunning Contain
+   static void GameRunning(){
+      Game.TurnHandler(); // Start Turn Action
+      Game.globalScore = Game.UpdateScore(); // Update Score
+      Game.GameState(); // Update Game Status Enumeration, Check winnable condition here
+   }
+
+   static void TurnHandler(){
+      Model.PlayerA.PlayerTurn();
+      Model.PlayerB.PlayerTurn();
+   }
+
+   static int UpdateScore(){}
+      int [][] resultScore = Game.scoreSystem.GetPlayerScore();
+      return resultScore;
+   ```
+3. <b>Abstract</b> class punya `Pieces` sama `Player` harusnya udah benar, yang masih ambigu itu punyanya `EventHandler` sama `Program`
+4. Ini terus, board kan perlu tau juga lokasi tiap pieces dimana nggak sih, kalo ini apa perlu disimpan ya informasi ini?
+5. Keknya untuk sistem scoring bisa dipisah deh, jadi dari player sendiri bisa ada method buat tau scorenya sendiri, tapi buat updatenya bisa dari Class Score Jadi ambil data dari masing-masing player, terus update global score ke Game? [APPROVED]
+6. Pecah lagi Check Winnable Condition 
+
+Jadi harusnya kek gini
+```
+├── Interfaces (IKing)
+├── Abstract Base Class (Pieces, Player)
+├── Child Class (PlayerA, PlayerB, Piece)
+├── Score?
+├── Event Handler (Notification System)
+├── Enums (Game Status)
+```
+Nah harusnya sih udah, sekarang tinggal pikirin relasi diantara mereka semua.  
+Jadi harusnya Kan sudah tadi Pieces itu.
+
+Pertanyaan baru:  
+Q : Gimana cara player tau score dianya sendiri? Apa dari notification system handlernya? Ini gimana ya?
+
+Karena GameSystem gunain Fungsi ScoreSystem sama EventHandler buat ngurusin scoring sama publish informasi. Jadi harusnya relasi mereka ini association kan?
+
+Dan karena didalam class model itu isinya adalah inisialisasi dari seluruh class parent Piece, Board, dan Player, jadi harusnya relasi mereka itu semua composition(probably? idk man I'm dumb)
+
+(16/05/2024 ; 08.29 a.m.)  
+===========  SECOND REVISION ===========
+
+Nah jadi ternyata kurang benar terkait penjelasan Interfaceku. Ini gimana ya?
+
+// Object  
+Piece  
+King Piece  
+Board
+
+// Services  
+Event System Handler  
+Score System Handler  
+
+// List Data  
+Game Status  
+Type Player  
+Piece Type  
+
+
+(16/05/2024 ; 15.09 a.m.)  
+===========  SECOND REVISION ===========
+
+
+
+
+
+
+
+
 
 

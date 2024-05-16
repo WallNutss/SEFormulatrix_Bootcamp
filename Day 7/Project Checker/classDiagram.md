@@ -1,66 +1,112 @@
 ```mermaid
 classDiagram
     %% OOP Structure
-    Pieces <|-- IKing
-    Player <|-- Pieces
-    Program <|-- Player
-    Program <|-- Board
-    Program <|-- EventSystemHandler
-    Program <|-- GameStatus
-    Pieces <|-- PlayerType 
-    Pieces <|-- PieceType 
-    
 
+    %% Big Parent Class inherit Interface
+    IPiece <|-- King
+    IPiece <|-- Piece
+    IPlayer <|-- Player
+    IPlayer <|-- IPiece
+    IBoard <|-- Board
 
+    %% Instantiating Class Relation
+    Model *-- IPlayer
+    Model *-- IBoard
+
+    %% Relation to GameSystem
+    GameSystem <-- Model
+    GameSystem <-- ScoreSystem
+    GameSystem <-- TotalTurnCounter
+    GameSystem <-- GameModeration
+
+    %% Enumeration Relation to Class
+    IPlayer ..> PlayerType 
+    IPiece ..> PieceType
+    GameModeration ..> GameStatus
 
     %% MAIN PROGRAM/GAME CONTROLLER
-    class Program{
+    class Model{
       + Board board
       + firstPlayer Player
       + secondPlayer Player
-      + GameStatus gameStatus
+    }
+    class GameSystem{
+      + Model GameModel
+      + ScoreSystem scoreSystem
+      + TotalTurnCounter totalTurn
+      + GameModeration mod
       + EventSystemHandler eventHandler
       + InitBoard()
+      + GameStart()
       + GameState()
       + TurnHandler()
-
     }
 
-    %% Defining Abstract Class Template
-    class Pieces{
-      <<Abstract>>
+    class GameModeration{
+      + GameStatus gameStatus
+      + GameModeCheck()
+    }
+
+    %% Defining Interface
+    class IPiece{
+      <<Interfaces>>
       - int ID
-      - int rowCoord
-      - int colCoord
-      - bool upgraded
-      - int playerType : PlayerType
+      - int rowCoordinate
+      - int colCoordinate
+      - bool isUpgraded
+      - int pieceType : PieceType
       + MoveForward()
       + OverTake()
     }
-    class Player{
-      <<Abstract>>
-      - string namePlayer
-      - Pieces [ ] pieces
+
+    class IPlayer{
+      <<Interfaces>>
+      - string playerName
       - int scorePlayer
-      + PlayerTurn()  
+      - Piece[][] Pieces
+      - int playerType : PlayerType
+      + PlayerTurn()
+    }
+
+    class IBoard{
+      <<Interfaces>>
+      - string boardName
+      - int [][] boardDimension
+    }
+
+    %% Defining Class Template
+    class Piece{
+      <<Public>>
+    }
+    class King{
+      <<Public>>
+      + MoveBackward()
+    }
+
+    class Player{
+      <<Public>>
     }
 
     class Board{
       <<Public>>
-      - int [ ][ ] boardDimension
-
-
     }
 
-    %% Defining Interface
-    class IKing{
-      <<Interfaces>>
-      + MoveBackward()
-    }
-
-    %% Defining Event Handler
-    class EventSystemHandler{
+    %% Defining Services
+    class ScoreSystem{
       <<Service>>
+      - int [][] globalScore
+      + GetPlayerScore()
+    }
+
+    class TotalTurnCounter{
+      <<Service>>
+      - int totalTurn
+      + TurnCounter()
+    }
+
+    %% Defining Event Handler Delegates
+    class EventSystemHandler{
+      <<delegates>>
       + PieceMovement()
       + PieceOvertaken()
       + PieceUpgraded()
