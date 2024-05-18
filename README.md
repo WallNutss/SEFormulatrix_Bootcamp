@@ -450,5 +450,21 @@ Concept that want to be implemented
 - Delegates
 
 
+### 7th Day Unrecorded
+So, delegates, in nutshell delegates in C# is a feature to store a function in a variablee. Yeah you hear me, now we can store funtion inside a variable.  
+But Boss, why we need them to store it in a variable? Isnt it enough we make them just static and access them through it?  
+But how the concept of multiple subscribers?  
+
+OK so, delegates are in concpet is how we have multiple function inside a variable and for more convinience can call/invoke them at the same time because they are really similarly so close to each other. Delegates have some varying, a delegate, an action, and a Func.
+
+```csharp
+// Delegate
+public delegate void testDelegateFunction(); // Delegate can recive input and define it's output return type in the class properties
+
+public action<int, float> testIntFloatFunc; // Action delegate can revice multiple inputs, butt it will return only return type. Probably best case used on when need to check something, but just need to log out those information but idk
+
+public Func<int i, bool x> testIntBoolFunc; // Func delegate will only receive input, and it will return a type that has been set before in the generics format. In this case input must be int and the output return must be bool
+```
+
 
 

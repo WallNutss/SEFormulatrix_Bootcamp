@@ -3,26 +3,30 @@ classDiagram
     %% OOP Structure
 
     %% Big Parent Class inherit Interface
-    IPiece <|-- King
-    IPiece <|-- Piece
-    IPlayer <|-- Player
-    IPlayer <|-- IPiece
-    IBoard <|-- Board
+    IPiece <|.. King : Realization
+    IPiece <|.. Piece : Realization
+    IPlayer <|.. Player : Realization
+    IPlayer <.. IPiece : Dependency
+    IBoard <|.. Board : Realization
 
     %% Instantiating Class Relation
-    Model *-- IPlayer
-    Model *-- IBoard
+    Model <.. IPlayer : Dependency
+    Model <.. IBoard : Dependency
 
     %% Relation to GameSystem
-    GameSystem <-- Model
-    GameSystem <-- ScoreSystem
-    GameSystem <-- TotalTurnCounter
-    GameSystem <-- GameModeration
+    GameSystem <-- Model : Association
+    GameSystem <-- ScoreSystem : Association
+    GameSystem <-- TotalTurnCounter : Association
+    GameSystem <-- GameModeration : Association
+    %% Delegates to the Main Program
+    GameSystem --> EventDelegates : Association
 
     %% Enumeration Relation to Class
-    IPlayer ..> PlayerType 
-    IPiece ..> PieceType
-    GameModeration ..> GameStatus
+    IPlayer -- PlayerType : Link
+    IPiece -- PieceType : Link
+    GameModeration -- GameStatus : Link
+
+
 
     %% MAIN PROGRAM/GAME CONTROLLER
     class Model{
@@ -35,7 +39,7 @@ classDiagram
       + ScoreSystem scoreSystem
       + TotalTurnCounter totalTurn
       + GameModeration mod
-      + EventSystemHandler eventHandler
+      + EventDelegates eventHandler
       + InitBoard()
       + GameStart()
       + GameState()
@@ -63,9 +67,9 @@ classDiagram
       <<Interfaces>>
       - string playerName
       - int scorePlayer
-      - Piece[][] Pieces
-      - int playerType : PlayerType
-      + PlayerTurn()
+      - List~IPiece~ pieces
+      - playerType : PlayerType
+      + PlayerAction()
     }
 
     class IBoard{
@@ -105,13 +109,16 @@ classDiagram
     }
 
     %% Defining Event Handler Delegates
-    class EventSystemHandler{
+    class EventDelegates{
       <<delegates>>
+      - Action ~IPiece, IPlayer~ PieceInfo
+      - Action ~IPiece, IPlayer~ PieceTaken
+      - Action ~IPiece, IPlayer~ SetPiecetoUpgrade
+      - Action ~Model, IPlayer~ DecideGame
       + PieceMovement()
       + PieceOvertaken()
       + PieceUpgraded()
       + GameStatus()
-      + ScoreDisplay()
     }
 
     %% Defining Enums//Game Status

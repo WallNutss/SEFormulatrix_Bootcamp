@@ -21,6 +21,17 @@ That should be it, so lets break apart field and method in the game. For simplic
 
 Lets call the terms Pieces to 'Susanto'
 
+### What need to be done
+ - I need to prepare how to build the object of the game, which is basically in nutshell was only 3 things need to be absent. The players, their pieces, and the board itself
+ - I need to think how the system score will be done, in order to decide who is the winner and the loser
+ - I need to think how the game was moderate, so how the players take turn and how the system keep track their pieces and their 
+ - For implementation of delegation, I need to think how I can implement information broadcasting for other class to use it
+
+ As for the first thing needs to be done, I knew that we can achieve this using the Interface template and push them on the class of spesific class, which is the default is the Piece. But I'm in difficulities because I cannot decide if when recruitment process or upgrading process work, will I just change the type inside already available interface fields value or make new class with copy-paste the already information available from Piece Class to the new King Class  
+
+ As for the second thing, I know that I can just make new class that will be assign to this task, where I think that this class will just be a method everytime the games loops around. But I'm in torn wether the player class will it really need their own data score or just store them in this class
+
+
 ## Breaking Apart
 Interface
 ```
@@ -204,6 +215,57 @@ Piece Type
 
 (16/05/2024 ; 15.09 a.m.)  
 ===========  SECOND REVISION ===========
+
+
+Note:  
+(-) itu private  
+(+) itu public  
+
+Oke jadinya hari ini perlu dibaikin dulu dan direvisi.
+
+Harusnya logikanya ada ini
+
+
+Ini buat event notifications handlernya  
+1. Delegate PlayerMovement --> Trigger Method Check Pion Locations --> Check It is Upgraded --> If [Yes] Move Class Piece to Class King --> If [No] do nothing
+2. Delegate PrePlayerMovement --> Trigger method to Check Pion Locations --> Check if There is can be piece Overtaken
+3. 
+
+Nah jadi menurutku perlu ada deleagates untuk  
+1. Buat ganti method object yang ada di board bisa maju atau tidak
+2. Buat kasih tau info event kalau player A dengan pieces yang dipilih itu udah pindah
+3. Buat ngasih info kalo piecenya lagi/sedang di overtaken, jadi bisa diapus dari list Pieces dari masing-masing player yang terkait
+4. Buat ngasih info kalo scorenya mambah, jadi bisa trigger event gameenya ini udah selesai atu belum
+
+
+Berarti buat planning movementnya itu perlu ada sebuah method untuk mengecek dia bisa apa aja dari list movement yang dipunya sekarang. Apa bisa moveForward, apa bisa moveToOvertaken, atau bisa komninasi keduanya?
+
+
+Extensiate
+Instantiate
+
+Nah iya berarti isi Player itu harusnya ini
+
+```csharp
+public class Player{
+      string playerName;
+      int scorePlayer;
+      int playerType;
+      List<Piece> Pieces = new List<Pieces>();
+      // Start Constructor
+      class Player(string playerName, int scorePlayer, int playerType, Piece piece){
+         this.playerName = playerName;
+         this.scorePlayer = scorePlayer;
+         this.playerType = PlayerType.Piece;
+         this.Pieces.add(pieces);
+      }
+}
+```
+
+Yes, harusya bikin eskplisit playerTurn itu diganti jadi playerAction. Tak lanjut nanti malam lagi buat recheck lagi. Keknya aku merasa masih ada yang kurang, cuma kurang paham apa yang kurang ini
+
+(18/05/2024 ; 14.14 p.m.)  
+===========  THIRD REVISION ===========
 
 
 
