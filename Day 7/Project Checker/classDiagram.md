@@ -4,10 +4,11 @@ classDiagram
 
     %% Big Parent Class inherit Interface
     IPiece <|.. King : Realization
-    IPiece <|.. Piece : Realization
+    IPiece <|.. Soldier : Realization
     IPlayer <|.. Player : Realization
     IPlayer <.. IPiece : Dependency
     IBoard <|.. Board : Realization
+    IModel <|.. Model : Realization
 
     %% Instantiating Class Relation
     Model <.. IPlayer : Dependency
@@ -17,6 +18,7 @@ classDiagram
     GameSystem <-- Model : Association
     GameSystem <-- ScoreSystem : Association
     GameSystem <-- TotalTurnCounter : Association
+    GameSystem <-- GameStarter : Association
     GameSystem <-- GameModeration : Association
     %% Delegates to the Main Program
     GameSystem --> EventDelegates : Association
@@ -27,23 +29,29 @@ classDiagram
     GameModeration -- GameStatus : Link
 
 
-
     %% MAIN PROGRAM/GAME CONTROLLER
     class Model{
-      + Board board
-      + firstPlayer Player
-      + secondPlayer Player
+      - IBoard board
+      - List~IPlayer~ players
+      + GetAPlayerInfo() IPlayer player
+      + GetBoardInfor() IBoard board
     }
+
     class GameSystem{
-      + Model GameModel
-      + ScoreSystem scoreSystem
-      + TotalTurnCounter totalTurn
-      + GameModeration mod
-      + EventDelegates eventHandler
-      + InitBoard()
-      + GameStart()
-      + GameState()
-      + TurnHandler()
+      <<Program.cs>>
+      + int totalTurn
+      - Model gameModel
+      - GameStarter gameStarter
+      - ScoreSystem scoreSystem
+      - TotalTurnCounter totalTurn
+      - GameModeration mod
+      - EventDelegates eventHandler
+      + InitBoard(gameStarter, IPiece Piece, IPlayer Player, PlayerType) Model gameModel
+      + GameStart() bool
+      + GameState(gameModeration) GameStatus status
+      + TurnHandler() totalTurn
+      + CloseGame() bool   
+      + DisplayLoser() string
     }
 
     class GameModeration{
@@ -51,13 +59,23 @@ classDiagram
       + GameModeCheck()
     }
 
+    class GameStarter{
+      - List~IPiece~ pieces
+      - List~IPlayer~ players
+      - IBoard board
+      + GameInisialization(int numPlayer=2,IModel model, IBoard board, PlayerType playerType)  IBoard board
+      + SetPieces(IPiece Piece) List~Piece~ pieces
+      + SetPieces2Player(IPlayer Player, ~List~ Pieces) List~IPlayer~ players
+      + SetGameModel(IBoard Board, IPlayer Player, IModel model) IModel model
+    }
+
     %% Defining Interface
     class IPiece{
       <<Interfaces>>
-      - int ID
-      - int rowCoordinate
-      - int colCoordinate
-      - bool isUpgraded
+      - int ID ~get; private set;~
+      - int RowCoordinate ~get; set;~
+      - int ColCoordinate ~get; set;~
+      - bool IsUpgraded ~get; set;~
       - int pieceType : PieceType
       + MoveForward()
       + OverTake()
@@ -65,8 +83,8 @@ classDiagram
 
     class IPlayer{
       <<Interfaces>>
-      - string playerName
-      - int scorePlayer
+      - string PlayerName ~get; set;~
+      - int ScorePlayer ~get; set;~
       - List~IPiece~ pieces
       - playerType : PlayerType
       + PlayerAction()
@@ -78,8 +96,14 @@ classDiagram
       - int [][] boardDimension
     }
 
+    class IModel{
+      <<Interfaces>>
+      - IBoard board
+      - ~List~ IPlayer players
+    }
+    
     %% Defining Class Template
-    class Piece{
+    class Soldier{
       <<Public>>
     }
     class King{
@@ -99,12 +123,13 @@ classDiagram
     class ScoreSystem{
       <<Service>>
       - int [][] globalScore
+      + SetGlobalScore() globalScore
       + GetPlayerScore()
     }
 
     class TotalTurnCounter{
       <<Service>>
-      - int totalTurn
+      - int TotalTurn ~get; set;~
       + TurnCounter()
     }
 

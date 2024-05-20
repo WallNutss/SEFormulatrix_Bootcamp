@@ -22,7 +22,7 @@ That should be it, so lets break apart field and method in the game. For simplic
 Lets call the terms Pieces to 'Susanto'
 
 ### What need to be done
- - I need to prepare how to build the object of the game, which is basically in nutshell was only 3 things need to be absent. The players, their pieces, and the board itself
+ - ~~I need to prepare how to build the object of the game, which is basically in nutshell was only 3 things need to be absent. The players, their pieces, and the board itself~~
  - I need to think how the system score will be done, in order to decide who is the winner and the loser
  - I need to think how the game was moderate, so how the players take turn and how the system keep track their pieces and their 
  - For implementation of delegation, I need to think how I can implement information broadcasting for other class to use it
@@ -262,10 +262,84 @@ public class Player{
 }
 ```
 
-Yes, harusya bikin eskplisit playerTurn itu diganti jadi playerAction. Tak lanjut nanti malam lagi buat recheck lagi. Keknya aku merasa masih ada yang kurang, cuma kurang paham apa yang kurang ini
+Yes, harusya bikin eskplisit playerTurn itu diganti jadi playerAction. Tak lanjut nanti malam lagi buat recheck lagi. Keknya aku merasa masih ada yang kurang, cuma kurang paham apa yang kurang ini.
+
+I have added delegates class to be associated with the main program, but I'm still confuse how I connect them event subscriber to the method for triggering those Delegates Action values, as I'm still confuse how to handle recuritment(Piece-->King) process should be work in the diagram
 
 (18/05/2024 ; 14.14 p.m.)  
 ===========  THIRD REVISION ===========
+
+Oke sekarang coba dijelaskan cara kerjanya secara alur bagaimana.
+1.  Nah kan pertama coba diinisalisasikan dulu object-objectnya yaitu board, player, dan piecesnya.
+2. Kita bisa mencapai itu dengan membuat interface untuk masing-masing object supaya lebih terikat dan teratur. Hal ini untuk membuat kode rapih dan terlihat lebih enak dilihat. Dimana membuat Interface IPiece, IPlayer, dan IBoard untuk masing-masing penurunan kelasnya yaitu Piece dan King untuk IPiece, Player untuk IPlayer, dan Board untuk IBoard.
+3. Setelah itu, saat `initBoard()` berjalan pada `Main Program`, kita melakukan inisialisasi pada masing-masing object, yaitu disimpan dengan pemanggilan model terlebih dahulu.  
+   Model() --> Initilaize Player(), Board()  
+   Player --> Initialize List Pieces and Save it on List of Field
+4. Dimana kita membuat lagi kelass folder baru lagi buat enumeration macam-macam, satu buat PlayerType, satu buat PieceClass, dan satu lagi buat GameStatus. Kurang lebih urutan folder ada dibawah
+5. Setelah itu semua elemen penting telah diinisaialisasikan, kita bisa memulai gamenya, yaitu dengan trigger method `GameStart()`. Di method ini dimulai panggil `Model.Player(x).PlayerAction()` untuk mengechek suatu class `Player` puya method apa aja yang bisa dilakukan.
+6. Setelah semua player melakukan turnnya, dilanjutkan method berikutnya yaitu `GameState()` untuk mengecek apakah game bisa diteruskan atau sudah didapatkan pemenangnya? Hal ini dengan cara memamnggil method lagi di GameState yaitu `Mod.GameCheckStatus()` 
+7. Setelah melakukan pengkondisian dari beberapa kemungkinan, return GameStatus Check enumeration, kalo bener return kembali gameStatusnya
+8. Ulangi lagi loopingnya
+9. Disetiap main method yang ada pada main program, dijalankan juga masing-masing method yang ada pada Class Delegates sesuai dari fungsinya. Misal pada saat dijalankan method `Method.Player(x).PlayerAction` , dijalankan juga `eventHandler.PieceMovement()` habis itu yang bakal trigger apakah perlu subscribe atau tidak jika pengkondisian pada PieceMovement ini memenuhi atau tidak.
+10. Harusnya kek gini aja sih
+
+
+
+Note : 
+- Ini bedanya buat GameStart sama TurnHandler apaan ya? Soalnya kemabiguitas `GameStart()` ini isinya nanti apa ya?
+- Lanjut lagi besok
+
+
+Loop Program buat presentasi cara kerjanya
+```mermaid
+
+
+```
+
+
+===========  FOURTH REVISION ===========  
+Class Piece bakal kuganti jadi soldier, jadi bisa bedain kenapa ada Piece sana Ipiece kako king ditaro juga disiut
+
+Ok, so lets start in order again
+- ~~The Game Consist of Pieces(Base Parent Class)~~, where I have already making this. For now the plan is that I have build a class soldier and king with the interface tempalte base to form those two classed. Where as for the player structure, I have prepared an Interface IPlayer contract to form the player class. For the board, while I don't think it's necessary to build the interface, I think it's a good practice to have one
+- Each Player have 12 pieces(Field), So in my mind the plan on the `Program.cs`, I will initialize all the things of the game model should have, which is the board, the player, and their pieces. So the model will have the parameter of the player and their pieces where the player will have the ID, and etc and pieses will be assigned to them
+   ```csharp
+   GameInisialization()
+   --> 
+      // Fields initialization
+      
+      // Construtor
+      GameInisialization(int numPlayer, Board){
+         return Board
+      }
+      // All of this is on it's own method
+      // Initiliaze the pieces first
+      SetPieces(IPieces, PlayerType playerType){
+         return <List> Pieces
+      }
+
+      // Assign them to the player
+      SetPieces2Player(<List> Player, <List> Pieces){
+         return <List> Player
+      }
+
+      // Assign them to the model
+      SetGameModel(<List> Player, Board){
+         return Model
+      }
+   ```
+
+   So add another class of `GameStarter` consist of Assign Pieces, anyway it' done now
+- The Game need to know the state of the Game, still running or no? (Game Status, Check Operation, Enums?), I have desribe this in spesific class of GameModeration for that, hope that corrects way of thinking
+- Each Player have individual roles(Player Red or Player Black)(Derived Class), I have fix this into making it List of Player in case Checker evolved like chess can play into more than two players. [DONE]
+
+- The Game need to know Pieces Move(Notification System), ini yang masih bingung korelasinya gimana
+- Pieces can be upgraded(Method?) to King Pieces, inijuga bingung cara ceknya gimana ya
+- Pieces can only move(Method) forward, ini bedua ada hubungannya sama cara updgrade ini, sebenarnya yang kubingungin itu taro mana tuh method buat updgradenya
+- Pieces can overtake(Method) Opponent Pieces
+
+
+
 
 
 
