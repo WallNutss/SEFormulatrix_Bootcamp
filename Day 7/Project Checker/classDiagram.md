@@ -18,10 +18,11 @@ classDiagram
     GameSystem <-- Model : Association
     GameSystem <-- ScoreSystem : Association
     GameSystem <-- TotalTurnCounter : Association
+    GameSystem <-- CheckWinner : Association
     GameSystem <-- GameStarter : Association
     GameSystem <-- GameModeration : Association
     %% Delegates to the Main Program
-    GameSystem --> EventDelegates : Association
+    GameSystem <-- EventDelegates : Association
 
     %% Enumeration Relation to Class
     IPlayer -- PlayerType : Link
@@ -34,29 +35,35 @@ classDiagram
       - IBoard board
       - List~IPlayer~ players
       + GetAPlayerInfo() IPlayer player
-      + GetBoardInfor() IBoard board
+      + GetBoardInfo() IBoard board
     }
 
     class GameSystem{
       <<Program.cs>>
       + int totalTurn
+      + int [][] globalScore
       - Model gameModel
       - GameStarter gameStarter
       - ScoreSystem scoreSystem
       - TotalTurnCounter totalTurn
       - GameModeration mod
       - EventDelegates eventHandler
+      - CheckWinner checkWinner
       + InitBoard(gameStarter, IPiece Piece, IPlayer Player, PlayerType) Model gameModel
       + GameStart() bool
       + GameState(gameModeration) GameStatus status
-      + TurnHandler() totalTurn
-      + CloseGame() bool   
-      + DisplayLoser() string
+      + GameOperation(gameModeration) bool
+      + TurnCounter() totalTurn
+      + EndTurn() bool   
+      + CheckWinner(List~IPlayer~ players) IPlayer
     }
 
     class GameModeration{
       + GameStatus gameStatus
-      + GameModeCheck()
+      + GameModeCheck(List~IPiece~ Piece, int totalTurn) GameStatus status
+      + PlayerTurn(IPiece Piece) bool
+      + MoveCurrentTurn(IPiece Piece, int ID) int [][] locationXY
+      + EndTurn(IPiece Piece) bool
     }
 
     class GameStarter{
@@ -125,6 +132,14 @@ classDiagram
       - int [][] globalScore
       + SetGlobalScore() globalScore
       + GetPlayerScore()
+    }
+
+    class CheckWinner{
+      <<Service>>
+      - string playerNameWinner
+      - int playerTypeWinnder
+      + GameStatus gameStatus
+      + CheckWinner(List~IPieces~ Piece, int totalTurn, int globalScore) IPiece Piece
     }
 
     class TotalTurnCounter{
