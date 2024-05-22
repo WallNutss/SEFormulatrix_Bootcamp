@@ -546,4 +546,7 @@ Private
 </p>
 
 
-Yeah its random learn today. It is mainly Garbage Collector, Disposal, and Destructor(Finalizer). 
+Yeah its random learn today. It is mainly Garbage Collector, Disposal, and Destructor(Finalizer). Yeah it is really confusing the need of these three if all of them is just automatically tended by .NET.
+
+Why there are two Dispose by the way? The `Proteted virtual void Dispose` and `public void Dispose`?
+
