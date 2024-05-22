@@ -466,5 +466,84 @@ public action<int, float> testIntFloatFunc; // Action delegate can revice multip
 public Func<int i, bool x> testIntBoolFunc; // Func delegate will only receive input, and it will return a type that has been set before in the generics format. In this case input must be int and the output return must be bool
 ```
 
+### 15th Day
+It said in the docs we had, that garbage collector is automatic so we don't have to worry a single thing about them now. But it said that garbage collector is 'usually expplicitly instigated'. What does this even mean? 
+
+Maybe also need to explicitly explained what is this C#
+1. Object
+2. Field
+3. Method
+4. 
+
+Garbage collector in C# is a thing that .NET developer infrasturctue menagmenet build to manage memory allocation automatically so we as the end-user of it do not have manually sort and decide which memory part are being used when declaring a variable of an object. Here some illustration to see this
+
+<p align="center">
+  <img width="59%"src="https://www.codeproject.com/KB/cs/1252394/3602db55-de3a-46d3-8fb0-46d1a64ee08e.png">
+</p>
+
+Yeah I know, you don't know it, but let me explain in by simplier and dummies term. When a collection occurs, any objects that are no longer in use (no references to them) have their memory freed up (deallocated). In C#, memory garbage is typically divide it into three gen memory allocation. Gen 0 is typically new and small objects. Where Gen 1 is between those of Gen 0 and Gen 2 which are still being used frequently, escaping the gen 0 marked. Finally we have Gen 2 who intially have been big size. So bigger memory tends to have bigger issued to clean up, like in real world bigger trash need bigger effort to clean it up. So, I'm just gonna copying it from their website is that, `an object should be short-lived or else live forever`. So, if a big-sized object makes it to gen 2, it needs to be there for a good reason, like `permanent object or reasuable object component`. If not, it's just using resource for free and we cannot put anything if it's continue like that. So in C# or maybe a lot of programming languange have standar memory allocation like this below
+
+```mermaid
+flowchart LR
+    A[Memory] --> B[Stack]
+    A --> C[Heap]
+    B -- Managed --> D[OS]
+    C --> E[Managed Heap]
+    C --> F[Unmanaged Heap]
+    E --> G[Reference Type]
+    F --> H[Outside or\nUndisclose File Type]
+```
+SO where is GC Located? Basically in .NET
+```mermaid
+flowchart LR
+    A[.NET] --> B["BCL(Base Class Library)"]
+    A --> C["CLR"]
+    C --> D["GC(Garbage collector)"]
+```
+
+GC triggers automatically if program memory cross the thresshold systme internally set. So before GC will run, all objects will have tagged of Gen 0. But GC can be resource intensive because when GC run, it will freeze the world and can negatively impact the performance of the program. 
+
+[Here](https://www.codingame.com/playgrounds/6179/garbage-collection-and-c#:~:text=There%20are%20no%20specific%20timings,is%20running%20out%20of%20space.) are great example of referencing explanation about garbage collection.
+
+So, lets provide an example of GC will run, here I have an example
+```csharp
+class Program{
+    static void Main(){
+        string result = String.Empty;
+        int iteration = 100000;
+        int angka = 50;
+        for(int i=0; i<iteration;i++){
+            result += "Hello";
+            result += "Squidward!";
+            if(i == 5000){ 
+                result += angka.ToString();
+            }
+        }
+        Console.WriteLine(result);
+    }
+}
+```
+by using JetBrains, we can see when GC run see picture below
+
+<p align="center">
+  <img width="89%"src="doc\ProfilingProgam1.png">
+</p>
+
+So, how GC trace this who is garbage or who is not? So in C#, they implements The garbage collector root objects, or simply roots are the starting point from which we begin our trace analysis. These objects are guaranteed to be alive, since usually are pointed by the global or local variables on the stack. Roots are typically define like something that will not die in process runtime like static and etc.
+
+Man what does `0x7fed264011770` even mean?!? So in nutshell, GC will run if   
+1. 
 
 
+Out of topic but, here is the list of access broad  
+Public  
+Internal  
+Protected  
+Private  
+
+<p align="center">
+  <img width="89%"src="https://res.cloudinary.com/practicaldev/image/fetch/s--DpEeHyXk--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/prlmzaidpn8pcv7j9gw8.png">
+</p>
+
+
+Yeah its random learn today. It is mainly Garbage Collector, Disposal, and Destructor(Finalizer). 

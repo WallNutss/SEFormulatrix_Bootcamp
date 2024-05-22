@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\bin\Debug\net8.0\DisposalAndGarbage.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\bin\Debug\net8.0\DisposalAndGarbage.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\bin\Debug\net8.0\DisposalAndGarbage.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\bin\Debug\net8.0\DisposalAndGarbage.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\bin\Debug\net8.0\DisposalAndGarbage.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\refint\DisposalAndGarbage.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\DisposalAndGarbage.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\DisposalAndGarbage\obj\Debug\net8.0\ref\DisposalAndGarbage.dll

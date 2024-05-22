@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisposalAndGarbage", "DisposalAndGarbage\DisposalAndGarbage.csproj", "{EE6DC1FA-62AF-446C-AFAE-A8766DB05A5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessModifer", "AccessModifer\AccessModifer.csproj", "{AAB20B3A-85FF-4D36-B9CD-F07E3DC33254}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garbage", "Garbage\Garbage.csproj", "{CF869162-2F42-4E30-A9FD-5E5385C73D0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE6DC1FA-62AF-446C-AFAE-A8766DB05A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6DC1FA-62AF-446C-AFAE-A8766DB05A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6DC1FA-62AF-446C-AFAE-A8766DB05A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6DC1FA-62AF-446C-AFAE-A8766DB05A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB20B3A-85FF-4D36-B9CD-F07E3DC33254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB20B3A-85FF-4D36-B9CD-F07E3DC33254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB20B3A-85FF-4D36-B9CD-F07E3DC33254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB20B3A-85FF-4D36-B9CD-F07E3DC33254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF869162-2F42-4E30-A9FD-5E5385C73D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF869162-2F42-4E30-A9FD-5E5385C73D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF869162-2F42-4E30-A9FD-5E5385C73D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF869162-2F42-4E30-A9FD-5E5385C73D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
