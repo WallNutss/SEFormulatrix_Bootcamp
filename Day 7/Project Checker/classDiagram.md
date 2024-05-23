@@ -49,6 +49,7 @@ classDiagram
       - GameModeration mod
       - EventDelegates eventHandler
       - CheckWinner checkWinner
+      
       + InitBoard(gameStarter, IPiece Piece, IPlayer Player, PlayerType) Model gameModel
       + GameStart() bool
       + GameState(gameModeration) GameStatus status
@@ -82,7 +83,7 @@ classDiagram
       - int ID ~get; private set;~
       - int RowCoordinate ~get; set;~
       - int ColCoordinate ~get; set;~
-      - bool IsUpgraded ~get; set;~
+      - bool promoted ~get; set;~
       - int pieceType : PieceType
       + MoveForward()
       + OverTake()

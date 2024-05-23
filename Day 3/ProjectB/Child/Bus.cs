@@ -11,7 +11,7 @@ public class Bus:Vehicle, Isound, IFlash, IDoor
                int enginePower, int engineBuilt, string wheelType,
                int wheelRadius, int wheelBuild
                )
-    :base()
+    :base() 
     {
         this.fuelAmmount = fuelAmmount;
         this.capacity = capacity;
