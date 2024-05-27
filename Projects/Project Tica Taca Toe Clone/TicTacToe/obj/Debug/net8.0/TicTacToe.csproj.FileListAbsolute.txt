@@ -1,0 +1,15 @@
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\bin\Debug\net8.0\TicTacToe.exe
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\bin\Debug\net8.0\TicTacToe.deps.json
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\bin\Debug\net8.0\TicTacToe.runtimeconfig.json
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\bin\Debug\net8.0\TicTacToe.dll
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\bin\Debug\net8.0\TicTacToe.pdb
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.GeneratedMSBuildEditorConfig.editorconfig
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.AssemblyInfoInputs.cache
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.AssemblyInfo.cs
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.csproj.CoreCompileInputs.cache
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.sourcelink.json
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.dll
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\refint\TicTacToe.dll
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.pdb
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\TicTacToe.genruntimeconfig.cache
+D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Tica Taca Toe Clone\TicTacToe\obj\Debug\net8.0\ref\TicTacToe.dll
