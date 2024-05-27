@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\bin\Debug\net8.0\ThreadingMiniProject.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\bin\Debug\net8.0\ThreadingMiniProject.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\bin\Debug\net8.0\ThreadingMiniProject.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\bin\Debug\net8.0\ThreadingMiniProject.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\bin\Debug\net8.0\ThreadingMiniProject.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\refint\ThreadingMiniProject.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ThreadingMiniProject.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\ThreadingMiniProject\obj\Debug\net8.0\ref\ThreadingMiniProject.dll

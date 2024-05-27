@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\bin\Debug\net8.0\LockThread.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\bin\Debug\net8.0\LockThread.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\bin\Debug\net8.0\LockThread.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\bin\Debug\net8.0\LockThread.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\bin\Debug\net8.0\LockThread.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\refint\LockThread.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\LockThread.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\LockThread\obj\Debug\net8.0\ref\LockThread.dll
