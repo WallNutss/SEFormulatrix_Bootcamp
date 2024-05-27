@@ -466,7 +466,7 @@ public action<int, float> testIntFloatFunc; // Action delegate can revice multip
 public Func<int i, bool x> testIntBoolFunc; // Func delegate will only receive input, and it will return a type that has been set before in the generics format. In this case input must be int and the output return must be bool
 ```
 
-### 15th Day
+### 15th/12th Day Actually
 It said in the docs we had, that garbage collector is automatic so we don't have to worry a single thing about them now. But it said that garbage collector is 'usually expplicitly instigated'. What does this even mean? 
 
 Maybe also need to explicitly explained what is this C#
@@ -488,17 +488,20 @@ flowchart LR
     A[Memory] --> B[Stack]
     A --> C[Heap]
     B -- Managed --> D[OS]
-    C --> E[Managed Heap]
-    C --> F[Unmanaged Heap]
-    E --> G[Reference Type]
+    C --> E[Managed Heap\nManaged by .NET\nAll Reference type]
+    C --> F[Unmanaged Heap\nManaged by OS]
+    E --> G[Reference Type\nthat still derived from .NET Class]
     F --> H[Outside or\nUndisclose File Type]
+    H --> I[Connection\nDatabase\nFileStream\nIO]
+    G --> J[E-iek]
 ```
 SO where is GC Located? Basically in .NET
 ```mermaid
 flowchart LR
     A[.NET] --> B["BCL(Base Class Library)"]
-    A --> C["CLR"]
+    A --> C["CLR(Common Language Runtime)"]
     C --> D["GC(Garbage collector)"]
+    B --> E["Dll"]
 ```
 
 GC triggers automatically if program memory cross the thresshold systme internally set. So before GC will run, all objects will have tagged of Gen 0. But GC can be resource intensive because when GC run, it will freeze the world and can negatively impact the performance of the program. 
@@ -550,3 +553,82 @@ Yeah its random learn today. It is mainly Garbage Collector, Disposal, and Destr
 
 Why there are two Dispose by the way? The `Proteted virtual void Dispose` and `public void Dispose`?
 
+Additionally more about Garbace Collector in Memory, particularly about Destructor. Destructor will 
+
+### 13th Day
+Apakah dispose itu kurang lebihnya membuat semua var menjadi null?
+
+```csharp
+externalResources = null;
+```
+
+yes, it's true. when we set something to null again. The object it referenced is no longer accessible and can now be garbage-collected. [Here](https://learn.microsoft.com/id-id/dotnet/csharp/language-reference/keywords/null)
+
+`using` was used like disposing. Because when usinng keyword `using`, it will make our objec a reference type, so after it was being used, it will be oblirateed the second their program was run. But the fundamental question why we using syntacx `using` is still left unanswered. If you have time, please look into folder `Day 13\using`, I have tried to compared the usage of `using` and `try{}catch{}` of why we used `using` in the first place. I have tried building the comparison, but still need more correction
+
+After that there's a debug. In C#, there is also a debugging process where we can run one-by-one of the line code to see anyproblem that makes our program unable to produce the result of what we want. Especially in using Visual Studio Code, we can use debug pretty easily. One way using it by go the Debug Tab or Ctrl+Shift+D to run it. 
+
+Debug --> Mencari masalah yang ada pada program
+Trace --> Menelusuri alur jalan program untuk mengetahui sebab anomali suatu program
+
+So, IMO debug is a thing that we do if we want to know whic part of the code is not the same taste as us. Where trace provide us an easy way of logging data to trace or follow the lifecycle of the program.
+
+### 14th Day
+Today we learn about threading and about asynchronous process in the C#. Yes we can use threading for the individual project, which is real time drawing the board. 
+
+But now let's move to the theories. All computers are dumb, yes. Because all they can know is that they only can run a program in a sequence manner. That a sycncrhonous process where a program will not run the next task if the current task is not yet completed. But is the other way around with asynchronous, with it we can immediately move on the the next process without waiting the current  process to be completed. A perfect analogy of Cooking breakfast is a good example of asynchronous work that isn't parallel. You start with warming the pans, after the pans are warm enough you can start putting the eggs. Even though the eggs are not throughly cooked, we can move onto next process of cooking the bacons. At the same time, maybe you want to put the bread on the toaster so when the eggs and bacon are ready, you can serve them at the same time. At each step of the process, you'd start a task, then turn your attention to tasks that are ready for your attention. That is asynchronous process.
+
+<p align="center">
+  <img width="39%"src="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/media/synchronous-breakfast.png">
+  <img src="https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/media/asynchronous-breakfast.png" width="49%" />
+</p>
+
+Here lies the segmentation of C# Asynchronous process
+```mermaid
+flowchart LR
+    A["Intel\n/AMD Ryzen Processor"] --> B["CPU Core"]
+    A --> C["Another CPU Core"]
+    B --> D["Threads"]
+    D --> E["Application Process"]
+    D --> F["Application Process"]
+    D --> G["Application Process"]
+```
+
+Thread and Task. Thread collection of the sequence will also be affluence by the `Thread.Start()` method. So if we push the thread.Start() ahead of the synchronous program, it will 50/50 be run first, but if we put it at the end of the program latter to synchronous programming, it will definetly will run after the synchronous program. Below output example for the code at `Day 14\AsyncProcess\Program.cs`
+
+If its not using Threads
+```
+Pouring cofee to cup!
+Coffee has been served!
+2 noodles goes to wok!
+Noodles has been coocked!
+Ongoing work fry 3!
+Egg has been fried
+Total program duration : 6ms
+```
+
+If its using thread
+```
+Coffee has been served!
+Noodles has been coocked!
+Egg has been fried
+Pouring cofee to cup!
+Total program duration : 6ms
+Ongoing work fry 4!
+2 noodles goes to wok!
+```
+
+If the thread was place at the end of program
+```
+Coffee has been served!
+Noodles has been coocked!
+Egg has been fried
+Total program duration : 4ms
+Pouring cofee to cup!
+2 noodles goes to wok!
+Ongoing work fry 4!
+```
+
+So, as you can see, using `Threads` is unmanagable because you can't set the task asynchronoiusly the way you want it to be. So, we can use `Task` and `Async`&`Wait`. But here's the problem, I still don't know the baseline usecase for this Threads. Hmm I still confuse what should I write for this usecase?
+
+ they said we should prevent `Thread.Sleep` from happening, but I think Thread.Sleep usecase is to debug what happen in the process slowly

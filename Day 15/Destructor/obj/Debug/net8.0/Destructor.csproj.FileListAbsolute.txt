@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\bin\Debug\net8.0\Destructor.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\bin\Debug\net8.0\Destructor.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\bin\Debug\net8.0\Destructor.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\bin\Debug\net8.0\Destructor.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\bin\Debug\net8.0\Destructor.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\refint\Destructor.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\Destructor.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\Destructor\obj\Debug\net8.0\ref\Destructor.dll

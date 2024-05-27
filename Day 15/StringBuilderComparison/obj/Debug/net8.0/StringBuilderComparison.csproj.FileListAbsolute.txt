@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\bin\Debug\net8.0\StringBuilderComparison.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\bin\Debug\net8.0\StringBuilderComparison.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\bin\Debug\net8.0\StringBuilderComparison.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\bin\Debug\net8.0\StringBuilderComparison.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\bin\Debug\net8.0\StringBuilderComparison.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\refint\StringBuilderComparison.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\StringBuilderComparison.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 15\StringBuilderComparison\obj\Debug\net8.0\ref\StringBuilderComparison.dll

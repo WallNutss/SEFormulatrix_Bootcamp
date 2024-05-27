@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\bin\Debug\net8.0\AsyncProcess.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\bin\Debug\net8.0\AsyncProcess.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\bin\Debug\net8.0\AsyncProcess.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\bin\Debug\net8.0\AsyncProcess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\bin\Debug\net8.0\AsyncProcess.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\refint\AsyncProcess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\AsyncProcess.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 14\AsyncProcess\obj\Debug\net8.0\ref\AsyncProcess.dll
