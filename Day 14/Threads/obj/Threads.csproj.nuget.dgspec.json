@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\Threads\\Threads.csproj": {}
+    "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\Threads\\Threads.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\Threads\\Threads.csproj": {
+    "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\Threads\\Threads.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\Threads\\Threads.csproj",
+        "projectUniqueName": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\Threads\\Threads.csproj",
         "projectName": "Threads",
-        "projectPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\Threads\\Threads.csproj",
-        "packagesPath": "C:\\Users\\Batch 10\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\Threads\\obj\\",
+        "projectPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\Threads\\Threads.csproj",
+        "packagesPath": "C:\\Users\\Junin\\.nuget\\packages\\",
+        "outputPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\Threads\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Batch 10\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Junin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
