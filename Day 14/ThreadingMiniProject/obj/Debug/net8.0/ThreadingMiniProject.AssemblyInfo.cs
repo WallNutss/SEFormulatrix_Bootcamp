@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThreadingMiniProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6cea49cdde9c4e884f6e382d054ba6838b57975")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+384d89a92f9aaf9f4cd278288bea975f149715b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ThreadingMiniProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ThreadingMiniProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
