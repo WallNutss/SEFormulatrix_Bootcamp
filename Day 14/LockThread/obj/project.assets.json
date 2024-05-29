@@ -8,23 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Batch 10\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Junin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\LockThread\\LockThread.csproj",
+      "projectUniqueName": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\LockThread\\LockThread.csproj",
       "projectName": "LockThread",
-      "projectPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\LockThread\\LockThread.csproj",
-      "packagesPath": "C:\\Users\\Batch 10\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\LockThread\\obj\\",
+      "projectPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\LockThread\\LockThread.csproj",
+      "packagesPath": "C:\\Users\\Junin\\.nuget\\packages\\",
+      "outputPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\LockThread\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Batch 10\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Junin\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

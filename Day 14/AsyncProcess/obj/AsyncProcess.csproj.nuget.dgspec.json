@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj": {}
+    "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj": {
+    "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj",
+        "projectUniqueName": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj",
         "projectName": "AsyncProcess",
-        "projectPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj",
-        "packagesPath": "C:\\Users\\Batch 10\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Day 14\\AsyncProcess\\obj\\",
+        "projectPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\AsyncProcess\\AsyncProcess.csproj",
+        "packagesPath": "C:\\Users\\Junin\\.nuget\\packages\\",
+        "outputPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Day 14\\AsyncProcess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Batch 10\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Junin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
