@@ -697,3 +697,167 @@ i value: 4, Name: T5,  tid 8, result 60
  ```
 
  So, as you can see, lock prevent inconsistesy and prevent access confusion within the program
+
+
+ ### 16th Day
+ 15th was skipped because I was not there during the class. But from what I hear, the 15th days discussed about the threat of multithreat(get it?). So in order to make it more safely, we can use lock and semaphore. and any other alternatives such as signaling(autoresetevent) and monitoring enter
+
+ Semaphore it's intensive resource, so the alternative of it we can use Semaphore Slim. So look at this code example below
+ ```csharp
+ class Program{
+    static SemaphoreSlim semaphoreSlim = new(3);
+    static SemaphoreSlim semaphoreSlim2 = new(2);
+    static async Task Main(){
+        // Making 10 new task
+        Task[] tasks = new Task[10];
+        for(int i=0;i<tasks.Length;i++){
+            int index = i;
+            tasks[index] = Task.Run(async ()=> await DoWork(index));
+        }
+        await Task.WhenAll(tasks);
+    }
+    static async Task DoWork(int index){
+        Console.WriteLine($"Task {index} started");
+        
+        await semaphoreSlim.WaitAsync();
+        // Code below will be only run on spesifcic task
+        //await Task.Delay(500);
+        Console.WriteLine($"Task {index} processing");
+        //await semaphoreSlim2.WaitAsync();
+        //await Task.Delay(500);
+
+        semaphoreSlim.Release();
+        Console.WriteLine($"Task {index} ended");
+    }
+}
+ ```
+
+ini cara baca alur programnya gimana dah wkwk kalo hasil outpunya jadi begini
+```
+Task 3 started
+Task 1 started
+Task 6 started
+Task 0 started
+Task 4 started
+Task 7 started
+Task 2 started
+Task 5 started
+Task 9 started
+Task 8 started
+Task 3 processing
+Task 1 processing
+Task 1 ended
+Task 3 ended
+Task 6 processing
+Task 0 processing
+Task 0 ended
+Task 6 ended
+Task 7 processing
+Task 4 processing
+Task 4 ended
+Task 7 ended
+Task 5 processing
+Task 2 processing
+Task 2 ended
+Task 5 ended
+Task 9 processing
+Task 8 processing
+Task 8 ended
+Task 9 ended
+```
+
+Yeah im still dont get it wkakakak.
+Yeah lets just move on, lets applicate in on the final project for easier understanding. Now in 16th day we will be discussing about Stream and System.IO.
+
+Stream or maybe should I say buffer? Stream is an act of sending file through a 'aliran' or should i say like a flow of data from say process A to process B, through a stream of data.  
+
+1. Stream Adapters  
+2. Decorator Streams (Optional)  
+3. Backing Store Stream  
+
+So, just know it before, we will be dealing a lot with the third part of Backing Store Stream. Like maybe when we want to send say possibly an image, image is often related to their big size, and when sending them, it's not possible to send it just like their format .jpeg or .png. Byte is a universal packet size that any other computer recognize, so handling big data types with buffer or stream is the easiet way to do it.
+
+For buffer reference, you can see it here https://learn.microsoft.com/en-us/dotnet/api/system.io.bufferedstream?view=net-8.0. 
+
+With buffers and stream, we can do alot about file manipulation about it. One of the example is to convert class fields into a json file provided below
+
+```csharp
+using System;
+using System.Text.Json;
+
+public class Human{
+    public string name {get ; set;}
+    public int age {get;set;}
+    public Human(string name, int age){
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Program{
+    static void Main(){
+        Human yusa = new("Yusa",26);
+        Human ega = new("Ega",22);
+        Human rizky = new("Rizky", 24);
+        Human fadil = new("Fadil", 24);
+        Human dewi = new("Dewi", 25);
+        Human wulan = new("Wulan", 29);
+        Human bella = new("Bella", 24);
+        Human kinara = new("Kinara", 27);
+        Human jun = new("Juni", 23);
+
+        List<Human> boocampMember = new List<Human>(){
+            yusa,ega,rizky,fadil,dewi,wulan,bella,kinara,jun
+            
+        };
+
+        string JASON = JsonSerializer.Serialize(boocampMember);
+        using(StreamWriter streamWriter = new("file1.json")){
+            streamWriter.Write(JASON);
+        }
+        }
+}
+```
+
+And we can go even further!Maybe we can input the data manually and Maybe make a double thread where one thread is to manage the input from the user and simulstaiantly when new data(user input) arrive, we can instatnly just save them in the json file. It's an idea. Myabe with thread or Task? Idk.
+
+And lets talk about Data Contract. Sometimes, when we want to export a value of field there will be non-accesible because some of the field is private. And because of that, we cannot export them into another type of data.
+
+```csharp
+public class Human{
+    private string name;
+    public int age {get;set;}
+    public Human(){}
+    public Human(string name, int age){
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+as you can see, the name cannot be displayed when we extract them especially to .xml or .json or any external data types, because of this nature of private method doesn't allowed those field data cross outside it's own class. So, we can use [DataContract] for this.
+
+```csharp
+[DataContract]
+class Player{
+    [DataMember]
+    private string _name;
+    [DataMember]
+    private int _money;
+    [DataMember]
+    public int Gold{get;set;}
+    [DataMember]
+    public int exp{get;set;}
+
+    // public int Gold {get;private set;} bedanya ini
+    // private int _Gold {get; set;} sama ini apa ya?
+    public Player(string name, int money, int gold, int exp){
+        this._name = name;
+        this._money = money;
+        this.Gold = gold;
+        this.exp = exp;
+    }
+}
+```
+
+So serializer and deserializer is a way of something to write and read from external data away for C# Ecosystem. SO yeah, lets goo Individual Projekt

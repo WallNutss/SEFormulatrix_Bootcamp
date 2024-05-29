@@ -8,19 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Junin\\.nuget\\packages\\": {}
+    "C:\\Users\\Batch 10\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Projects\\Project Chess\\Chess\\Chess.csproj",
+      "projectUniqueName": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Projects\\Project Chess\\Chess\\Chess.csproj",
       "projectName": "Chess",
-      "projectPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Projects\\Project Chess\\Chess\\Chess.csproj",
-      "packagesPath": "C:\\Users\\Junin\\.nuget\\packages\\",
-      "outputPath": "D:\\Pasca ITS\\Formulatrix+\\Software Eng Bootcamp\\Projects\\Project Chess\\Chess\\obj\\",
+      "projectPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Projects\\Project Chess\\Chess\\Chess.csproj",
+      "packagesPath": "C:\\Users\\Batch 10\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Batch 10\\Documents\\SEFormulatrix_Bootcamp\\Projects\\Project Chess\\Chess\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Junin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Batch 10\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

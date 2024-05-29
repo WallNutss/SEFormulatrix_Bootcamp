@@ -3,7 +3,7 @@ using Chess.Boards.Interface;
 using Chess.Enums;
 namespace Chess.Boards.Implementation;
 
-public class Board: List<Square>, IBoard{
+public class Board: List<ISquare>, IBoard{
     public int width { get; private set; }
     public int height { get; private set; }
     public List<ISquare> squares  = new List<ISquare>();

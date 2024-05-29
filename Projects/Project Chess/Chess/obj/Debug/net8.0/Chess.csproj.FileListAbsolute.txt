@@ -13,3 +13,18 @@ D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Chess\Chess\obj
 D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.pdb
 D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.genruntimeconfig.cache
 D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\ref\Chess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\bin\Debug\net8.0\Chess.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\bin\Debug\net8.0\Chess.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\bin\Debug\net8.0\Chess.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\bin\Debug\net8.0\Chess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\bin\Debug\net8.0\Chess.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\refint\Chess.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\Chess.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Projects\Project Chess\Chess\obj\Debug\net8.0\ref\Chess.dll

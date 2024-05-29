@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamsHandler", "StreamsHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamWriter", "StreamWriter\StreamWriter.csproj", "{6C441F58-9B86-4351-BEBE-CC278A76D249}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sequncialization", "Sequncialization\Sequncialization.csproj", "{E065E5C8-E077-4FF5-A4F6-40F8F1EC9DB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContract", "DataContract\DataContract.csproj", "{53B9C7FF-EBBA-49A9-ABB5-7A92E635A67D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E065E5C8-E077-4FF5-A4F6-40F8F1EC9DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E065E5C8-E077-4FF5-A4F6-40F8F1EC9DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E065E5C8-E077-4FF5-A4F6-40F8F1EC9DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E065E5C8-E077-4FF5-A4F6-40F8F1EC9DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B9C7FF-EBBA-49A9-ABB5-7A92E635A67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B9C7FF-EBBA-49A9-ABB5-7A92E635A67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B9C7FF-EBBA-49A9-ABB5-7A92E635A67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B9C7FF-EBBA-49A9-ABB5-7A92E635A67D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
