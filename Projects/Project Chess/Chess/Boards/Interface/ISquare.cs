@@ -1,6 +1,9 @@
 using System;
 using Chess.Enums;
 
+/// <summary>
+/// Defines the types of players in the game.
+/// </summary>
 namespace Chess.Boards.Interface;
 public interface ISquare
 {
