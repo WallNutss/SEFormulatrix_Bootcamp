@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Semaphore", "Semaphore\Semaphore.csproj", "{BE9FE1AA-72E9-492F-A135-E5B20CBF9EA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamsHandler", "StreamsHandler\StreamsHandler.csproj", "{91B5D1DA-7A7E-4BA2-AF17-1B5FC9585582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamWriter", "StreamWriter\StreamWriter.csproj", "{6C441F58-9B86-4351-BEBE-CC278A76D249}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE9FE1AA-72E9-492F-A135-E5B20CBF9EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9FE1AA-72E9-492F-A135-E5B20CBF9EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9FE1AA-72E9-492F-A135-E5B20CBF9EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9FE1AA-72E9-492F-A135-E5B20CBF9EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B5D1DA-7A7E-4BA2-AF17-1B5FC9585582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B5D1DA-7A7E-4BA2-AF17-1B5FC9585582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B5D1DA-7A7E-4BA2-AF17-1B5FC9585582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B5D1DA-7A7E-4BA2-AF17-1B5FC9585582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C441F58-9B86-4351-BEBE-CC278A76D249}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

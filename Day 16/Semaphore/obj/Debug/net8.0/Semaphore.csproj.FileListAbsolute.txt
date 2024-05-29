@@ -1,0 +1,15 @@
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\bin\Debug\net8.0\Semaphore.exe
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\bin\Debug\net8.0\Semaphore.deps.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\bin\Debug\net8.0\Semaphore.runtimeconfig.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\bin\Debug\net8.0\Semaphore.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\bin\Debug\net8.0\Semaphore.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.AssemblyInfoInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.AssemblyInfo.cs
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.csproj.CoreCompileInputs.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.sourcelink.json
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\refint\Semaphore.dll
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.pdb
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\Semaphore.genruntimeconfig.cache
+C:\Users\Batch 10\Documents\SEFormulatrix_Bootcamp\Day 16\Semaphore\obj\Debug\net8.0\ref\Semaphore.dll
