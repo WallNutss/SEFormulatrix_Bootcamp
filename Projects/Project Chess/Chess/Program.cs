@@ -30,7 +30,7 @@ class Program{
         }
 
         foreach(var data in playerDatas.pieces){
-            Console.WriteLine($"Piece of {data.playerType}, ID: {data.pieceID}, piece type is: {data.piecesType} with color of {data.color} where it default state is ({data.isCaptured})capture, position: ({data.x},{data.y})");
+            Console.WriteLine($"Piece of {data.playerType}, ID: {data.pieceID}, piece type is: {data.piecesType} with color of {data.Properties.color} where it default state is ({data.isCaptured})capture, position: ({data.Properties.x},{data.Properties.y})");
         }
         board.PrintBoard(playerDatas);
         
@@ -47,6 +47,6 @@ class Program{
     }
     public static void MovePieces(ref PlayerData playerDatas, PlayerType playerType, int ID, int[] location){
        int index =  playerDatas.pieces.FindIndex(p => p.pieceID == ID && p.playerType == playerType);
-       (playerDatas.pieces[index].x,playerDatas.pieces[index].y) = (location[0],location[1]); // Trial Modify
+       (playerDatas.pieces[index].Properties.x,playerDatas.pieces[index].Properties.y) = (location[0],location[1]); // Trial Modify
     }
 }
