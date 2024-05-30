@@ -3,6 +3,9 @@ using Chess.Pieces.Interface;
 using Chess.Pieces.Implementation;
 using Chess.Pieces.Child;
 using Chess.Enums;
+using Chess.Boards.Interface;
+using Chess.Boards.Implementation;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace Chess.PlayerData;
@@ -21,22 +24,28 @@ public class PlayerData{
             PlayerType playerType = p==1 ? PlayerType.PlayerA : PlayerType.PlayerB;
             for(int i=1;i<numOfPiecesPerPlayer+1;i++){
                 if(i==1 || i==8){
-                    this.pieces.Add(new Rook(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new Rook(i,playerType,properties));
                 }
                 else if(i==2 || i==7){
-                    this.pieces.Add(new Knight(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new Knight(i,playerType, properties));
                 }
                 else if(i==3 || i==6){
-                    this.pieces.Add(new Bishop(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new Bishop(i,playerType, properties));
                 }
                 else if(i==4){
-                    this.pieces.Add(new King(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new King(i,playerType,properties));
                 }
                 else if(i==5){
-                    this.pieces.Add(new Queen(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new Queen(i,playerType,properties));
                 }
                 else{
-                    this.pieces.Add(new Pawn(i,pieceColor,playerType));
+                    ICoordinate properties = new Coordinate(_x:0, _y:0,color:pieceColor);
+                    this.pieces.Add(new Pawn(i,playerType, properties));
                 }
             }
         }

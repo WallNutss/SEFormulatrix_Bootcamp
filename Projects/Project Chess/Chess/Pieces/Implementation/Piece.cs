@@ -5,10 +5,7 @@ namespace Chess.Pieces.Implementation;
 
 
 abstract public class Piece:IPiece{
-
-    public int x{ get; set; }
-    public int y{ get; set; }
-    public ColorType color{ get; set; }
+    public ICoordinate? Properties {get; set;}
     public int pieceID { get; set; }
     public bool isCaptured { get; set; }
     public PiecesType piecesType { get; set; }

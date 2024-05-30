@@ -31,22 +31,22 @@ public class Board: IBoard{
             for(int y=1;y<=8;y++){
                 if(x==1){
                     Console.WriteLine($"{x},{i-1}");
-                    (playerData.pieces[i-1].x,playerData.pieces[i-1].y) = (x,y);
+                    (playerData.pieces[i-1].Properties.x,playerData.pieces[i-1].Properties.y) = (x,y);
                     i++;
                 }
                 else if(x==2){
                     Console.WriteLine($"{x},{i-1}");
-                    (playerData.pieces[i-1].x,playerData.pieces[i-1].y) = (x,y);
+                    (playerData.pieces[i-1].Properties.x,playerData.pieces[i-1].Properties.y) = (x,y);
                     i++;
                 }
                 // If its come this, index array i is 16
                 else if(x==7){
-                    (playerData.pieces[i+swapper-1].x,playerData.pieces[i+swapper-1].y) = (x,y);
+                    (playerData.pieces[i+swapper-1].Properties.x,playerData.pieces[i+swapper-1].Properties.y) = (x,y);
                     i++;
                 }
                 // if its come to this, index array i 23, but I want access the 15
                 else if(x==8){
-                    (playerData.pieces[i-swapper-1].x,playerData.pieces[i-swapper-1].y) = (x,y);
+                    (playerData.pieces[i-swapper-1].Properties.x,playerData.pieces[i-swapper-1].Properties.y) = (x,y);
                     i++;
                 }
             }
@@ -88,7 +88,7 @@ public class Board: IBoard{
         string[] playerBChara = new string[6] {"KW", "QW", "RW", "BW", "HW", "PW"};
         StringBuilder printRowBoard = new();
         for(int y=1;y<=this.width;y++){
-            int index =  pieceWithData.FindIndex(p => p.y == y);
+            int index =  pieceWithData.FindIndex(p => p.Properties.y == y);
             if(index==-1){
                 StringBuilder temp = new("|     ");
                 printRowBoard.Append(temp);
@@ -121,7 +121,7 @@ public class Board: IBoard{
                 if(x%2==0){
                   // Filter the points where X is 0
                     var squaresWithX = this.squares.Where(p => p.x == data).ToList();
-                    var pieceWithData = playerData.pieces.Where(p => p.x == data).ToList();
+                    var pieceWithData = playerData.pieces.Where(p => p.Properties.x == data).ToList();
                     
                     PrintEachRowBoard(squaresWithX, pieceWithData,data);
                     data++; // This is to check each row that printable on
