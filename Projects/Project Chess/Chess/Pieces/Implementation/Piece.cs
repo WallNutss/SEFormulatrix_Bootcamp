@@ -1,11 +1,13 @@
 using Chess.Pieces.Interface;
 using Chess.Enums;
 using Chess.Boards.Interface;
+using Chess.Boards.Implementation;
+using Chess.Players.Implementation;
 namespace Chess.Pieces.Implementation;
 
 
 abstract public class Piece:IPiece{
-    public ICoordinate? Properties {get; set;}
+    public ICoordinate Properties {get; set;} = null!;
     public int pieceID { get; set; }
     public bool isCaptured { get; set; }
     public PiecesType piecesType { get; set; }
