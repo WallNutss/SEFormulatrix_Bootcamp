@@ -2,7 +2,7 @@ using Chess.Boards.Interface;
 using Chess.Enums;
 namespace Chess.Boards.Implementation;
 
-public class Square : ISquare{
+public class Square : ICoordinate{
     public int x{ get; set; }
     public int y{ get; set; }
     public ColorType color { get; set; }
@@ -11,8 +11,9 @@ public class Square : ISquare{
         this.y = _y;
         this.color = color;
     }
-    public void IsValid(){
+    public bool IsValid(){
         Console.WriteLine("Square is valid?");
+        return true;
     }
     public void GetAdjacent(){
         Console.WriteLine("Get Adjacent of the Square? What is this function?");

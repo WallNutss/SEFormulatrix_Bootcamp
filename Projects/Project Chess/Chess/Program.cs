@@ -34,5 +34,19 @@ class Program{
         }
         board.PrintBoard(playerDatas);
         
+        Console.WriteLine("===================================");
+        // Make an example of changing pieces locaation\
+        MovePieces(ref playerDatas, PlayerType.PlayerA,16,[4,5]);
+        board.PrintBoard(playerDatas);
+
+        Console.WriteLine("===================================");
+        // Make an example of changing pieces locaation\
+        MovePieces(ref playerDatas, PlayerType.PlayerB,3,[3,5]);
+        board.PrintBoard(playerDatas);
+        
+    }
+    public static void MovePieces(ref PlayerData playerDatas, PlayerType playerType, int ID, int[] location){
+       int index =  playerDatas.pieces.FindIndex(p => p.pieceID == ID && p.playerType == playerType);
+       (playerDatas.pieces[index].x,playerDatas.pieces[index].y) = (location[0],location[1]); // Trial Modify
     }
 }

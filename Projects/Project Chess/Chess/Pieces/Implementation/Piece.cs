@@ -4,7 +4,8 @@ using Chess.Boards.Interface;
 namespace Chess.Pieces.Implementation;
 
 
-abstract public class Piece:IPiece,ISquare{
+abstract public class Piece:IPiece{
+
     public int x{ get; set; }
     public int y{ get; set; }
     public ColorType color{ get; set; }
@@ -16,6 +17,6 @@ abstract public class Piece:IPiece,ISquare{
     public void Capture(){}
     public void IsValidMove(){}
     public void PossibleMoves(){}
-    public void IsValid(){}
+    public bool IsValid(){return true;}
     public void GetAdjacent(){}
 }

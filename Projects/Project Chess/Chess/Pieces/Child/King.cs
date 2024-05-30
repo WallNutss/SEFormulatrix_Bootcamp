@@ -9,7 +9,7 @@ public class King:Piece{
         this.pieceID = id;
         this.color = color;
         this.isCaptured = false;
-        this.piecesType = PiecesType.King;
+        this.piecesType = PiecesType.Queen;
         this.playerType = playerType;
     }
 }

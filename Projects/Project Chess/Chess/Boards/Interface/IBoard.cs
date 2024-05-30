@@ -8,7 +8,7 @@ using Chess.Pieces.Implementation;
 /// An Interface of Board
 /// </summary>
 public interface IBoard{
-    List<ISquare> squares {get; set;}
+    List<ICoordinate> squares {get; set;}
     int width { get; }
     int height { get; }
     void SetupBoard(ref PlayerData playerData);
@@ -18,5 +18,5 @@ public interface IBoard{
     void IsOccupiedByOpponent();
     void InitializeCoordinate();
     void PrintBoard(PlayerData playerData);
-    void PrintEachRowBoard(List<ISquare> square, List<Piece> pieceWithData);
+    void PrintEachRowBoard(List<ICoordinate> coordinates, List<Piece> pieceWithData, int x);
 }

@@ -10,7 +10,7 @@ public class Bishop:Piece{
         this.pieceID = id;
         this.color = color;
         this.isCaptured = false;
-        this.piecesType = PiecesType.Bishop;
+        this.piecesType = PiecesType.Queen;
         this.playerType = playerType;
     }
 }
