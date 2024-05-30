@@ -1,17 +1,16 @@
 using System;
-using Chess.Pieces.Implementation;
-using Chess.Pieces.Interface;
+using Chess.Pieces;
 using Chess.Enums;
-using Chess.Boards.Interface;
+using Chess.Boards;
 
-namespace Chess.Pieces.Child;
+namespace Chess.Pieces;
 
 public class Bishop:Piece{
     public Bishop(int id, PlayerType playerType, ICoordinate properties){
         this.pieceID = id;
         this.Properties = properties;
         this.isCaptured = false;
-        this.piecesType = PiecesType.Queen;
+        this.piecesType = PiecesType.Bishop;
         this.playerType = playerType;
     }
 }

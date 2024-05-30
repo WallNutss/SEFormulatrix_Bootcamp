@@ -1,16 +1,15 @@
 using System;
-using Chess.Pieces.Implementation;
-using Chess.Pieces.Interface;
+using Chess.Pieces;
 using Chess.Enums;
-using Chess.Boards.Interface;
+using Chess.Boards;
 
-namespace Chess.Pieces.Child;
+namespace Chess.Pieces;
 public class King:Piece{
     public King(int id, PlayerType playerType, ICoordinate properties){
         this.pieceID = id;
         this.Properties = properties;
         this.isCaptured = false;
-        this.piecesType = PiecesType.Queen;
+        this.piecesType = PiecesType.King;
         this.playerType = playerType;
     }
 }

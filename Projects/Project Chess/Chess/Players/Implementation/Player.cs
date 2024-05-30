@@ -1,8 +1,7 @@
 using System;
 using Chess.Enums;
-using Chess.Players.Interface;
 
-namespace Chess.Players.Implementation;
+namespace Chess.Players;
 
 public class Player:IPlayer{
     public int playerID {get; set;}

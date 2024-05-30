@@ -1,7 +1,7 @@
 using System;
 using Chess.Enums;
 
-namespace Chess.Players.Interface;
+namespace Chess.Players;
 public interface IPlayer{
     int playerID {get; set;}
     string name {get; set;}

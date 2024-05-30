@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-using Chess.Boards.Implementation;
-using Chess.Boards.Interface;
+using Chess.Boards;
 using Chess.Enums;
 using Chess.PlayerData;
 using Chess.Prisons;
-using Chess.Players.Implementation;
+using Chess.Players;
 
 
 class Program{
@@ -15,7 +14,7 @@ class Program{
         PlayerData playerDatas = new();
 
         // Constructing the board suchs as it's length and it's own properties
-        Board board = new Board(8, 8,ref playerDatas);
+        Board board = new Board(ref playerDatas);
 
         // Construct the prison house, default at the start game it's empty
         Prison prison = new();
@@ -24,14 +23,6 @@ class Program{
         Player playerA = new(1,"Player-A", PlayerType.PlayerA);
         Player playerB = new(2,"Player-B", PlayerType.PlayerB);
 
-        // Print Grid Example
-        foreach(var square in board.squares){
-            Console.WriteLine($"Squares at ({square.x}, {square.y}) with color: {square.color}");
-        }
-
-        foreach(var data in playerDatas.pieces){
-            Console.WriteLine($"Piece of {data.playerType}, ID: {data.pieceID}, piece type is: {data.piecesType} with color of {data.Properties.color} where it default state is ({data.isCaptured})capture, position: ({data.Properties.x},{data.Properties.y})");
-        }
         board.PrintBoard(playerDatas);
         
         Console.WriteLine("===================================");

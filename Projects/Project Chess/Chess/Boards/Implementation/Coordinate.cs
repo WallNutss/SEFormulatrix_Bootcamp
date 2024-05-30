@@ -1,6 +1,6 @@
-using Chess.Boards.Interface;
+using Chess.Boards;
 using Chess.Enums;
-namespace Chess.Boards.Implementation;
+namespace Chess.Boards;
 
 public class Coordinate : ICoordinate{
     public int x{ get; set; }

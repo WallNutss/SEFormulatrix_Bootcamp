@@ -1,5 +1,5 @@
 using System;
-using Chess.Pieces.Implementation;
+using Chess.Pieces;
 
 
 namespace Chess.Prisons;

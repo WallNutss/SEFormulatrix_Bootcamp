@@ -4,7 +4,7 @@ using Chess.Enums;
 /// <summary>
 /// Defines the types of players in the game.
 /// </summary>
-namespace Chess.Boards.Interface;
+namespace Chess.Boards;
 public interface ICoordinate
 {
     // Coordinates of the square

@@ -1,7 +1,7 @@
-namespace Chess.Boards.Interface;
-using Chess.Boards.Implementation;
+namespace Chess.Boards;
+
 using Chess.PlayerData;
-using Chess.Pieces.Implementation;
+using Chess.Pieces;
 
 
 /// <summary>
@@ -18,5 +18,5 @@ public interface IBoard{
     void IsOccupiedByOpponent();
     void InitializeCoordinate();
     void PrintBoard(PlayerData playerData);
-    void PrintEachRowBoard(List<ICoordinate> coordinates, List<Piece> pieceWithData, int x);
+    void PrintEachRowBoard(List<Piece> pieceWithData, int x);
 }

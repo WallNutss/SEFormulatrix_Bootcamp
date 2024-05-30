@@ -1,10 +1,9 @@
 using System;
-using Chess.Pieces.Implementation;
-using Chess.Pieces.Interface;
+using Chess.Pieces;
 using Chess.Enums;
-using Chess.Boards.Interface;
+using Chess.Boards;
 
-namespace Chess.Pieces.Child;
+namespace Chess.Pieces;
 public class Rook:Piece{
     
     public Rook(int id, PlayerType playerType, ICoordinate properties){
