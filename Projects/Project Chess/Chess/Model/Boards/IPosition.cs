@@ -5,12 +5,11 @@ using Chess.Enums;
 /// Defines the types of players in the game.
 /// </summary>
 namespace Chess.Boards;
-public interface ICoordinate
+public interface IPosition
 {
     // Coordinates of the square
     int x { get; set; }
     int y { get; set; }
-    ColorType color { get; set; }
     bool IsValid();
     void GetAdjacent();
 

@@ -6,11 +6,12 @@ using Chess.Boards;
 namespace Chess.Pieces;
 
 public class Bishop:Piece{
-    public Bishop(int id, PlayerType playerType, ICoordinate properties){
+    public Bishop(int id, PlayerType playerType, ColorType pieceColor, IPosition pos){
         this.pieceID = id;
-        this.Properties = properties;
         this.isCaptured = false;
+        this.pos = pos;
         this.piecesType = PiecesType.Bishop;
         this.playerType = playerType;
+        this.pieceColor= pieceColor;
     }
 }

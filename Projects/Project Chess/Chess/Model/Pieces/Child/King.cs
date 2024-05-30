@@ -5,11 +5,12 @@ using Chess.Boards;
 
 namespace Chess.Pieces;
 public class King:Piece{
-    public King(int id, PlayerType playerType, ICoordinate properties){
+    public King(int id, PlayerType playerType, ColorType pieceColor, IPosition pos){
         this.pieceID = id;
-        this.Properties = properties;
         this.isCaptured = false;
+        this.pos = pos;
         this.piecesType = PiecesType.King;
         this.playerType = playerType;
+        this.pieceColor = pieceColor;
     }
 }

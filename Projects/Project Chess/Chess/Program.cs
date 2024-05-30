@@ -12,10 +12,12 @@ class Program{
     static void Main(){
         // Constructing the player default data positions, starting with the coordinates
         PlayerData playerDatas = new();
+        playerDatas.pieces.ForEach(Console.WriteLine);
 
         // Constructing the board suchs as it's length and it's own properties
         Board board = new Board(ref playerDatas);
 
+        //m Console.WriteLine(board);
         // Construct the prison house, default at the start game it's empty
         Prison prison = new();
         
@@ -38,6 +40,6 @@ class Program{
     }
     public static void MovePieces(ref PlayerData playerDatas, PlayerType playerType, int ID, int[] location){
        int index =  playerDatas.pieces.FindIndex(p => p.pieceID == ID && p.playerType == playerType);
-       (playerDatas.pieces[index].Properties.x,playerDatas.pieces[index].Properties.y) = (location[0],location[1]); // Trial Modify
+       (playerDatas.pieces[index].pos.x,playerDatas.pieces[index].pos.y) = (location[0],location[1]); // Trial Modify
     }
 }

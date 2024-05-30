@@ -5,11 +5,12 @@ using Chess.Boards;
 namespace Chess.Pieces;
 
 abstract public class Piece:IPiece{
-    public ICoordinate Properties {get; set;} = null!;
+    public IPosition pos {get; set;} = null!;
     public int pieceID { get; set; }
     public bool isCaptured { get; set; }
     public PiecesType piecesType { get; set; }
     public PlayerType playerType { get; set; }
+    public ColorType pieceColor { get; set; }
     public void Move(){}
     public void Capture(){}
     public void IsValidMove(){}
