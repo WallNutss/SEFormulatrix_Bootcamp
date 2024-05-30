@@ -4,7 +4,7 @@ using Chess.Boards;
 
 namespace Chess.Pieces;
 
-abstract public class Piece:IPiece{
+public abstract class Piece:IPiece{
     public IPosition pos {get; set;} = null!;
     public int pieceID { get; set; }
     public bool isCaptured { get; set; }

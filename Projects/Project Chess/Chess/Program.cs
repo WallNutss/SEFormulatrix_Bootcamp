@@ -11,8 +11,7 @@ using Chess.Players;
 class Program{
     static void Main(){
         // Constructing the player default data positions, starting with the coordinates
-        PlayerData playerDatas = new();
-        playerDatas.pieces.ForEach(Console.WriteLine);
+        PlayerData playerDatas = new(); 
 
         // Constructing the board suchs as it's length and it's own properties
         Board board = new Board(ref playerDatas);
@@ -24,6 +23,10 @@ class Program{
         // Constructing template player for the user to use
         Player playerA = new(1,"Player-A", PlayerType.PlayerA);
         Player playerB = new(2,"Player-B", PlayerType.PlayerB);
+
+        // foreach(var data in playerDatas.pieces){
+        //     Console.WriteLine($"Piece {data.pieceColor} type of {data.piecesType} with ID: {data.pieceID} it is {data.isCaptured}(captured) where it location is ({data.pos.x}, {data.pos.y})");
+        // }
 
         board.PrintBoard(playerDatas);
         
@@ -37,6 +40,13 @@ class Program{
         MovePieces(ref playerDatas, PlayerType.PlayerB,3,[3,5]);
         board.PrintBoard(playerDatas);
         
+        Console.WriteLine(playerDatas.IsEmpty(new Coordinate(6,5)));
+        Console.WriteLine(playerDatas.IsOccupiedByOpponent(new Coordinate(3,5), playerB));
+        Console.WriteLine(playerDatas.GetPieceAt(new Coordinate(2,7)).pieceID);
+        // foreach(var data in playerDatas.pieces){
+        //      Console.WriteLine($"Piece type of {data.piecesType} with ID: {data.pieceID} it is {data.isCaptured}(captured) where it location is ({data.pos.x}, {data.pos.y})");
+        // }
+
     }
     public static void MovePieces(ref PlayerData playerDatas, PlayerType playerType, int ID, int[] location){
        int index =  playerDatas.pieces.FindIndex(p => p.pieceID == ID && p.playerType == playerType);

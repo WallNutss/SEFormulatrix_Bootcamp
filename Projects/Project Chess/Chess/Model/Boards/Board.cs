@@ -22,34 +22,28 @@ public class Board: IBoard{
         SetupBoard(ref playerData);
     }
     public void SetupBoard(ref PlayerData playerData){
-        Console.WriteLine("A");
         int i = 1;
         int swapper = 8;
-        for(int x=1;x<=8;x++){
-            for(int y=1;y<=8;y++){
-                if(x==1){
-                    Console.WriteLine("1");
+        for(int y=1;y<=8;y++){
+            for(int x=1;x<=8;x++){
+                if(y==1){
                     (playerData.pieces[i-1].pos.x,playerData.pieces[i-1].pos.y) = (x,y);
                     i++;
                 }
-                else if(x==2){
-                    Console.WriteLine("2");
+                else if(y==2){
                     (playerData.pieces[i-1].pos.x,playerData.pieces[i-1].pos.y) = (x,y);
                     i++;
                 }
-                else if(x==7){
-                    Console.WriteLine("3");
+                else if(y==7){
                     (playerData.pieces[i+swapper-1].pos.x,playerData.pieces[i+swapper-1].pos.y) = (x,y);
                     i++;
                 }
-                else if(x==8){
-                    Console.WriteLine("4");
+                else if(y==8){
                     (playerData.pieces[i-swapper-1].pos.x,playerData.pieces[i-swapper-1].pos.y) = (x,y);
                     i++;
                 }
             }
         }
-        Console.WriteLine("B");
     }
     public void InitializeCoordinate(){
         List<IPosition> squares  = new List<IPosition>();
@@ -75,13 +69,13 @@ public class Board: IBoard{
     public void IsOccupiedByOpponent(){
 
     }
-    public void PrintEachRowBoard(List<Piece> pieceWithData, int x){
+    public void PrintEachRowBoard(List<Piece> pieceWithData, int X){
 
-        string[] playerAChara = new string[6] {"KB", "QB", "RB", "BB", "HB", "PB"};
-        string[] playerBChara = new string[6] {"KW", "QW", "RW", "BW", "HW", "PW"};
+        string[] playerAChara = new string[6] {"KW", "QW", "RW", "BW", "HW", "PW"};
+        string[] playerBChara = new string[6] {"KB", "QB", "RB", "BB", "HB", "PB"};
         StringBuilder printRowBoard = new();
-        for(int y=1;y<=this.width;y++){
-            int index =  pieceWithData.FindIndex(p => p.pos.y == y);
+        for(int x=1;x<=this.width;x++){
+            int index =  pieceWithData.FindIndex(p => p.pos.x == x);
             if(index==-1){
                 StringBuilder temp = new("|    ");
                 printRowBoard.Append(temp);
@@ -91,21 +85,23 @@ public class Board: IBoard{
                 printRowBoard.Append(temp);
             }
         }
-        Console.WriteLine($"{x}  "+printRowBoard.ToString()+ "|");
+        Console.WriteLine($"{X}  "+printRowBoard.ToString()+ "|");
     }
     public void PrintBoard(PlayerData playerData){
         // var squaresWithX = squares.Where(p => p.x == 0).ToList();
         //Console.WriteLine(squaresWithX);
-        for (int x = 1, data=1; x <= (this.height*2)+1; x++){
+        // Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
+        Console.WriteLine("      1    2    3    4    5    6    7    8");
+        for (int y = 1, data=1; y <= (this.height*2)+1; y++){
             // Print the upper part
-            if(x%2==0){
+            if(y%2==0){
                 // Filter the points where X is 0
-                List<Piece> pieceWithData = playerData.pieces.Where(p => p.pos.x == data).ToList();
+                List<Piece> pieceWithData = playerData.pieces.Where(p => p.pos.y == data).ToList();
                 PrintEachRowBoard(pieceWithData,data);
                 data++; // This is to check each row that printable on
             }
             // Print the lower part
-            else if(x%2==1){
+            else if(y%2==1){
                 Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
             }
         }

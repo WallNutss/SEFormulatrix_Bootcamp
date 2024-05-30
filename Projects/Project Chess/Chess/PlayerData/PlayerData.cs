@@ -2,6 +2,7 @@ using System;
 using Chess.Pieces;
 using Chess.Enums;
 using Chess.Boards;
+using Chess.Players;
 
 
 namespace Chess.PlayerData;
@@ -42,4 +43,19 @@ public class PlayerData{
         }
 
     } 
+
+    public bool IsEmpty(Coordinate location){
+        int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
+        return index > 0 ? false : true;
+    }
+
+    public bool IsOccupiedByOpponent(Coordinate location, IPlayer requester){
+        int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y && p.playerType != requester.playerType);
+        return index > 0 ? false : true;
+    }
+    
+    public Piece GetPieceAt(Coordinate location){
+        Piece piece = this.pieces.Where(p => p.pos.y == location.y).First<Piece>();
+        return piece;
+    }
 }

@@ -10,15 +10,6 @@ public class Coordinate : IPosition{
         this.x = _x;
         this.y = _y;
     }
-
-    public ColorType GetSquare(){
-        if((x+y)%2==0){
-            return ColorType.White;
-        }
-        else{
-            return ColorType.Black;
-        }
-    }
     public bool IsValid(){
         Console.WriteLine("Square is valid?");
         return true;
@@ -27,4 +18,7 @@ public class Coordinate : IPosition{
         Console.WriteLine("Get Adjacent of the Square? What is this function?");
     }
 
+    public static Coordinate operator +(Coordinate coord1, Direction dir1){
+        return new Coordinate(coord1.x + dir1.x, coord1.y + dir1.y);
+    }
 }
