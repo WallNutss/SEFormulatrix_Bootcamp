@@ -9,10 +9,10 @@ namespace Chess.PlayerData;
 
 public class PlayerData{
     public int numOfPiecesPerPlayer;
-    public List<IPiece> pieces {get;set;}
+    public List<Piece> pieces {get;set;}
     public PlayerData(){
         this.numOfPiecesPerPlayer = 16;
-        this.pieces = new List<IPiece>();
+        this.pieces = new List<Piece>();
         InitializePieces();
     }
     public void InitializePieces(){
@@ -32,13 +32,13 @@ public class PlayerData{
                 else if(i==4){
                     this.pieces.Add(new King(i,pieceColor,playerType));
                 }
-                else if(i==6){
+                else if(i==5){
                     this.pieces.Add(new Queen(i,pieceColor,playerType));
                 }
                 else{
                     this.pieces.Add(new Pawn(i,pieceColor,playerType));
                 }
-        }
+            }
         }
 
     } 
