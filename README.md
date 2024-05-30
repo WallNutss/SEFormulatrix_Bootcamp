@@ -8,6 +8,7 @@ Build initial repo for the rest of the ongoing bootcamp, making an example of th
 For the first creation of the C# Project structure, the workflow of the creation is as follow
     `solution(sln) --> project(.csproj) --> assembly --> [.exe, .dll]`
 Now for adding a new solution blueprint, how we do it? Below are the terminal command for it
+ddd
 ```sh
 dotnet new sln -n "filename"
 ```
