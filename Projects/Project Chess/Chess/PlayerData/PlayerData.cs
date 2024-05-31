@@ -3,24 +3,28 @@ using Chess.Pieces;
 using Chess.Enums;
 using Chess.Boards;
 using Chess.Players;
+using System.Dynamic;
 
 namespace Chess.PlayerDatas;
 
 public class PlayerData{
     public Dictionary<IPlayer, List<Piece>> playersData;
     public List<Piece> pieces {get;set;}
+    public List<IPlayer> players;
     public int numOfPiecesPerPlayer;
     public PlayerData(){
         this.numOfPiecesPerPlayer = 16;
+        this.players = new List<IPlayer>();
         this.playersData = new Dictionary<IPlayer, List<Piece>>();
         this.pieces = new List<Piece>();
     }
 
+    // Method for rw the Dictionary
     public Dictionary<IPlayer, List<Piece>> GetPlayersData(){
         return playersData;
     }
-    public void SetInitialPlayersData(List<IPlayer> players){
-        foreach(IPlayer player in players){
+    public void SetPlayersData(List<Piece> pieces){
+        foreach(IPlayer player in GetPlayer()){
             if(player.playerType == PlayerType.PlayerB){
                 List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == ColorType.Black).ToList();
                 this.playersData.Add(player, piecesBlack);  
@@ -30,42 +34,43 @@ public class PlayerData{
             }
         }
     }
+    
+    public void SetInitialPlayersData(List<IPlayer> players){
+        foreach(IPlayer player in players){
+            if(player.playerType == PlayerType.PlayerB){
+                List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == ColorType.Black).ToList();
+                this.playersData.Add(player, piecesBlack);  
+            }else if(player.playerType == PlayerType.PlayerA){
+                List<Piece> piecesWhite = this.pieces.Where(p => p.pieceColor == ColorType.White).ToList();
+                this.playersData.Add(player, piecesWhite);  
+            }
+        }
+    }
 
+    // Method rw for the Piece data from List of Pieces
     public List<Piece> GetPieceData(Player playerType){
         return this.playersData[playerType].ToList();
     }
     public Piece GetPieceData(int ID, Player playerType){
         return this.playersData[playerType].Where(p => p.pieceID == ID).First<Piece>();
     }
+    public List<Piece> GetListPiece(){
+        return this.pieces;
+    }
     public void SetPieceData(List<Piece> pieces){
         this.pieces = pieces;
     }
- // public void InitializePieces2Players(List<IPlayer> players){
-    //    ColorType colorType = ColorType.Black; 
-    //     foreach(IPlayer player in players){
-    //         if(colorType == ColorType.Black){
-    //             List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == colorType).ToList();
-    //             this.playersData.Add(player, piecesBlack);  
-    //         }else{
-    //             List<Piece> piecesWhite = this.pieces.Where(p => p.pieceColor == colorType).ToList();
-    //             this.playersData.Add(player, piecesWhite);  
-    //         }
-    //     }
-    // }
+    public void UpdatePiecePlayer(Piece pieces){
+        int piecesIndex = this.pieces.FindIndex(p => p.pieceID == pieces.pieceID);
+        this.pieces[piecesIndex] = pieces;
+        SetPlayersData(this.pieces);
+    }
+
+    // method for rw of the player information
+    public void SetPlayer(List<IPlayer> players){
+        this.players = players;
+    }
+    public List<IPlayer> GetPlayer(){
+        return this.players;
+    }
 }
-
-//     public bool IsEmpty(Coordinate location){
-//         int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
-//         return index > 0 ? false : true;
-//     }
-
-//     public bool IsOccupiedByOpponent(Coordinate location, IPlayer requester){
-//         int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y && p.playerType != requester.playerType);
-//         return index > 0 ? false : true;
-//     }
-    
-//     public Piece GetPieceAt(Coordinate location){
-//         Piece piece = this.pieces.Where(p => p.pos.y == location.y).First<Piece>();
-//         return piece;
-//     }
-// }

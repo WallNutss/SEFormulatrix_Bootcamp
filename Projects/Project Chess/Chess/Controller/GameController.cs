@@ -4,6 +4,9 @@ using Chess.PlayerDatas;
 using Chess.Players;
 using Chess.Enums;
 using Chess.Pieces;
+using Chess.Views;
+using Chess.GameController.Helper;
+using Chess.Prisons;
 
 namespace Chess.GameController;
 
@@ -12,27 +15,28 @@ public class GameController{
     // Inisialization of all the model in the game
     private Board _board {get;}
     public PlayerData playersData;
-    public List<IPlayer> players;
+    public IPlayer currentPlayer;
+    // Construct the prison house, default at the start game it's empty
+    public Prison prison;
     public int numOfPiecesPerPlayer = 16;
     public GameController(){
         this._board = new Board();
-        this.players = new List<IPlayer>();
         this.playersData = new PlayerData();
-
+        this.prison = new Prison();
         InitializeAllData();
     }
 
-    public void InitializeAllData(){
+    private void InitializeAllData(){
         // Default Game Players Starters
-        IPlayer player1 = new Player(2, "Player-B", PlayerType.PlayerB);
-        IPlayer player2 = new Player(1, "Player-A", PlayerType.PlayerA);
+        IPlayer player1 = new Player(1, "Player-A", PlayerType.PlayerA);
+        IPlayer player2 = new Player(2, "Player-B", PlayerType.PlayerB);
         // Adding the Player to the List of Players
-        AddPlayers2List(new List<IPlayer>(){player1,player2});
+        AddPlayers2List(new List<IPlayer>(){player2,player1});
 
         // Initialize the data of pieces from _InitializePieces() to List Pieces Data from playersData
         this.playersData.SetPieceData(SetupPiecesInitialPosition(_InitializePieces()));
         // Send the list pieces data at playersData to Dictionary according to the player
-        this.playersData.SetInitialPlayersData(this.players);
+        this.playersData.SetInitialPlayersData(this.playersData.players);
     }
 
     private List<Piece> SetupPiecesInitialPosition(List<Piece> pieces){
@@ -89,21 +93,64 @@ public class GameController{
         }
         return pieces;
     }
-    internal void AddPlayers2List(List<IPlayer> players){
-        this.players = players;
+    private void AddPlayers2List(List<IPlayer> players){
+        this.playersData.SetPlayer(players);
     }
     
-
     public void PreGameStart(){
+        PreGameStartView views = new("Pre Game");
+        views.Invoke();
         _board.PrintBoard(this.playersData.GetPlayersData());
+        // User choose player
+        InputHelper.InputPlayers().ForEach((IPlayer player)=> SetUserNamePlayer(player));
+        PlayerListView view = new(this.playersData.players);
+        view.Invoke();        
     }
-    public void StartGame(){}
+
+    public void StartGame(){
+        this.currentPlayer = this.playersData.GetPlayer().Where(p => p.playerType == PlayerType.PlayerA).First<IPlayer>(); // White always start first
+        Coordinate coordinate = new(2,2);
+        Coordinate coordinate2 = new(3,5);
+        Coordinate coordinate3 = new(2,1);
+        // players[0] is PlayerB
+        // players[1] is PlayerA
+        Console.WriteLine(UtilitiesIsSquareEmpty(coordinate));
+        Console.WriteLine(this.playersData.GetPlayer()[0].playerType);
+        Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
+    }
     public void StopGame(){}
     public void EndTurn(){}
-    public void GetPlayerData(){}
+    public void GetPlayerDatas(){}
+    public void SetPlayerDatas(){}
+    public void SetAllPlayerData(){}
     public void GetAllPlayerData(){}
+
     public void PlayerTurn(){}
     public void PossibleMoves(){}
     public void Occupancy(){}
+    public void SetUserNamePlayer(IPlayer player){
+        this.playersData.players.Where(p => p.playerType == player.playerType).First<IPlayer>().SetName(player.name);
+    }
+    public IPlayer GetPlayer(IPlayer player){
+        return this.playersData.players.Where(p => p.playerID == player.playerID).First<IPlayer>();
+    }
+
+    public bool UtilitiesIsSquareEmpty(Coordinate location){
+        int index =  this.playersData.GetListPiece().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
+        return index > 0 ? false : true; // if index > 0, then the square is occupied by some pieces, so if its true that Square is not empty
+        // So it should return (false) because square is (not) empty
+    } 
+    public bool UtilitiesIsOccupiedByOpponent(Coordinate location, IPlayer requester){
+        try{
+            Piece piece = this.playersData.GetListPiece().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
+            Console.WriteLine(piece.pieceColor.ToString() + "," + piece.piecesType.ToString() + "," + piece.pieceID.ToString());
+            PlayerType playertype = (piece.pieceColor == ColorType.Black) ? PlayerType.PlayerB : PlayerType.PlayerA;
+            Console.WriteLine(playertype);
+            // int index =  this.playersData.GetListPiece().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);//  &&  != requester.playerType);
+            return requester.playerType == playertype ? false : true;
+        }catch(Exception){
+            return false;
+        }
+    }
 
 }

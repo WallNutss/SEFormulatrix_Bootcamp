@@ -3,7 +3,7 @@ using Chess.Enums;
 
 namespace Chess.Players;
 public interface IPlayer{
-    int playerID {get; set;}
+    int playerID {get;}
     string name {get; set;}
     PlayerType playerType {get; set;}
     string GetName();

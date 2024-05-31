@@ -18,8 +18,7 @@ class Program{
         controller.StartGame();
 
         //m Console.WriteLine(board);
-        // Construct the prison house, default at the start game it's empty
-        Prison prison = new();
+        
 
         // foreach(var data in playerDatas.pieces){
         //     Console.WriteLine($"Piece {data.pieceColor} type of {data.piecesType} with ID: {data.pieceID} it is {data.isCaptured}(captured) where it location is ({data.pos.x}, {data.pos.y})");
