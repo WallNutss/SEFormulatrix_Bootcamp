@@ -5,12 +5,11 @@ using Chess.Boards;
 
 namespace Chess.Pieces;
 public class Pawn:Piece{
-    public Pawn(int id, PlayerType playerType, ColorType pieceColor,IPosition pos){
+    public Pawn(int id, ColorType pieceColor,IPosition pos){
         this.pieceID = id;
         this.pos = pos;
         this.isCaptured = false;
         this.piecesType = PiecesType.Pawn;
-        this.playerType = playerType;
         this.pieceColor = pieceColor;
     }
 }

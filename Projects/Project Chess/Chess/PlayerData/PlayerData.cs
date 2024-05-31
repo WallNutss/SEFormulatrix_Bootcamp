@@ -4,58 +4,68 @@ using Chess.Enums;
 using Chess.Boards;
 using Chess.Players;
 
-
-namespace Chess.PlayerData;
+namespace Chess.PlayerDatas;
 
 public class PlayerData{
-    public int numOfPiecesPerPlayer;
+    public Dictionary<IPlayer, List<Piece>> playersData;
     public List<Piece> pieces {get;set;}
+    public int numOfPiecesPerPlayer;
     public PlayerData(){
         this.numOfPiecesPerPlayer = 16;
+        this.playersData = new Dictionary<IPlayer, List<Piece>>();
         this.pieces = new List<Piece>();
-        _InitializePieces();
     }
-    private void _InitializePieces(){
-        for(int p=1;p<3;p++){
-            ColorType pieceColor = p==1 ? ColorType.Black : ColorType.White;
-            PlayerType playerType = p==1 ? PlayerType.PlayerB : PlayerType.PlayerA;
-            for(int i=1;i<=numOfPiecesPerPlayer;i++){
-                IPosition position = new Coordinate(0,0);   
-                if(i==1 || i==8){
-                    this.pieces.Add(new Rook(i,playerType,pieceColor,position));
-                }
-                else if(i==2 || i==7){
-                    this.pieces.Add(new Knight(i,playerType,pieceColor, position));
-                }
-                else if(i==3 || i==6){
-                    this.pieces.Add(new Bishop(i,playerType,pieceColor, position));
-                }
-                else if(i==4){
-                    this.pieces.Add(new King(i,playerType,pieceColor,position));
-                }
-                else if(i==5){
-                    this.pieces.Add(new Queen(i,playerType,pieceColor,position));
-                }
-                else{
-                    this.pieces.Add(new Pawn(i,playerType, pieceColor,position));
-                }
+
+    public Dictionary<IPlayer, List<Piece>> GetPlayersData(){
+        return playersData;
+    }
+    public void SetInitialPlayersData(List<IPlayer> players){
+        foreach(IPlayer player in players){
+            if(player.playerType == PlayerType.PlayerB){
+                List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == ColorType.Black).ToList();
+                this.playersData.Add(player, piecesBlack);  
+            }else{
+                List<Piece> piecesWhite = this.pieces.Where(p => p.pieceColor == ColorType.White).ToList();
+                this.playersData.Add(player, piecesWhite);  
             }
         }
-
-    } 
-
-    public bool IsEmpty(Coordinate location){
-        int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
-        return index > 0 ? false : true;
     }
 
-    public bool IsOccupiedByOpponent(Coordinate location, IPlayer requester){
-        int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y && p.playerType != requester.playerType);
-        return index > 0 ? false : true;
+    public List<Piece> GetPieceData(Player playerType){
+        return this.playersData[playerType].ToList();
     }
-    
-    public Piece GetPieceAt(Coordinate location){
-        Piece piece = this.pieces.Where(p => p.pos.y == location.y).First<Piece>();
-        return piece;
+    public Piece GetPieceData(int ID, Player playerType){
+        return this.playersData[playerType].Where(p => p.pieceID == ID).First<Piece>();
     }
+    public void SetPieceData(List<Piece> pieces){
+        this.pieces = pieces;
+    }
+ // public void InitializePieces2Players(List<IPlayer> players){
+    //    ColorType colorType = ColorType.Black; 
+    //     foreach(IPlayer player in players){
+    //         if(colorType == ColorType.Black){
+    //             List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == colorType).ToList();
+    //             this.playersData.Add(player, piecesBlack);  
+    //         }else{
+    //             List<Piece> piecesWhite = this.pieces.Where(p => p.pieceColor == colorType).ToList();
+    //             this.playersData.Add(player, piecesWhite);  
+    //         }
+    //     }
+    // }
 }
+
+//     public bool IsEmpty(Coordinate location){
+//         int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
+//         return index > 0 ? false : true;
+//     }
+
+//     public bool IsOccupiedByOpponent(Coordinate location, IPlayer requester){
+//         int index =  this.pieces.FindIndex(p => p.pos.x == location.x && p.pos.y == location.y && p.playerType != requester.playerType);
+//         return index > 0 ? false : true;
+//     }
+    
+//     public Piece GetPieceAt(Coordinate location){
+//         Piece piece = this.pieces.Where(p => p.pos.y == location.y).First<Piece>();
+//         return piece;
+//     }
+// }

@@ -9,7 +9,6 @@ public abstract class Piece:IPiece{
     public int pieceID { get; set; }
     public bool isCaptured { get; set; }
     public PiecesType piecesType { get; set; }
-    public PlayerType playerType { get; set; }
     public ColorType pieceColor { get; set; }
     public void Move(){}
     public void Capture(){}

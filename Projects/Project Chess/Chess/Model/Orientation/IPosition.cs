@@ -12,5 +12,4 @@ public interface IPosition
     int y { get; set; }
     bool IsValid();
     void GetAdjacent();
-
 }
