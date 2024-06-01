@@ -19,5 +19,5 @@ public interface IBoard{
     void IsOccupiedByOpponent();
     void InitializeCoordinate();
     void PrintBoard(Dictionary <IPlayer, List<Piece>> playerData);
-    void PrintEachRowBoard(List<Piece> pieceWithData, int x);
+    string PrintEachRowBoard(List<Piece> pieceWithData, int x);
 }

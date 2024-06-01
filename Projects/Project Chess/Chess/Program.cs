@@ -15,6 +15,7 @@ class Program{
         GameController controller = new();
         
         controller.PreGameStart();
+        controller.SetGameStatus(GameStatus.GAME_START);
         controller.StartGame();
 
         //m Console.WriteLine(board);

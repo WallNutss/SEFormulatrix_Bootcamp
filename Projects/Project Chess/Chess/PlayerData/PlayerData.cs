@@ -23,14 +23,18 @@ public class PlayerData{
     public Dictionary<IPlayer, List<Piece>> GetPlayersData(){
         return playersData;
     }
-    public void SetPlayersData(List<Piece> pieces){
-        foreach(IPlayer player in GetPlayer()){
-            if(player.playerType == PlayerType.PlayerB){
-                List<Piece> piecesBlack = this.pieces.Where(p => p.pieceColor == ColorType.Black).ToList();
-                this.playersData.Add(player, piecesBlack);  
-            }else{
-                List<Piece> piecesWhite = this.pieces.Where(p => p.pieceColor == ColorType.White).ToList();
-                this.playersData.Add(player, piecesWhite);  
+    // Update Piece Position
+    public void UpdatePiecePosition(IPlayer player, int pieceID, Coordinate newCoordinate){
+        if(this.playersData.TryGetValue(player, out var pieces)){
+             var Piece = pieces.FirstOrDefault(p => p.pieceID == pieceID);
+             if (Piece != null){
+                Piece.pos.x = newCoordinate.x;
+                Piece.pos.y = newCoordinate.y;
+                Console.WriteLine($"Piece {Piece.pieceID} for player {player.name} has been moved to ({newCoordinate.x}, {newCoordinate.y}).");
+                UpdateListPiecesFromDict();
+            }
+            else{
+            Console.WriteLine($"Piece not found for player {AddColor.Message(player.name.ToString(), ConsoleColor.Green)}.");
             }
         }
     }
@@ -60,10 +64,9 @@ public class PlayerData{
     public void SetPieceData(List<Piece> pieces){
         this.pieces = pieces;
     }
-    public void UpdatePiecePlayer(Piece pieces){
-        int piecesIndex = this.pieces.FindIndex(p => p.pieceID == pieces.pieceID);
-        this.pieces[piecesIndex] = pieces;
-        SetPlayersData(this.pieces);
+    public void UpdateListPiecesFromDict(){ // Method on hold, what is the purpose?
+        SetPieceData(this.playersData.Values.SelectMany(pieces => pieces).ToList());
+        //SetPlayersData(this.pieces);
     }
 
     // method for rw of the player information

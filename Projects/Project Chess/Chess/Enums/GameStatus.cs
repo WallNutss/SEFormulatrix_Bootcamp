@@ -4,8 +4,9 @@ namespace Chess.Enums;
 /// Defines the game status in the game.
 /// </summary>
 public enum GameStatus{
-    IsStarting,
-    IsPlaying,
-    Finished,
-    None
+    NOT_STARTED,
+    GAME_START,
+    GAME_PLAYING,
+    GAME_FINISHED,
+    None,
 }

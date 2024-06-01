@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Chess.Boards;
 using Chess.PlayerDatas;
 using Chess.Players;
@@ -15,14 +16,18 @@ public class GameController{
     // Inisialization of all the model in the game
     private Board _board {get;}
     public PlayerData playersData;
-    public IPlayer currentPlayer;
+    public IPlayer? currentPlayer;
     // Construct the prison house, default at the start game it's empty
     public Prison prison;
     public int numOfPiecesPerPlayer = 16;
+    public GameStatus gameStatus {get;private set;}
+    public ManualResetEvent stopSignal {get;set;}
     public GameController(){
         this._board = new Board();
         this.playersData = new PlayerData();
         this.prison = new Prison();
+        this.gameStatus = GameStatus.NOT_STARTED;
+        stopSignal = new ManualResetEvent(false);
         InitializeAllData();
     }
 
@@ -100,7 +105,7 @@ public class GameController{
     public void PreGameStart(){
         PreGameStartView views = new("Pre Game");
         views.Invoke();
-        _board.PrintBoard(this.playersData.GetPlayersData());
+        // _board.PrintBoard(this.playersData.GetPlayersData());
         // User choose player
         InputHelper.InputPlayers().ForEach((IPlayer player)=> SetUserNamePlayer(player));
         PlayerListView view = new(this.playersData.players);
@@ -108,22 +113,84 @@ public class GameController{
     }
 
     public void StartGame(){
+        //MovePiece(this.currentPlayer);
         this.currentPlayer = this.playersData.GetPlayer().Where(p => p.playerType == PlayerType.PlayerA).First<IPlayer>(); // White always start first
-        Coordinate coordinate = new(2,2);
-        Coordinate coordinate2 = new(3,5);
-        Coordinate coordinate3 = new(2,1);
+        var printBoardTask = Task.Run(()=>RefreshBoardAsync(stopSignal));
+        // _board.PrintBoard(this.playersData.GetPlayersData());
+        Console.Clear();
+        while(this.gameStatus == GameStatus.GAME_START){
+
+            Console.SetCursorPosition(0, 25);
+            Console.WriteLine($"{currentPlayer.name}'s turn");
+
+            // Demo just try move something
+            bool isValidMove = false;
+            while(!isValidMove){
+                Console.SetCursorPosition(0, 26);
+                Console.WriteLine("Enter your move (e.g., 2,4):");
+                Console.SetCursorPosition(0, 27);
+                var moveString = GetUserInput();
+                Coordinate move = ConvertStringToIntArrayCoordinate(moveString);
+                Console.SetCursorPosition(0, 28);
+                Console.WriteLine("Enter the ID pieces you want to move (e.g., 1):");
+                Console.SetCursorPosition(0, 28);
+                var idRe = GetUserInput();
+                int idRead = Convert.ToInt32(idRe);
+
+                MovePiece(this.currentPlayer, move, idRead);
+                isValidMove = true;
+            }
+            SwitchPlayerTurn(this.currentPlayer);
+            
+        }
+        this.stopSignal.Set();
+        printBoardTask.Wait();
+        Console.WriteLine("Game over!");
+        
+        // Coordinate coordinate = new(2,2);
+        // Coordinate coordinate2 = new(3,5);
+        // Coordinate coordinate3 = new(2,1);
         // players[0] is PlayerB
         // players[1] is PlayerA
-        Console.WriteLine(UtilitiesIsSquareEmpty(coordinate));
-        Console.WriteLine(this.playersData.GetPlayer()[0].playerType);
-        Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
+        // Console.WriteLine(UtilitiesIsSquareEmpty(coordinate));
+        // Console.WriteLine(this.playersData.GetPlayer()[0].playerType);
+        // Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
     }
+    static Coordinate ConvertStringToIntArrayCoordinate(string input)
+    {
+        int[] xy = input.Split(',').Select(int.Parse).ToArray();
+        return new Coordinate(xy[0],xy[1]);
+    }
+
+    public string GetUserInput(){
+            return Console.ReadLine() ?? string.Empty;
+    }
+    public async Task RefreshBoardAsync(ManualResetEvent stopSignal){
+        while (!stopSignal.WaitOne(0)){
+        // Console.WriteLine("Run");
+        _board.PrintBoard(this.playersData.GetPlayersData());
+        await Task.Delay(500);
+        }
+    }
+
     public void StopGame(){}
     public void EndTurn(){}
-    public void GetPlayerDatas(){}
-    public void SetPlayerDatas(){}
-    public void SetAllPlayerData(){}
-    public void GetAllPlayerData(){}
+    public void MovePiece(IPlayer player, Coordinate toPos, int pieceID){
+        // Coordinate toPos = new(4,4);
+        // int choosingPieceID = 17;
+        playersData.UpdatePiecePosition(player, pieceID, toPos);
+    }
+    public void MakeTurn(){}
+
+    // GameController - Player Function
+    public void SwitchPlayerTurn(IPlayer player){
+        if(player.playerType == PlayerType.PlayerA){
+            this.currentPlayer =  this.playersData.GetPlayer().Where(p => p.playerType != PlayerType.PlayerA).First<IPlayer>();
+        }
+        else if(player.playerType == PlayerType.PlayerB){
+            this.currentPlayer =  this.playersData.GetPlayer().Where(p => p.playerType != PlayerType.PlayerB).First<IPlayer>();
+        }
+    }
 
     public void PlayerTurn(){}
     public void PossibleMoves(){}
@@ -133,6 +200,15 @@ public class GameController{
     }
     public IPlayer GetPlayer(IPlayer player){
         return this.playersData.players.Where(p => p.playerID == player.playerID).First<IPlayer>();
+    }
+
+    // GameController -  Game State
+    public GameStatus GetGameStatus(){
+        return this.gameStatus;
+    }
+    public void SetGameStatus(GameStatus status){
+        Console.WriteLine($"Game has been change into {status}");
+        this.gameStatus = status;
     }
 
     public bool UtilitiesIsSquareEmpty(Coordinate location){

@@ -44,7 +44,7 @@ public class Board: IBoard{
     public void IsOccupiedByOpponent(){
 
     }
-    public void PrintEachRowBoard(List<Piece> pieceWithData, int X){
+    public string PrintEachRowBoard(List<Piece> pieceWithData, int X){
 
         string[] playerAChara = new string[6] {"KW", "QW", "RW", "BW", "HW", "PW"};
         string[] playerBChara = new string[6] {"KB", "QB", "RB", "BB", "HB", "PB"};
@@ -60,24 +60,31 @@ public class Board: IBoard{
                 printRowBoard.Append(temp);
             }
         }
-        Console.WriteLine($"{X}  "+printRowBoard.ToString()+ "|");
+        return $"{X}  "+printRowBoard.ToString()+ "|\n";
+        // Console.WriteLine($"{X}  "+printRowBoard.ToString()+ "|");
     }
     public void PrintBoard(Dictionary <IPlayer, List<Piece>> playerDatas){
         // Get all pieces from the dictionary
         List<Piece> allPieces = playerDatas.Values.SelectMany(pieces => pieces).ToList();
-        Console.WriteLine("      1    2    3    4    5    6    7    8");
+        StringBuilder printOut = new($"\r");
+        printOut.Append("      1    2    3    4    5    6    7    8\n");
+        // Console.WriteLine("      1    2    3    4    5    6    7    8");
         for (int y = 1, data=1; y <= (this.height*2)+1; y++){
             // Print the upper part
             if(y%2==0){
                 // Filter the points where X is 0
                 List<Piece> pieceWithData = allPieces.Where(p => p.pos.y == data).ToList();
-                PrintEachRowBoard(pieceWithData,data);
+                string printRow = PrintEachRowBoard(pieceWithData,data);
+                printOut.Append(printRow);
                 data++; // This is to check each row that printable on
             }
             // Print the lower part
             else if(y%2==1){
-                Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
+                printOut.Append("   + -- + -- + -- + -- + -- + -- + -- + -- +\n");
+                // Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
             }
         }
+        Console.SetCursorPosition(0, 0);
+        Console.WriteLine(printOut);
     }
 }

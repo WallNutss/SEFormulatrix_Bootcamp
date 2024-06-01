@@ -30,6 +30,7 @@ public class ConsoleProgram{
         int currentFrame = 0;
         for (int i = 0; i < 100; i++)
         {
+            Console.SetCursorPosition(0,4);
             Console.Write($"\rCalculating: {loadingFrames[currentFrame]}");
             currentFrame = (currentFrame + 1) % loadingFrames.Length;
             Thread.Sleep(100);
