@@ -14,12 +14,6 @@ public abstract class Piece:IPiece{
     public ColorType pieceColor { get; set; }
 
     // public abstract Piece Copy();
-    public abstract IEnumerable<Move> GetMoves(Coordinate FromPos, PlayerData PositionData);
-    protected IEnumerable<Coordinate> MovePositionsInDir(Coordinate from, PlayerData BoardPositionData, Direction dir){
-        for(Coordinate pos = from + dir; pos.x >= 0 && pos.x < 8 && pos.y >= 0 && pos.y < 8; pos+=dir){
-            if(BoardPositionData.)
-        }
-    }
     public void Move(){}
     public void Capture(){}
     public void IsValidMove(){}

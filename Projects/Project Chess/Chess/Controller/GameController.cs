@@ -202,7 +202,7 @@ public class GameController{
     public void PossibleMoves(IPlayer player, Piece piece){
         // return the possible move based on those criteria
         // piece.PieceType? return directions
-        // Possible move based on those direction ? Return list of Coordinate it can takee
+        //  var PossibeMovesPossible move based on those direction ? Return list of Coordinate it can takee
         Direction one = Direction.moveDirection[DirectionMoveType.North];
     }
     public void Occupancy(){}

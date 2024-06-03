@@ -1,130 +1,61 @@
 ## Story/Background:
-Chess is an old school game where you can enjoy it everywhere arouhnd the world! Chess is sign of our civilization espcesially the thirst of knowledge!. So, in order to become more advance than a monkey, I'll try to make this game, I shall become it's creator and worth to become the holder of the HIGH IQ! Cause you know, creator is best than the user! Anyway, the chess variant we will be making today is using your old <b>Western Chess</b>. The Chess will contain 1 Board with dimension of 8x8, 2 Players each other, and of course each player will have their own 16 pieces of toodlers. The pieces will have 7 Class, which is from the Highest Authority, Long Live The <s>Queen</s> Majesty King, Queen, Bishop, Knight, Rook, and our poor peasants, the Pawn.
+Chess is an old school game where you can enjoy it everywhere around the world! Chess is sign of our civilization espcesially the thirst of knowledge!. So, in order to become more advance than a monkey, I'll try to make this game,and I shall become it's creator and worth to become the holder of the HIGH IQ! Cause that you already know, creator is alwyays the best than the user! Anyway, the chess variant I will be making today is using your old <b>Western Chess</b> variant. The Chess will fixed contain 1 Board with dimension of 8x8, 2 Players each other, and of course each player will have their own 16 pieces of toodlers. The pieces will have 6 Class, which is from the Highest Authority, Long Live The <s>Queen</s> Majesty King, Queen, Bishop, Knight, Rook, and our poor peasants, the Pawn.
 
 ### For the game feature
-1. each player will take turn respectively(you guys can beat each other while playing thou, [Here](https://www.youtube.com/watch?v=7MBcs5Z4KC4))
-2. The movement will varies to each pieces, but basically here some tier list of it Queen <-- Knight <-- Rook <-- Pawn <-- King. Yeah King is 'beban'
-3. The is 3 special movement yeah is, which is Castling, Promotion, and En Passant.
+This game will be comeout as a console type game program. So, maybe some of the feature that we may seen at real life will be weird in this program. So anyways here some of the feature I want to implement
+1. As long the condition of winning not met, each player will take turn respectively.
+2. Each player will have 16 pieces, where the movement will varies to each pieces, as it said in the rules of the Chess.
+3. Eaach pieces can take another player piece
+4. There is 3 special movement yeah is, which is Castling, Promotion, and En Passant.
+5. The Game Controller will control the flow of the program, while Program.cs will just call the Game Controller to make it tidy
+6. All data will be placed on the PlayerData.cs, including the List of Player and the Dictionary of List of Player <--> List of Pieces
+7. Loop will consist of this pseudocode  
+    * Start Program 
+    * Initialize the Player, Board, Pieces
+    * Set GameStatus = Start
+    * While GameStatus.Start do loops #1
+    * <b>Loop #1</b> this.currentPlayer Start Action
+    * <b>Loop #1</b> this.currentPlayer Choose the pieces
+    * <b>Loop #1</b> this.currentPlayer choose the move he can get from the pieces
+    * <b>Loop #2</b> isThisValidMove ? Continue : Return step before
+    * <b>Loop #2</b> IsThisOccupiedByOpponent ? Take do Remove Opponent Piece and move to Prison : Update Position
+    * <b>Loop #1</b> Update Position of Piece in Board
+    * <b>Loop #1</b> Check Opponent King IsInCheck? Give Warning : Continue
+    * <b>Loop #1</b> Check Win Condition ? Print Player : Continue 
+    * <b>Loop #1</b> Print the new position in the Board
+    * <b>Loop #1</b> Switch Turn Another Player
+    * End of Loop #1 Return again
+
 
 ### The condition of winning 
 1. Checkmate, The King is in check, and there is no way to go.
-2. Opponen player could resign
+2. Opponent player could resign
+3. The condition for draw is using Fifty-move rule: If during the previous 50 moves no pawn has been moved and no capture has been made, either player can claim a draw.
 
-### The condition of draw
-1. Fifty-move rule: If during the previous 50 moves no pawn has been moved and no capture has been made, either player can claim a draw.
+### My vision about the structure of this program
+```
+├── Program.cs
+├── GameController.cs
+├── Game System
+|   ├── Game Mechanism/Helper <-- All statics
+|   ├── Game Logics ? Do I really need this?
+|   ├── Orientation/Direction
+├── Model
+|   ├── Piece
+|   ├── Player
+|   ├── Board
+|   ├── Prison
+├── PlayerData
+├── ConsoleRenderer <-- View
+|   ├── BoardRenderer
+|   ├── MenuRenderer
+|   ├── Input Renderer
+└── Enums
+```
+So, I wanna divide between the BackEnd(FLMX Logic in this case is the GameController) and the UI(My ConsoleRenderer). The BackEnd will responsible for the running the program and UI will responsible for the pretty looks.
 
+Program will responsible from combining those two.
 
-## What they can do
-- T
+While Model will provide the model of the program, such as their properties, what they can do (method). Such as Pieces will have their own properties, and I'm trying to implement the `Person-to-World` view algorithm, which is basically I gave the pieces the world, and their ownself responsible knowing how can they move in that world. While I still aren't sure what Board do because I'm not really using them (I Linked the data into the Dictionary, where the Pieces already store their own information, so yeah idk bbout this board model). And Prison is basically the class model that hold the List of Pieces there also.
 
-Lets call the terms Piece
-
-### What need to be done
- - ~~I need to prepare how to build the object of the game, which is basically is class
-
-
-## Breaking Apart
-Interface
-```
-IPiece will be the baseprint of the Pieces
-IPlayer will be the baseprint of the Player
-```
-
-Class Parent
-```
-    ├─ Pieces(Model) <-- IPieces
-        ├── King(Model)        
-    ├─ Player(Model) <-- IPlayer
-        ├── Player Red
-        ├── Player Black
-```
-
-Component Class
-```
-├─ Pieces
-   ─ ID(int) --> Field
-   ─ rowCoord(int) --> Field
-   ─ colCoord(int) --> Field
-   ─ Owner --> Player.Type 
-   ─ MoveForward()
-   ─ OverTake()
-
-├── King
-   ─ ID(int) --> Field
-   ─ rowCoord(int) --> Field
-   ─ colCoord(int) --> Field
-   ─ Owner --> Player.Type 
-   ─ MoveForward()
-   ─ MoveBackWard()
-   ─ OverTake()
-
-├── Player
-   ─ Name
-   ─ Pieces (Class)
-   ─ ScorePlayer (int) --> Field
-```
-
-Method
-```
-─ MoveForward() // Move 1 Tiles Forward Diagonally
-─ MoveBackWard() // Move 1 Tiles Backward Diagonally
-─ OverTake() // Move Two Tiles if Condition Approved
-```
-
-Game Status
-```
-─ Game Start
-─ Game Running
-─ Game Finished (WIN/LOSE)
-─ Game Draw
-```
-
-Notification System
-```
-─ Player Movement
-─ Game Status
-─ Score Display
-```
-
-So the Folder should be Like this
-```
-├── Interfaces (IPieces, IPlayer)
-├── Base Class (Pieces)
-├── Child Class (PlayerA, PlayerB)
-├── Components (King Method)
-├── Event Handler (Notification System)
-├── Enums (Game Status)
-```
-(15/05/2024 ; 15.31 p.m.)
-
-============  FIRST REVISION ============
-
-Harusnya kalo gitu bukan IPieces nggak sih? Tapi IPieceKing.
-Karena buat apa naro di Interface semua, mending bikin base class Parent. Sama kek Player, buat apa naro?
-Jadi harusnya kek gini
-```
-├── Interfaces (IKing)
-├── Abstract Base Class (Pieces, Player)
-├── Child Class (PlayerA, PlayerB)
-├── Event Handler (Notification System)
-├── Enums (Game Status)
-```
-
-Eh ini goblo harus apa wkakakaka. Jadi harusnya begini lagi rambahannya
-Notification System
-```
-─ Player Movement
-─ Game Status
-─ Score Display
-─ Piece Upgraded (King)
-```
-
-dimana Bisa lebih mempresentasikan lebih baik lagi untuk Game Status seperti ini
-Game Status
-```
-─ Game Start
-─ Game Running
-─ First Player Win
-─ Second Player win
-─ Game Draw
-`
+Enums just being enums, thanks bud.
