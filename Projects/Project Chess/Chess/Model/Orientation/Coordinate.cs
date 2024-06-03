@@ -18,6 +18,13 @@ public class Coordinate : IPosition{
         Console.WriteLine("Get Adjacent of the Square? What is this function?");
     }
 
+    public static bool operator ==(Coordinate left, Coordinate right){
+        return EqualityComparer<Coordinate>.Default.Equals(left,right);
+    }
+    public static bool operator !=(Coordinate left, Coordinate right){
+        return !(left == right);
+    }
+
     public static Coordinate operator +(Coordinate coord1, Direction dir1){
         return new Coordinate(coord1.x + dir1.x, coord1.y + dir1.y);
     }

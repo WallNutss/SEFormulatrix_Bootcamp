@@ -18,27 +18,7 @@ public class PlayerData{
         this.playersData = new Dictionary<IPlayer, List<Piece>>();
         this.pieces = new List<Piece>();
     }
-
-    // Method for rw the Dictionary
-    public Dictionary<IPlayer, List<Piece>> GetPlayersData(){
-        return playersData;
-    }
-    // Update Piece Position
-    public void UpdatePiecePosition(IPlayer player, int pieceID, Coordinate newCoordinate){
-        if(this.playersData.TryGetValue(player, out var pieces)){
-             var Piece = pieces.FirstOrDefault(p => p.pieceID == pieceID);
-             if (Piece != null){
-                Piece.pos.x = newCoordinate.x;
-                Piece.pos.y = newCoordinate.y;
-                Console.WriteLine($"Piece {Piece.pieceID} for player {player.name} has been moved to ({newCoordinate.x}, {newCoordinate.y}).");
-                UpdateListPiecesFromDict();
-            }
-            else{
-            Console.WriteLine($"Piece not found for player {AddColor.Message(player.name.ToString(), ConsoleColor.Green)}.");
-            }
-        }
-    }
-    
+    // Set Initial data
     public void SetInitialPlayersData(List<IPlayer> players){
         foreach(IPlayer player in players){
             if(player.playerType == PlayerType.PlayerB){
@@ -51,21 +31,47 @@ public class PlayerData{
         }
     }
 
+    // Method for rw the Dictionary
+    public Dictionary<IPlayer, List<Piece>> GetPlayersData(){
+        return playersData;
+    }
+    public void SetPlayersData(Dictionary<IPlayer, List<Piece>> data){
+        this.playersData = data;
+    }
+
+    // Update Piece Position
+    public void UpdatePiecePosition(Piece piece, Coordinate newCoordinate){
+        if (piece != null){
+            piece.pos.x = newCoordinate.x;
+            piece.pos.y = newCoordinate.y;
+            Console.WriteLine($"Piece {piece.pieceID} has been moved to ({newCoordinate.x}, {newCoordinate.y}).");
+            UpdateListPiecesFromDict();
+        }
+        else{
+            Console.WriteLine($"Piece not found.");
+        }
+    }
+
     // Method rw for the Piece data from List of Pieces
-    public List<Piece> GetPieceData(Player playerType){
+    public List<Piece> GetPieceData(IPlayer playerType){
         return this.playersData[playerType].ToList();
     }
-    public Piece GetPieceData(int ID, Player playerType){
+    public Piece GetPieceData(int ID, IPlayer playerType){
         return this.playersData[playerType].Where(p => p.pieceID == ID).First<Piece>();
     }
+    public Piece GetPieceData(Coordinate position){
+        return this.playersData.Values.SelectMany(pieces => pieces).ToList().Where(p => p.pos.x == position.x && p.pos.y == position.y).First<Piece>();
+    }
+
+    // Method rw for List of Pieces
     public List<Piece> GetListPiece(){
         return this.pieces;
     }
-    public void SetPieceData(List<Piece> pieces){
+    public void SetPieceListData(List<Piece> pieces){
         this.pieces = pieces;
     }
     public void UpdateListPiecesFromDict(){ // Method on hold, what is the purpose?
-        SetPieceData(this.playersData.Values.SelectMany(pieces => pieces).ToList());
+        SetPieceListData(this.playersData.Values.SelectMany(pieces => pieces).ToList());
         //SetPlayersData(this.pieces);
     }
 

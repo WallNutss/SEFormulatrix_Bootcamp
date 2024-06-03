@@ -39,7 +39,7 @@ public class GameController{
         AddPlayers2List(new List<IPlayer>(){player2,player1});
 
         // Initialize the data of pieces from _InitializePieces() to List Pieces Data from playersData
-        this.playersData.SetPieceData(SetupPiecesInitialPosition(_InitializePieces()));
+        this.playersData.SetPieceListData(SetupPiecesInitialPosition(_InitializePieces()));
         // Send the list pieces data at playersData to Dictionary according to the player
         this.playersData.SetInitialPlayersData(this.playersData.players);
     }
@@ -120,23 +120,29 @@ public class GameController{
         Console.Clear();
         while(this.gameStatus == GameStatus.GAME_START){
 
-            Console.SetCursorPosition(0, 25);
+            Console.SetCursorPosition(0, 17);
             Console.WriteLine($"{currentPlayer.name}'s turn");
 
             // Demo just try move something
             bool isValidMove = false;
             while(!isValidMove){
-                Console.SetCursorPosition(0, 26);
-                Console.WriteLine("Enter your move (e.g., 2,4):");
-                Console.SetCursorPosition(0, 27);
-                var moveString = GetUserInput();
-                Coordinate move = ConvertStringToIntArrayCoordinate(moveString);
-                Console.SetCursorPosition(0, 28);
+                Console.SetCursorPosition(0, 18);
                 Console.WriteLine("Enter the ID pieces you want to move (e.g., 1):");
-                Console.SetCursorPosition(0, 28);
+                Console.SetCursorPosition(0, 19);
                 var idRe = GetUserInput();
                 int idRead = Convert.ToInt32(idRe);
 
+                // Try to calculate the possible Moves
+                // Piece currentPiece = this.playersData.GetPieceData(idRead, this.currentPlayer);
+                // PossibbleMoves(currentPiece) // Console this output
+                
+                Console.SetCursorPosition(0, 20);
+                Console.WriteLine("Enter your move (e.g., 2,4):");
+                Console.SetCursorPosition(0, 21);
+                var moveString = GetUserInput();
+                Coordinate move = ConvertStringToIntArrayCoordinate(moveString);
+
+                
                 MovePiece(this.currentPlayer, move, idRead);
                 isValidMove = true;
             }
@@ -156,13 +162,17 @@ public class GameController{
         // Console.WriteLine(this.playersData.GetPlayer()[0].playerType);
         // Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
     }
+   
+    public void StopGame(){}
+    public void EndTurn(){}
+
     static Coordinate ConvertStringToIntArrayCoordinate(string input)
     {
         int[] xy = input.Split(',').Select(int.Parse).ToArray();
         return new Coordinate(xy[0],xy[1]);
     }
 
-    public string GetUserInput(){
+    public static string GetUserInput(){
             return Console.ReadLine() ?? string.Empty;
     }
     public async Task RefreshBoardAsync(ManualResetEvent stopSignal){
@@ -172,13 +182,9 @@ public class GameController{
         await Task.Delay(500);
         }
     }
-
-    public void StopGame(){}
-    public void EndTurn(){}
     public void MovePiece(IPlayer player, Coordinate toPos, int pieceID){
-        // Coordinate toPos = new(4,4);
-        // int choosingPieceID = 17;
-        playersData.UpdatePiecePosition(player, pieceID, toPos);
+        Piece piece = playersData.GetPieceData(pieceID,player);
+        playersData.UpdatePiecePosition(piece, toPos);
     }
     public void MakeTurn(){}
 
@@ -193,7 +199,12 @@ public class GameController{
     }
 
     public void PlayerTurn(){}
-    public void PossibleMoves(){}
+    public void PossibleMoves(IPlayer player, Piece piece){
+        // return the possible move based on those criteria
+        // piece.PieceType? return directions
+        // Possible move based on those direction ? Return list of Coordinate it can takee
+        Direction one = Direction.moveDirection[DirectionMoveType.North];
+    }
     public void Occupancy(){}
     public void SetUserNamePlayer(IPlayer player){
         this.playersData.players.Where(p => p.playerType == player.playerType).First<IPlayer>().SetName(player.name);
@@ -228,5 +239,24 @@ public class GameController{
             return false;
         }
     }
+    public bool UtilitiesIsInsideBoard(Coordinate coordinate){
+        return coordinate.x >= 1 && coordinate.x <= 8 && coordinate.y >= 1 && coordinate.y <=8;
+    }
+    public bool UtilitiesCanCapture(Coordinate toCoordinate, IPlayer requester){
+        if(!UtilitiesIsInsideBoard(toCoordinate)){
+            return false;
+        }else{
+            if(UtilitiesIsOccupiedByOpponent(toCoordinate,requester)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public bool UtilitiesCanMoveTo(Coordinate toPos){
+        return UtilitiesIsSquareEmpty(toPos) && UtilitiesIsInsideBoard(toPos);
+    }
+
 
 }
