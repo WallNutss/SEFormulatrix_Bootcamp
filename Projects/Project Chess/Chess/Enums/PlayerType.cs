@@ -1,7 +1,10 @@
 namespace Chess.Enums;
 
+/// <summary>
+/// Defines the types of players in the game.
+/// </summary>
 public enum PlayerType{
-    PlayerA,
-    PLayerB,
+    PlayerA=1,
+    PlayerB=2,
     None
 }
