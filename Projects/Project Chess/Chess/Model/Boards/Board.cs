@@ -56,6 +56,9 @@ public class Board: IBoard{
 
         
         List<Piece> allPieces = playerDatas.Values.SelectMany(pieces => pieces).ToList();
+        // foreach(var piece in allPieces){
+        //     Console.WriteLine($"Piece type : {piece.piecesType}, ID : {piece.pieceID} with color is {piece.pieceColor} pos (xy) = {piece.pos.x},{piece.pos.y}");
+        // }
         BoardRenderer.PrintBoard(allPieces);
         // Get all pieces from the dictionary
         // StringBuilder printOut = new($"\r");

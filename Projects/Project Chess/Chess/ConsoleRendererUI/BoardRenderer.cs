@@ -44,6 +44,9 @@ public static class BoardRenderer{
             // List<Piece> Take all the pieces
             if(y%2==0){
                 List<Piece> pieceWithData = playerDatas.Where(p => p.pos.y == dataIndex).ToList();
+                foreach(var piece in pieceWithData){
+                    //Console.WriteLine($"Piece type : {piece.piecesType}, ID : {piece.pieceID} with color is {piece.pieceColor} pos (xy) = {piece.pos.x},{piece.pos.y}");
+                }
                 PrintEvenStringBoard(pieceWithData, dataIndex);
                 dataIndex++;
             }
@@ -57,22 +60,23 @@ public static class BoardRenderer{
     private static void PrintEvenStringBoard(List<Piece> data, int dataIndex){
         StringBuilder printRowBoard = new();
         for(int x=1;x<=8;x++){
-            int index =  data.FindIndex(p => p.pos.x == dataIndex);
+            int index =  data.FindIndex(p => p.pos.x == x);
             if(index==-1){
                 StringBuilder temp = new("|    ");
                 printRowBoard.Append(temp);
             }else{
                 // string pieceChoose = ColorType.White == data[index].pieceColor? playerAChara[(int)pieceWithData[index].piecesType].ToString() : playerBChara[(int)pieceWithData[index].piecesType].ToString();
+                // Console.WriteLine(data[index].piecesType);
                 string pieceChoose = GetPieceSymbol(data[index]);
                 StringBuilder temp = new($"| {pieceChoose} ");
                 printRowBoard.Append(temp);
             }
         }
-        Console.WriteLine($"{dataIndex}  "+printRowBoard.ToString()+ "|\n");
+        Console.WriteLine($"{dataIndex}  "+printRowBoard.ToString()+ "|");
     }
 
     private static void PrintOddStringBoard(){
-        StringBuilder first = new("    ");
+        StringBuilder first = new("   ");
         first.Append("+");
         for(int i=0;i<8;i++){
             for(int y=0;y<4;y++){
@@ -84,7 +88,7 @@ public static class BoardRenderer{
             }
             first.Append("+");
         }
-        first.Append("\n");
+        first.Append("");
         Console.WriteLine(first.ToString());
     }
 
