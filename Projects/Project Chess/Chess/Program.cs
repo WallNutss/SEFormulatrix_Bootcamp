@@ -7,6 +7,7 @@ using Chess.PlayerDatas;
 using Chess.Prisons;
 using Chess.Players;
 using Chess.GameController;
+using Chess.Render;
 
 
 class Program{
@@ -15,36 +16,41 @@ class Program{
         GameController controller = new();
         
         controller.PreGameStart();
-        controller.SetGameStatus(GameStatus.GAME_START);
+        
         controller.StartGame();
 
-        //m Console.WriteLine(board);
-        
+        while(controller.GetGameStatus() == GameStatus.GAME_START){
+            Console.Clear();
+            controller.board.PrintBoard(controller.GetPlayerPieceCollection()); 
+             
+            // Console.SetCursorPosition(0, 17);
+            Console.WriteLine($"{controller.GetCurrentPlayer().name}'s turn");
 
-        // foreach(var data in playerDatas.pieces){
-        //     Console.WriteLine($"Piece {data.pieceColor} type of {data.piecesType} with ID: {data.pieceID} it is {data.isCaptured}(captured) where it location is ({data.pos.x}, {data.pos.y})");
-        // }
-        
-        // Console.WriteLine("===================================");
-        // // Make an example of changing pieces locaation\
-        // MovePieces(ref playerDatas, PlayerType.PlayerA,16,[4,5]);
-        // board.PrintBoard(playerDatas);
+            // Demo just try move something
+            bool isValidMove = false;
+            while(!isValidMove){
+                // Console.SetCursorPosition(0, 18);
+                Console.WriteLine("Enter the ID pieces you want to move (e.g., 1):");
+                // Console.SetCursorPosition(0, 19);
+                var idRe = GameController.GetUserInput();
+                int idRead = Convert.ToInt32(idRe);
 
-        // Console.WriteLine("===================================");
-        // // Make an example of changing pieces locaation\
-        // MovePieces(ref playerDatas, PlayerType.PlayerB,3,[3,5]);
-        // board.PrintBoard(playerDatas);
-        
-        // Console.WriteLine(playerDatas.IsEmpty(new Coordinate(6,5)));
-        // Console.WriteLine(playerDatas.IsOccupiedByOpponent(new Coordinate(3,5), playerB));
-        // Console.WriteLine(playerDatas.GetPieceAt(new Coordinate(2,7)).pieceID);
-        // foreach(var data in playerDatas.pieces){
-        //      Console.WriteLine($"Piece type of {data.piecesType} with ID: {data.pieceID} it is {data.isCaptured}(captured) where it location is ({data.pos.x}, {data.pos.y})");
-        // }
+                // Try to calculate the possible Moves
+                // Piece currentPiece = this.playersData.GetPieceData(idRead, this.currentPlayer);
+                // PossibbleMoves(currentPiece) // Console this output
+                
+                // Console.SetCursorPosition(0, 20);
+                Console.WriteLine("Enter your move (e.g., 2,4):");
+                // Console.SetCursorPosition(0, 21);
+                var moveString = GameController.GetUserInput();
+                Coordinate move = GameController.ConvertStringToIntArrayCoordinate(moveString);
+
+                
+                controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
+                isValidMove = true;
+            }
+            controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
+        }
 
     }
-    // public static void MovePieces(ref PlayerData playerDatas, PlayerType playerType, int ID, int[] location){
-    //    int index =  playerDatas.pieces.FindIndex(p => p.pieceID == ID && p.playerType == playerType);
-    //    (playerDatas.pieces[index].pos.x,playerDatas.pieces[index].pos.y) = (location[0],location[1]); // Trial Modify
-    // }
 }

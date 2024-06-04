@@ -15,5 +15,4 @@ public interface IBoard{
     int height { get; }
     void InitializeCoordinate();
     void PrintBoard(Dictionary <IPlayer, List<Piece>> playerData);
-    string PrintEachRowBoard(List<Piece> pieceWithData, int x);
 }

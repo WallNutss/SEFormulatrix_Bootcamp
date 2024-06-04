@@ -7,11 +7,11 @@ using Chess.PlayerDatas;
 
 namespace Chess.Render;
 
-public static class BoardRenderer{
+public class BoardRenderer{
     private static int _widthBoardDimension = 8; 
     private static int _heightBoardDimension = 8;
     private static int _widthBoardDimensionRender = 17; 
-    private static int _spaces = 4;
+    private static int _spaces = 6;
 
 
     private static string GetPieceSymbol(Piece piece)
@@ -36,6 +36,29 @@ public static class BoardRenderer{
                 _ => "N"
             };
         }
+    private static string GetPieceIDSuperscript(Piece piece)
+        {
+            return piece.pieceID switch
+            {
+                1    =>     "\xb9 ",
+                2    =>     "\xb2 ",
+                3    =>     "\xb3 ",
+                4    =>     "\u2074 ",
+                5    =>     "\u2075 ",
+                6    =>     "\u2076 ",
+                7    =>     "\u2077 ",
+                8    =>     "\u2078 ",
+                9    =>     "\u2079 ",
+                10   =>     "\xb9\u2070",
+                11   =>     "\xb9\xb9",
+                12   =>     "\xb9\u00b2",
+                13   =>     "\xb9\u00b3",
+                14   =>     "\xb9\u2074",
+                15   =>     "\xb9\u2075",
+                16   =>     "\xb9\u2076",
+                _ => "N"
+            };
+        }
 
 
     // internal string firstStringBoard = "      1    2    3    4    5    6    7    8\n";
@@ -48,14 +71,11 @@ public static class BoardRenderer{
     //     _spaces = 4;
     // }
     public static void PrintBoard(List<Piece> playerDatas){
-        
+        Console.WriteLine("      1    2    3    4    5    6    7    8");
         for(int y=1,dataIndex=1;y<=(_heightBoardDimension*2)+1; y++){
             // List<Piece> Take all the pieces
             if(y%2==0){
                 List<Piece> pieceWithData = playerDatas.Where(p => p.pos.y == dataIndex).ToList();
-                foreach(var piece in pieceWithData){
-                    //Console.WriteLine($"Piece type : {piece.piecesType}, ID : {piece.pieceID} with color is {piece.pieceColor} pos (xy) = {piece.pos.x},{piece.pos.y}");
-                }
                 PrintEvenStringBoard(pieceWithData, dataIndex);
                 dataIndex++;
             }
@@ -70,16 +90,25 @@ public static class BoardRenderer{
         StringBuilder printRowBoard = new();
         for(int x=1;x<=_widthBoardDimension;x++){
             int index =  data.FindIndex(p => p.pos.x == x);
+            StringBuilder temp = new("|");
             if(index==-1){
-                StringBuilder temp = new("|    ");
+                string temp2 = new string(' ',_spaces);
+                temp.Append(temp2);
                 printRowBoard.Append(temp);
             }else{
-                // string pieceChoose = ColorType.White == data[index].pieceColor? playerAChara[(int)pieceWithData[index].piecesType].ToString() : playerBChara[(int)pieceWithData[index].piecesType].ToString();
-                // Console.WriteLine(data[index].piecesType);
-                string pieceType = GetPieceSymbol(data[index]);
-                string pieceColor = GetPieceColor(data[index]);
-                StringBuilder temp = new($"| {pieceType}{pieceColor} ");
-                printRowBoard.Append(temp);
+                for(int y=0;y<_spaces;y++){
+                    if(y==0 || y==_spaces){
+                        temp.Append(" ");
+                    }
+                    else if(y == _spaces/2){
+                        string pieceType = GetPieceSymbol(data[index]);
+                        string pieceColor = GetPieceColor(data[index]);
+                        string pieceID = GetPieceIDSuperscript(data[index]);
+                        StringBuilder temp3 = new($"{pieceType}{pieceColor}{pieceID} ");
+                        temp.Append(temp3);
+                        printRowBoard.Append(temp);
+                    }
+                }
             }
         }
         Console.WriteLine($"{dataIndex}  "+printRowBoard.ToString()+ "|");
@@ -99,6 +128,9 @@ public static class BoardRenderer{
             first.Append("+");
         }
         first.Append("");
+        // Console.
+        Console.OutputEncoding = System.Text.Encoding.Unicode;
+        // Console.
         Console.WriteLine(first.ToString());
     }
 

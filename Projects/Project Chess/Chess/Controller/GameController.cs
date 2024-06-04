@@ -14,7 +14,7 @@ namespace Chess.GameController;
 
 public class GameController{
     // Inisialization of all the model in the game
-    private Board _board {get;}
+    public Board board {get;}
     private PlayersData _playersData;
     public IPlayer? currentPlayer;
     // Construct the prison house, default at the start game it's empty
@@ -23,7 +23,7 @@ public class GameController{
     public GameStatus gameStatus {get;private set;}
     public ManualResetEvent stopSignal {get;set;}
     public GameController(){
-        _board = new Board();
+        board = new Board();
         _playersData = new PlayersData();
         prison = new Prison();
         gameStatus = GameStatus.NOT_STARTED;
@@ -43,10 +43,11 @@ public class GameController{
     public void StartGame(){
         //MovePiece(this.currentPlayer);
         currentPlayer = GetPlayersFromList().Where(p => p.playerType == PlayerType.PlayerA).First<IPlayer>(); // White always start first
+        SetGameStatus(GameStatus.GAME_START);
         // var printBoardTask = Task.Run(()=>RefreshBoardAsync(stopSignal));
         // _board.PrintBoard(this.playersData.GetPlayersData());
         //Console.Clear();
-        _board.PrintBoard(GetPlayerPieceCollection());
+        //board.PrintBoard(GetPlayerPieceCollection());
         // while(gameStatus == GameStatus.GAME_START){
 
         //     // Console.SetCursorPosition(0, 17);
@@ -92,10 +93,12 @@ public class GameController{
         // Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
     }
    
-    public void StopGame(){}
+    public void StopGame(){
+        SetGameStatus(GameStatus.GAME_FINISHED);
+    }
     public void EndTurn(){}
 
-    static Coordinate ConvertStringToIntArrayCoordinate(string input)
+    public static Coordinate ConvertStringToIntArrayCoordinate(string input)
     {
         int[] xy = input.Split(',').Select(int.Parse).ToArray();
         return new Coordinate(xy[0],xy[1]);
@@ -107,7 +110,7 @@ public class GameController{
     public async Task RefreshBoardAsync(ManualResetEvent stopSignal){
         while (!stopSignal.WaitOne(0)){
         // Console.WriteLine("Run");
-        _board.PrintBoard(GetPlayerPieceCollection());
+        board.PrintBoard(GetPlayerPieceCollection());
         await Task.Delay(500);
         }
     }
@@ -120,10 +123,10 @@ public class GameController{
     // GameController - Player Function
     public void SwitchPlayerTurn(IPlayer player){
         if(player.playerType == PlayerType.PlayerA){
-            this.currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerA).First<IPlayer>();
+            currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerA).First<IPlayer>();
         }
         else if(player.playerType == PlayerType.PlayerB){
-            this.currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerB).First<IPlayer>();
+            currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerB).First<IPlayer>();
         }
     }
     public void PossibleMoves(IPlayer player, Piece piece){
@@ -143,11 +146,14 @@ public class GameController{
 
     // GameController -  Game State
     public GameStatus GetGameStatus(){
-        return this.gameStatus;
+        return gameStatus;
     }
     public void SetGameStatus(GameStatus status){
         Console.WriteLine($"Game has been change into {status}");
-        this.gameStatus = status;
+        gameStatus = status;
+    }
+    public IPlayer GetCurrentPlayer(){
+        return currentPlayer;
     }
 
 

@@ -7,7 +7,6 @@ namespace Chess.GameController.Helper;
 public static class InputHelper{
     public static List<IPlayer> InputPlayers(){
         Console.WriteLine("Hello, welcome to Chess Console Program!");
-
         Console.WriteLine($"This side is for {ColorType.White}. Enter your name!");
         string? player1 = Console.ReadLine();
         if (string.IsNullOrEmpty(player1))
