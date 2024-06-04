@@ -16,10 +16,10 @@ public abstract class NormalMove:Move{
         this.ToPos = to;
         this.Type = MovesType.Normal;
     }
-    public override void Execute(ref PlayerData datas){
-        // This Exceute method is a template for all the types of moves out there, Basically it takes the pieces information crucially
-        // their types so 
-        Piece piece = datas.GetPieceData(this.FromPos); // Get the piece in question from the location
-        datas.UpdatePiecePosition(piece, ToPos);
-    }
+    // public override void Execute(ref PlayersData datas){
+    //     // This Exceute method is a template for all the types of moves out there, Basically it takes the pieces information crucially
+    //     // their types so 
+    //     Piece piece = datas.GetPieceData(this.FromPos); // Get the piece in question from the location
+    //     datas.UpdatePiecePosition(piece, ToPos);
+    // }
 }

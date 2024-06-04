@@ -7,6 +7,7 @@ using Chess.Enums;
 using Chess.Pieces;
 using Chess.PlayerDatas;
 using Chess.Players;
+using Chess.Render;
 
 /// <summary>
 /// An Implementation of IBoard
@@ -15,6 +16,7 @@ public class Board: IBoard{
     public int width { get; private set; }
     public int height { get; private set; }
     public List<IPosition> squares { get; set;}
+    
     public Board(){
         this.squares = new List<IPosition>();
         this.width = 8;
@@ -31,19 +33,6 @@ public class Board: IBoard{
         this.squares = squares;
     }
 
-    public void MovePiece(){
-
-    }
-    public void GetPieceAt(){
-        
-    }
-
-    public void IsOccupied(){
-
-    }
-    public void IsOccupiedByOpponent(){
-
-    }
     public string PrintEachRowBoard(List<Piece> pieceWithData, int X){
 
         string[] playerAChara = new string[6] {"KW", "QW", "RW", "BW", "HW", "PW"};
@@ -64,27 +53,30 @@ public class Board: IBoard{
         // Console.WriteLine($"{X}  "+printRowBoard.ToString()+ "|");
     }
     public void PrintBoard(Dictionary <IPlayer, List<Piece>> playerDatas){
-        // Get all pieces from the dictionary
+
+        
         List<Piece> allPieces = playerDatas.Values.SelectMany(pieces => pieces).ToList();
-        StringBuilder printOut = new($"\r");
-        printOut.Append("      1    2    3    4    5    6    7    8\n");
-        // Console.WriteLine("      1    2    3    4    5    6    7    8");
-        for (int y = 1, data=1; y <= (this.height*2)+1; y++){
-            // Print the upper part
-            if(y%2==0){
-                // Filter the points where X is 0
-                List<Piece> pieceWithData = allPieces.Where(p => p.pos.y == data).ToList();
-                string printRow = PrintEachRowBoard(pieceWithData,data);
-                printOut.Append(printRow);
-                data++; // This is to check each row that printable on
-            }
-            // Print the lower part
-            else if(y%2==1){
-                printOut.Append("   + -- + -- + -- + -- + -- + -- + -- + -- +\n");
-                // Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
-            }
-        }
-        Console.SetCursorPosition(0, 0);
-        Console.WriteLine(printOut);
+        BoardRenderer.PrintBoard(allPieces);
+        // Get all pieces from the dictionary
+        // StringBuilder printOut = new($"\r");
+        // printOut.Append("      1    2    3    4    5    6    7    8\n");
+        // // Console.WriteLine("      1    2    3    4    5    6    7    8");
+        // for (int y = 1, data=1; y <= (this.height*2)+1; y++){
+        //     // Print the upper part
+        //     if(y%2==0){
+        //         // Filter the points where X is 0
+        //         List<Piece> pieceWithData = allPieces.Where(p => p.pos.y == data).ToList();
+        //         string printRow = PrintEachRowBoard(pieceWithData,data);
+        //         printOut.Append(printRow);
+        //         data++; // This is to check each row that printable on
+        //     }
+        //     // Print the lower part
+        //     else if(y%2==1){
+        //         printOut.Append("   + -- + -- + -- + -- + -- + -- + -- + -- +\n");
+        //         // Console.WriteLine("   + -- + -- + -- + -- + -- + -- + -- + -- +");
+        //     }
+        // }
+        // Console.SetCursorPosition(0, 0);
+        // Console.WriteLine(printOut);
     }
 }

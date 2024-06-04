@@ -10,5 +10,5 @@ public abstract class Move{
     public abstract MovesType Type {get;}
     public abstract Coordinate FromPos {get;}
     public abstract Coordinate ToPos {get;}
-    public abstract void Execute(ref PlayerData datas);
+    public abstract void Execute(ref PlayersData datas);
 }
