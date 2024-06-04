@@ -861,3 +861,39 @@ class Player{
 ```
 
 So serializer and deserializer is a way of something to write and read from external data away for C# Ecosystem. SO yeah, lets goo Individual Projekt
+
+### 20th Day
+Today will be an understanding of topics, which is a common principle in building blocks of programming, one of it is <b>SOLID</b>> Principle.
+
+```
+├── S(ingle) Responsibility Prinsiple
+├── O(pen)-Closed Principle 
+├── L(iskov) Subtitution Principle
+├── I(nterface) Segregation Principle
+├── D(ependency) Inversion Principle
+```
+I Need to remember that in C# it's all about class, everything are wrapped inside a class, so there will be multiple class that neet to be adhered into this SOLID principle.
+
+Single Responsibility Principle means that one class should only one-responsibility only and not owning multiple responsibilities as well. Responsibilities should be shared and not owning by itself. Then, by example, PlayerData inside contain multiple data, which is List of Pieces, List of Players, and Dictionary of List of Player <--> List of Pieces. So maybe the structure now can be like this?
+
+```csharp
+public PlayerDataCollection{
+    List<Piece> pieces;
+    List<IPlayer> player;
+    Dicionary<Player, List<Piece>> playerData;
+
+}
+public piecesHandler{
+    // Handle the piece
+}
+
+public playerDataHandler{
+    // Handles the player
+}
+
+public playerDataHandler{
+    // Handles the dictionary
+}
+```
+
+

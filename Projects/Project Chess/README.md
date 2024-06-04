@@ -46,7 +46,7 @@ This game will be comeout as a console type game program. So, maybe some of the 
 |   ├── Board
 |   ├── Prison
 ├── PlayerData
-├── ConsoleRenderer <-- View
+├── ConsoleRendererUI <-- View
 |   ├── BoardRenderer
 |   ├── MenuRenderer
 |   ├── Input Renderer
