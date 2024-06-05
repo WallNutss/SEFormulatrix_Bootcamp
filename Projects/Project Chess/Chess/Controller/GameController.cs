@@ -16,7 +16,7 @@ public class GameController{
     // Inisialization of all the model in the game
     public Board board {get;}
     private PlayersData _playersData;
-    public IPlayer? currentPlayer;
+    public IPlayer currentPlayer = null!;
     // Construct the prison house, default at the start game it's empty
     public Prison prison;
     public int numOfPiecesPerPlayer = 16;
@@ -31,73 +31,21 @@ public class GameController{
     }
 
     public void PreGameStart(){
-        PreGameStartView views = new("Pre Game");
-        views.Invoke();
-        // _board.PrintBoard(this.playersData.GetPlayersData());
-        // User choose player
+        GameMenuRenderer PreGameViews = new("Pre Game");
+        PreGameViews.Invoke();
         InputHelper.InputPlayers().ForEach((IPlayer player)=> SetUserNamePlayer(player));
-        PlayerListView view = new(GetPlayersFromList());
-        view.Invoke();        
+        PlayerListView PlayerListView = new(GetPlayersFromList());
+        PlayerListView.Invoke();        
     }
 
     public void StartGame(){
-        //MovePiece(this.currentPlayer);
         currentPlayer = GetPlayersFromList().Where(p => p.playerType == PlayerType.PlayerA).First<IPlayer>(); // White always start first
         SetGameStatus(GameStatus.GAME_START);
-        // var printBoardTask = Task.Run(()=>RefreshBoardAsync(stopSignal));
-        // _board.PrintBoard(this.playersData.GetPlayersData());
-        //Console.Clear();
-        //board.PrintBoard(GetPlayerPieceCollection());
-        // while(gameStatus == GameStatus.GAME_START){
-
-        //     // Console.SetCursorPosition(0, 17);
-        //     Console.WriteLine($"{currentPlayer.name}'s turn");
-
-        //     // Demo just try move something
-        //     bool isValidMove = false;
-        //     while(!isValidMove){
-        //         // Console.SetCursorPosition(0, 18);
-        //         Console.WriteLine("Enter the ID pieces you want to move (e.g., 1):");
-        //         // Console.SetCursorPosition(0, 19);
-        //         var idRe = GetUserInput();
-        //         int idRead = Convert.ToInt32(idRe);
-
-        //         // Try to calculate the possible Moves
-        //         // Piece currentPiece = this.playersData.GetPieceData(idRead, this.currentPlayer);
-        //         // PossibbleMoves(currentPiece) // Console this output
-                
-        //         // Console.SetCursorPosition(0, 20);
-        //         Console.WriteLine("Enter your move (e.g., 2,4):");
-        //         // Console.SetCursorPosition(0, 21);
-        //         var moveString = GetUserInput();
-        //         Coordinate move = ConvertStringToIntArrayCoordinate(moveString);
-
-                
-        //         MovePiece(currentPlayer, move, idRead);
-        //         isValidMove = true;
-        //     }
-        //     SwitchPlayerTurn(currentPlayer);
-            
-        // }
-        // // stopSignal.Set();
-        // // printBoardTask.Wait();
-        // Console.WriteLine("Game over!");
-        
-        // Coordinate coordinate = new(2,2);
-        // Coordinate coordinate2 = new(3,5);
-        // Coordinate coordinate3 = new(2,1);
-        // players[0] is PlayerB
-        // players[1] is PlayerA
-        // Console.WriteLine(UtilitiesIsSquareEmpty(coordinate));
-        // Console.WriteLine(this.playersData.GetPlayer()[0].playerType);
-        // Console.WriteLine(UtilitiesIsOccupiedByOpponent(coordinate2, this.playersData.GetPlayer()[0]));
     }
    
     public void StopGame(){
         SetGameStatus(GameStatus.GAME_FINISHED);
     }
-    public void EndTurn(){}
-
     public static Coordinate ConvertStringToIntArrayCoordinate(string input)
     {
         int[] xy = input.Split(',').Select(int.Parse).ToArray();
@@ -118,7 +66,6 @@ public class GameController{
         Piece piece = GetPieceData(player,pieceID);
         UpdatePiecePosition(piece, toPos);
     }
-    public void MakeTurn(){}
 
     // GameController - Player Function
     public void SwitchPlayerTurn(IPlayer player){
@@ -149,7 +96,7 @@ public class GameController{
         return gameStatus;
     }
     public void SetGameStatus(GameStatus status){
-        Console.WriteLine($"Game has been change into {status}");
+        // Console.WriteLine($"Game has been change into {status}");
         gameStatus = status;
     }
     public IPlayer GetCurrentPlayer(){
@@ -179,6 +126,7 @@ public class GameController{
     }
 
 
+    /** THIS IS UTILITIES FOR BOARD STATE CHECKING**/
     public bool UtilitiesIsSquareEmpty(Coordinate location){
         int index =  GetPiecesList().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);
         return index > 0 ? false : true; // if index > 0, then the square is occupied by some pieces, so if its true that Square is not empty

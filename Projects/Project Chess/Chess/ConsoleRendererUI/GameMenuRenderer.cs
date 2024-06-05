@@ -2,17 +2,17 @@ using System;
 
 namespace Chess.Views;
 
-    public class PreGameStartView : IComponent
+    public class GameMenuRenderer : IComponent
     {
         public string ComponentName { get => "Header"; }
         private string _header;
 
-        public PreGameStartView(string Title)
+        public GameMenuRenderer(string Title)
         {
 
             _header =
                     "=============================================\n" +
-                    $"**            {Title}           **\n" +
+                    $"**            {Title}                     **\n" +
                     "=============================================\n";
         }
         public void Invoke()

@@ -8,6 +8,7 @@ using Chess.Prisons;
 using Chess.Players;
 using Chess.GameController;
 using Chess.Render;
+using Chess.Views;
 
 
 class Program{
@@ -16,15 +17,17 @@ class Program{
         GameController controller = new();
         
         controller.PreGameStart();
-        
         controller.StartGame();
+
+        AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",10).Wait();
 
         while(controller.GetGameStatus() == GameStatus.GAME_START){
             Console.Clear();
+            GameMenuRenderer StartGameViews = new($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
+            StartGameViews.Invoke();
+
             controller.board.PrintBoard(controller.GetPlayerPieceCollection()); 
-             
-            // Console.SetCursorPosition(0, 17);
-            Console.WriteLine($"{controller.GetCurrentPlayer().name}'s turn");
+            Console.WriteLine($"{AddColor.Message($"{controller.GetCurrentPlayer().name}'s",controller.GetCurrentPlayer().playerType)} turn");
 
             // Demo just try move something
             bool isValidMove = false;
@@ -52,5 +55,22 @@ class Program{
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
         }
 
+    }
+
+    private static async Task AnimateLoading(string message, int durationSeconds){
+        Console.Write($"{message} [");
+        int totalWidth = 20; // Lebar total dari loading bar
+        int animationSteps = durationSeconds * 2; // Jumlah langkah animasi (hitungan setengah detik)
+        int delay = durationSeconds * 1000 / animationSteps; // Delay untuk setiap langkah animasi
+        int stepWidth = totalWidth / animationSteps; // Lebar yang harus ditambahkan setiap langkah
+
+        for (int i = 0; i <= animationSteps; i++)
+        {
+            int barWidth = i * stepWidth; // Lebar loading bar saat ini
+            Console.Write($"{new string('\u2588', barWidth)}{new string(' ', totalWidth - barWidth)}] {i * 100 / animationSteps}%");
+            Console.SetCursorPosition(Console.CursorLeft - (totalWidth + 5), Console.CursorTop); // Kembali ke awal baris
+            await Task.Delay(delay); // Menunggu sebelum langkah berikutnya
+        }
+        Console.WriteLine();
     }
 }

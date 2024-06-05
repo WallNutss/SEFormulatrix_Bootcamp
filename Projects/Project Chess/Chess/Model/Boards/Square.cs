@@ -11,20 +11,13 @@ public class Square : IPosition{
         this.y = _y;
     }
 
-    public ColorType GetSquare(){
+    public ColorType GetSquareColor(){
         if((this.x+this.y)%2==0){
             return ColorType.White;
         }
         else{
             return ColorType.Black;
         }
-    }
-    public bool IsValid(){
-        Console.WriteLine("Square is valid?");
-        return true;
-    }
-    public void GetAdjacent(){
-        Console.WriteLine("Get Adjacent of the Square? What is this function?");
     }
 
 }

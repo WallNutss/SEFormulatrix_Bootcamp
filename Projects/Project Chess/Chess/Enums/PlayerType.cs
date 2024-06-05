@@ -5,6 +5,6 @@ namespace Chess.Enums;
 /// </summary>
 public enum PlayerType{
     PlayerA=1,
-    PlayerB=2,
+    PlayerB,
     None
 }

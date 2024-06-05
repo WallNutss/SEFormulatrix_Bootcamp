@@ -18,19 +18,17 @@ public class Board: IBoard{
     public List<IPosition> squares { get; set;}
     
     public Board(){
-        this.squares = new List<IPosition>();
-        this.width = 8;
-        this.height = 8;
+        squares = new List<IPosition>();
+        width = 8;
+        height = 8;
         InitializeCoordinate();
     }
     public void InitializeCoordinate(){
-        List<IPosition> squares  = new List<IPosition>();
-        for (int x = 1; x <= this.width; x++){
-            for (int y = 1; y <= this.height; y++){
+        for (int x = 1; x <= width; x++){
+            for (int y = 1; y <= height; y++){
                 squares.Add(new Square(_x:x, _y:y));
             }
         }
-        this.squares = squares;
     }
 
     public void PrintBoard(Dictionary <IPlayer, List<Piece>> playerDatas){

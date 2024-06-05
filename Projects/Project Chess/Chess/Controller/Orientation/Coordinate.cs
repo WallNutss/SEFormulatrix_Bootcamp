@@ -7,8 +7,8 @@ public class Coordinate : IPosition{
     public int x{ get;set;}
     public int y{ get; set;}
     public Coordinate(int _x, int _y){
-        this.x = _x;
-        this.y = _y;
+        x = _x;
+        y = _y;
     }
     public bool IsValid(){
         Console.WriteLine("Square is valid?");

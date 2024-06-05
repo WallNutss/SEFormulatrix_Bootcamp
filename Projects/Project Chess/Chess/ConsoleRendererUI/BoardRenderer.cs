@@ -104,7 +104,7 @@ public class BoardRenderer{
                         string pieceType = GetPieceSymbol(data[index]);
                         string pieceColor = GetPieceColor(data[index]);
                         string pieceID = GetPieceIDSuperscript(data[index]);
-                        StringBuilder temp3 = new($"{pieceType}{pieceColor}{pieceID} ");
+                        StringBuilder temp3 = new($"{AddColor.Message($"{pieceType}{pieceColor}{pieceID}",data[index].pieceColor)} ");
                         temp.Append(temp3);
                         printRowBoard.Append(temp);
                     }

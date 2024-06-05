@@ -10,6 +10,4 @@ public interface IPosition
     // Coordinates of the square
     int x { get; set; }
     int y { get; set; }
-    bool IsValid();
-    void GetAdjacent();
 }
