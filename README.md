@@ -897,3 +897,7 @@ public playerDataHandler{
 ```
 
 
+### 21th Day
+Today, we learn more about Unit Testing. Unit testing as like will this thing break if I put it somehow outside it's expectation? It is to see that more possible bugs about the program, and to see that does the program does meet our output expectation?
+
+In unit testing C#, there are multiple testing condition, which is `[Test]`, `[TestCase]`, `[Fact]`, `[Theory]`
