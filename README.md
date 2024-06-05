@@ -901,3 +901,77 @@ public playerDataHandler{
 Today, we learn more about Unit Testing. Unit testing as like will this thing break if I put it somehow outside it's expectation? It is to see that more possible bugs about the program, and to see that does the program does meet our output expectation?
 
 In unit testing C#, there are multiple testing condition, which is `[Test]`, `[TestCase]`, `[Fact]`, `[Theory]`
+
+So, unit testing is like that, if we want to test multiple unit part at once, we can make the code structure to look like this exampple
+```
+├── Calculator (Main Program)
+├── Calculator.Test (Test 'X' part of Main Calculator Program) 
+├── Calculator.Test.Another (Test 'Y' part of Main Calculator Program) 
+├── etc
+```
+
+so if you `dotnet test` in the root of the workspace, it will run all the available test case in the workspace.
+
+After that, lets talk about debug. Debug is a way to find the meaning of the workflow of the program. So, there are many tools to have debug our way to the program. One of it is using Microsoft Logging. In C#, or .NET, we can use those package by installing the packages first using the dotnet console program, like this
+
+```bash
+dotnet add package Microsoft.Extensions.Logging
+dotnet add package Microsoft.Extensions.Logging.Console
+```
+
+Why using Microsoft Logging Extensions? Several logging levels are available in the Microsoft.Extensions.Logging framework in C#, enabling developers to classify and rank log messages according to their significance and severity. Such as Trace, Debug, Information, Warning, Error, and Critical.
+
+Many other ways to download a package, an external package(library), we can use many ways
+1. Search 'Nuget Package Manager' in the Visual Studio Code Extension Marketplace
+2. Directly download from the website 'https://www.nuget.org/downloads'
+3. Using NLog?!
+
+
+NLog like this steps
+1. Install the NLog Package first from the Nuget Package Manager [here](https://www.nuget.org/packages/NLog/)
+2. Type the installation command line at the workspace
+    ```bash
+    dotnet add package NLog 
+    ```
+3. Make the NLog.Config and put it in the parent dir
+    ```xml
+    <?xml version="1.0" encoding="utf-8" ?>
+    <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+        <targets>
+            <target name="logfile" xsi:type="File" fileName="file.txt" />
+            <target name="logconsole" xsi:type="Console" />
+        </targets>
+
+        <rules>
+            <logger name="*" minlevel="Info" writeTo="logconsole" />
+            <logger name="*" minlevel="Debug" writeTo="logfile" />
+        </rules>
+    </nlog>
+    ```
+4. Here an example of NLog Start Configuration
+    ```csharp
+    using NLog;
+    using NLog.Config;
+
+    class Program{
+        public static Logger logger = LogManager.GetCurrentClassLogger();
+        static void Main(){
+            // Access NLOG Class
+            LogManager.Configuration = new XmlLoggingConfiguration("NLog.config");
+
+            logger.Debug("Starting Main");
+            logger.Info("Starting Info");
+            logger.Info("Program Finished");
+        }
+    }
+    ```
+
+
+
+
+
+
+
+
