@@ -6,10 +6,10 @@ using Chess.Players;
 using Chess.Enums;
 using Chess.Pieces;
 using Chess.Views;
-using Chess.GameController.Helper;
+using Chess.GameControl.Helper;
 using Chess.Prisons;
 
-namespace Chess.GameController;
+namespace Chess.GameControl;
 
 
 public class GameController{
@@ -124,6 +124,9 @@ public class GameController{
     public Piece GetPieceData(IPlayer player, int ID){
         return GetPlayerPieceCollection()[player].Where(p => p.pieceID == ID).First<Piece>();
     }
+    public Piece GetPieceDataFromLocation(Coordinate location){
+        return GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
+    }
 
 
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING**/
@@ -132,14 +135,14 @@ public class GameController{
         return index > 0 ? false : true; // if index > 0, then the square is occupied by some pieces, so if its true that Square is not empty
         // So it should return (false) because square is (not) empty
     } 
-    public bool UtilitiesIsOccupiedByOpponent(Coordinate location, IPlayer requester){
+    public bool UtilitiesIsOccupiedByOpponent(Coordinate location, Piece pieceRequester){
         try{
-            Piece piece = GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
-            Console.WriteLine(piece.pieceColor.ToString() + "," + piece.piecesType.ToString() + "," + piece.pieceID.ToString());
-            PlayerType playertype = (piece.pieceColor == ColorType.Black) ? PlayerType.PlayerB : PlayerType.PlayerA;
-            Console.WriteLine(playertype);
+            Piece pieceAtLocation = GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
+            Console.WriteLine(pieceAtLocation.pieceColor.ToString() + "," + pieceAtLocation.piecesType.ToString() + "," + pieceAtLocation.pieceID.ToString());
+            // PlayerType playertype = (piece.pieceColor == ColorType.Black) ? PlayerType.PlayerB : PlayerType.PlayerA;
+            // Console.WriteLine(playertype);
             // int index =  this.playersData.GetListPiece().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);//  &&  != requester.playerType);
-            return requester.playerType == playertype ? false : true;
+            return pieceRequester.pieceColor != pieceAtLocation.pieceColor ? true : false;
         }catch(Exception){
             return false;
         }
@@ -147,7 +150,7 @@ public class GameController{
     public bool UtilitiesIsInsideBoard(Coordinate coordinate){
         return coordinate.x >= 1 && coordinate.x <= 8 && coordinate.y >= 1 && coordinate.y <=8;
     }
-    public bool UtilitiesCanCapture(Coordinate toCoordinate, IPlayer requester){
+    public bool UtilitiesCanCapture(Coordinate toCoordinate, Piece requester){
         if(!UtilitiesIsInsideBoard(toCoordinate)){
             return false;
         }else{

@@ -6,9 +6,6 @@ public interface IPiece{
     int pieceID { get; set; }
     bool isCaptured { get; set; }
     PiecesType piecesType { get; set; }
+    ColorType pieceColor { get; set; }
     void Move();
-    void Capture();
-    void IsValidMove();
-    void PossibleMoves();
-
 }

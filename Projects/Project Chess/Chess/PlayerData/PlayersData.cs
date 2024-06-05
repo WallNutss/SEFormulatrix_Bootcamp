@@ -33,7 +33,7 @@ public class PlayersData{
         for(int p=1;p<3;p++){
             ColorType pieceColor = p==1 ? ColorType.Black : ColorType.White;
             for(int i=1;i<=numOfPiecesPerPlayer;i++){
-                IPosition position = new Coordinate(0,0);   
+                Coordinate position = new Coordinate(0,0);   
                 if(i==1 || i==8){
                     pieces.Add(new Rook(i,pieceColor,position));
                 }

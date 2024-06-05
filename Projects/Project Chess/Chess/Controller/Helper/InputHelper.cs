@@ -2,7 +2,7 @@ using System;
 using Chess.Enums;
 using Chess.Players;
 
-namespace Chess.GameController.Helper;
+namespace Chess.GameControl.Helper;
 
 public static class InputHelper{
     public static List<IPlayer> InputPlayers(){

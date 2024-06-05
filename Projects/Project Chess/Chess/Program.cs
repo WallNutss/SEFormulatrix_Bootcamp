@@ -4,11 +4,10 @@ using System.Threading;
 using Chess.Boards;
 using Chess.Enums;
 using Chess.PlayerDatas;
-using Chess.Prisons;
-using Chess.Players;
-using Chess.GameController;
+using Chess.GameControl;
 using Chess.Render;
 using Chess.Views;
+using Chess.Pieces;
 
 
 class Program{
@@ -19,10 +18,10 @@ class Program{
         controller.PreGameStart();
         controller.StartGame();
 
-        AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",10).Wait();
+        // AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",10).Wait();
 
         while(controller.GetGameStatus() == GameStatus.GAME_START){
-            Console.Clear();
+            // Console.Clear();
             GameMenuRenderer StartGameViews = new($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
             StartGameViews.Invoke();
 
@@ -39,7 +38,13 @@ class Program{
                 int idRead = Convert.ToInt32(idRe);
 
                 // Try to calculate the possible Moves
-                // Piece currentPiece = this.playersData.GetPieceData(idRead, this.currentPlayer);
+                Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), idRead);
+                IEnumerable<Move> moves = currentPiece.GetMoves(currentPiece.pos, controller);
+                int iterationCount = 0;
+                foreach(var s in moves){
+                    Console.WriteLine($"Move {iterationCount}: Pos=({s.ToPos.x},{s.ToPos.y})");
+                    iterationCount++;
+                }
                 // PossibbleMoves(currentPiece) // Console this output
                 
                 // Console.SetCursorPosition(0, 20);
