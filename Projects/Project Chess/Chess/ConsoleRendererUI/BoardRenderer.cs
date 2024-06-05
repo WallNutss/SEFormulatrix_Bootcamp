@@ -10,8 +10,9 @@ namespace Chess.Render;
 public class BoardRenderer{
     private static int _widthBoardDimension = 8; 
     private static int _heightBoardDimension = 8;
-    private static int _widthBoardDimensionRender = 17; 
+    private static int _widthBoardDimensionRender = (_heightBoardDimension*2)+1; 
     private static int _spaces = 6;
+    private static int[] indexers = new int[]{1,2,3,4,5,6,7,8};
 
 
     private static string GetPieceSymbol(Piece piece)
@@ -60,18 +61,8 @@ public class BoardRenderer{
             };
         }
 
-
-    // internal string firstStringBoard = "      1    2    3    4    5    6    7    8\n";
-    // internal string oddStringBoard =   "    + -- + -- + -- + -- + -- + -- + -- + -- +\n";
-   
-    // public staticBoardRenderer(int heightDimension, int widthDimension){
-    //     _widthBoardDimension = widthDimension;
-    //     _heightBoardDimension = heightDimension;
-    //     _widthBoardDimensionRender = 41; // 45 Column Console
-    //     _spaces = 4;
-    // }
     public static void PrintBoard(List<Piece> playerDatas){
-        Console.WriteLine("      1    2    3    4    5    6    7    8");
+        PrintIndexRowBoard(indexers);
         for(int y=1,dataIndex=1;y<=(_heightBoardDimension*2)+1; y++){
             // List<Piece> Take all the pieces
             if(y%2==0){
@@ -83,7 +74,7 @@ public class BoardRenderer{
                 PrintOddStringBoard();
             }
         }
-
+        PrintIndexRowBoard(indexers);
     }
 
     private static void PrintEvenStringBoard(List<Piece> data, int dataIndex){
@@ -134,4 +125,24 @@ public class BoardRenderer{
         Console.WriteLine(first.ToString());
     }
 
+    private static void PrintIndexRowBoard(int[] indexs){
+    StringBuilder index = new("   ");
+    index.Append(" ");
+    for(int i=0;i<_widthBoardDimension;i++){
+        for(int y=0;y<_spaces;y++){
+            if(y==0 || y==_spaces-1){
+                index.Append(" ");
+            }
+            else if(y == _spaces/2){
+                index.Append(indexs[i]);
+            }else{
+                index.Append(" ");
+            }
+        }
+        index.Append(" ");
+    }
+    index.Append("");
+    Console.OutputEncoding = System.Text.Encoding.Unicode;
+    Console.WriteLine(index.ToString());
+    }
 }
