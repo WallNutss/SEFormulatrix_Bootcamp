@@ -8,14 +8,14 @@ namespace Chess.Pieces;
 public class Knight:Piece{
 
     private static readonly Direction[] baseDirs = new Direction[]{
-        3*Direction.moveDirection[DirectionMoveType.North] + Direction.moveDirection[DirectionMoveType.East],
-        3*Direction.moveDirection[DirectionMoveType.North] + Direction.moveDirection[DirectionMoveType.West],
-        3*Direction.moveDirection[DirectionMoveType.South] + Direction.moveDirection[DirectionMoveType.East],
-        3*Direction.moveDirection[DirectionMoveType.South] + Direction.moveDirection[DirectionMoveType.West],
-        3*Direction.moveDirection[DirectionMoveType.East]  + Direction.moveDirection[DirectionMoveType.North],
-        3*Direction.moveDirection[DirectionMoveType.East]  + Direction.moveDirection[DirectionMoveType.South],
-        3*Direction.moveDirection[DirectionMoveType.West]  + Direction.moveDirection[DirectionMoveType.North],
-        3*Direction.moveDirection[DirectionMoveType.West]  + Direction.moveDirection[DirectionMoveType.South],
+        2*Direction.moveDirection[DirectionMoveType.North] + Direction.moveDirection[DirectionMoveType.East],
+        2*Direction.moveDirection[DirectionMoveType.North] + Direction.moveDirection[DirectionMoveType.West],
+        2*Direction.moveDirection[DirectionMoveType.South] + Direction.moveDirection[DirectionMoveType.East],
+        2*Direction.moveDirection[DirectionMoveType.South] + Direction.moveDirection[DirectionMoveType.West],
+        2*Direction.moveDirection[DirectionMoveType.East]  + Direction.moveDirection[DirectionMoveType.North],
+        2*Direction.moveDirection[DirectionMoveType.East]  + Direction.moveDirection[DirectionMoveType.South],
+        2*Direction.moveDirection[DirectionMoveType.West]  + Direction.moveDirection[DirectionMoveType.North],
+        2*Direction.moveDirection[DirectionMoveType.West]  + Direction.moveDirection[DirectionMoveType.South],
     };
 
     public Knight(int id, ColorType color, Coordinate position){
