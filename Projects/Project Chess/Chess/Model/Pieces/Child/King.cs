@@ -45,9 +45,6 @@ public class King:Piece{
 
     public override IEnumerable<Move> GetMoves(Coordinate from, GameController gc){
         foreach(Coordinate to in MovePossiblePositions(from, gc)){
-            if(gc.UtilitiesKingCheckGeneralStatus().Any(coord => coord.x == to.x && coord.y == to.y)){
-                Console.WriteLine("les");
-            }
             yield return new NormalMove(from,to);
         }
     } 
