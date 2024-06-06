@@ -53,11 +53,21 @@ class Program{
                 var moveString = GameController.GetUserInput();
                 Coordinate move = GameController.ConvertStringToIntArrayCoordinate(moveString);
 
+                if(controller.UtilitiesIsOccupiedByOpponent(move, currentPiece)){
+                    Piece pieceOvertaked = controller.GetPieceDataFromLocation(move);
+                    controller.AddPiece2Prison(pieceOvertaked);
+                    controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
+                }
+                else{
+                    controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
+                }
                 
-                controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
                 isValidMove = true;
             }
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
+            foreach(Piece pie in controller.GetPiecesFromPrison()){
+                Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");
+            }
         }
 
     }

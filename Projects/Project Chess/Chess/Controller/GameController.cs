@@ -8,6 +8,7 @@ using Chess.Pieces;
 using Chess.Views;
 using Chess.GameControl.Helper;
 using Chess.Prisons;
+using System.IO.Compression;
 
 namespace Chess.GameControl;
 
@@ -138,7 +139,7 @@ public class GameController{
     public bool UtilitiesIsOccupiedByOpponent(Coordinate location, Piece pieceRequester){
         try{
             Piece pieceAtLocation = GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
-            Console.WriteLine(pieceAtLocation.pieceColor.ToString() + "," + pieceAtLocation.piecesType.ToString() + "," + pieceAtLocation.pieceID.ToString());
+            // Console.WriteLine(pieceAtLocation.pieceColor.ToString() + "," + pieceAtLocation.piecesType.ToString() + "," + pieceAtLocation.pieceID.ToString());
             // PlayerType playertype = (piece.pieceColor == ColorType.Black) ? PlayerType.PlayerB : PlayerType.PlayerA;
             // Console.WriteLine(playertype);
             // int index =  this.playersData.GetListPiece().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);//  &&  != requester.playerType);
@@ -163,6 +164,14 @@ public class GameController{
     }
     public bool UtilitiesCanMoveTo(Coordinate toPos){
         return UtilitiesIsSquareEmpty(toPos) && UtilitiesIsInsideBoard(toPos);
+    }
+
+    // Prison
+    public void AddPiece2Prison(Piece pieceTaken){
+        prison.AddPiece(pieceTaken);
+    }
+    public List<Piece> GetPiecesFromPrison(){
+        return prison.GetCapturedPieces();
     }
 
 }

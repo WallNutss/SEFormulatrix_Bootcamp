@@ -17,4 +17,7 @@ public class Prison{
         _capturedPieces.Add(piece);
         // Add Captured Pieces to the prison communities
     }
+    public List<Piece> GetCapturedPieces(){
+        return _capturedPieces;
+    }
 }
