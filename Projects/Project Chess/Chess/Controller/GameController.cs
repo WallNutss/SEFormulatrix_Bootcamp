@@ -143,6 +143,7 @@ public class GameController{
     }
 
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING EXCLUSING FOR KING**/
+    // This is for general status check, will iterate each king in each player side
     public IEnumerable<Coordinate> UtilitiesKingCheckGeneralStatus(){
         foreach (var player in GetPlayersFromList()){
             foreach (var coordinate in UtilitiesKingCheckStatus(player)){
@@ -151,7 +152,7 @@ public class GameController{
         }
     }
 
-
+    // This is for checking if one side of player requesting check status on its own side
     public IEnumerable<Coordinate> UtilitiesKingCheckStatus(IPlayer currentInCheck){
         Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
         IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
@@ -167,6 +168,7 @@ public class GameController{
 
     }
 
+    // This is for checking if king possible move will chain another check status
     public IEnumerable<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer currentInCheck){
         Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
         IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);

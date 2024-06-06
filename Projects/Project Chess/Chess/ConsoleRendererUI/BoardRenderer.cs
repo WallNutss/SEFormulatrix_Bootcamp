@@ -28,8 +28,16 @@ public class BoardRenderer{
                 _ => "N"
             };
         }
-    private static string GetPieceColor(Piece piece)
+
+    private static PlayerType GetPlayer2ColorConnection(Piece piece)
+    {
+        return piece.pieceColor switch
         {
+            ColorType.White   =>    PlayerType.PlayerA,
+            ColorType.Black   =>    PlayerType.PlayerB,
+        };
+    }
+    private static string GetPieceColor(Piece piece){
             return piece.pieceColor switch
             {
                 ColorType.White   =>     "W",
