@@ -67,7 +67,7 @@ public class GameController{
         Piece piece = GetPieceData(player,pieceID);
         UpdatePiecePosition(piece, toPos);
     }
-
+    
     // GameController - Player Function
     public void SwitchPlayerTurn(IPlayer player){
         if(player.playerType == PlayerType.PlayerA){
@@ -91,6 +91,9 @@ public class GameController{
     public IPlayer GetPlayer(IPlayer player){
         return _playersData.GetAllPlayerFromPlayersList().Where(p => p.playerID == player.playerID).First<IPlayer>();
     }
+    public IPlayer GetPlayer(PlayerType playerType){
+        return _playersData.GetAllPlayerFromPlayersList().Where(p => p.playerType == playerType).First<IPlayer>();
+    }
 
     // GameController -  Game State
     public GameStatus GetGameStatus(){
@@ -102,6 +105,13 @@ public class GameController{
     }
     public IPlayer GetCurrentPlayer(){
         return currentPlayer;
+    }
+    public IPlayer GetCurrentOpponentPlayer(IPlayer current){
+        return current.playerType switch{
+            PlayerType.PlayerA => GetPlayer(PlayerType.PlayerB),
+            PlayerType.PlayerB => GetPlayer(PlayerType.PlayerA),
+            _ => null!
+        };
     }
 
 
@@ -127,6 +137,9 @@ public class GameController{
     }
     public Piece GetPieceDataFromLocation(Coordinate location){
         return GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
+    }
+    public void RemovePieceFromData(Piece piece){
+        _playersData.RemovePiece(piece);
     }
 
 

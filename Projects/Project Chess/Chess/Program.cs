@@ -46,16 +46,28 @@ class Program{
                     iterationCount++;
                 }
                 // PossibbleMoves(currentPiece) // Console this output
-                
-                // Console.SetCursorPosition(0, 20);
-                Console.WriteLine("Enter your move (e.g., 2,4):");
-                // Console.SetCursorPosition(0, 21);
-                var moveString = GameController.GetUserInput();
-                Coordinate move = GameController.ConvertStringToIntArrayCoordinate(moveString);
+                bool isValidPossibleMove = false;
+                Coordinate move = null!;
+                while(!isValidPossibleMove){
+                    try{
+                        //Console.SetCursorPosition(0, 20);
+                        Console.WriteLine("Enter your move (e.g., 2,4):");
+                        // Console.SetCursorPosition(0, 21);
+                        var moveString = GameController.GetUserInput();
+                        move = GameController.ConvertStringToIntArrayCoordinate(moveString);
+                        isValidPossibleMove = moves.Any(p => p.ToPos.x == move.x && p.ToPos.y == move.y);
+                        if(!isValidPossibleMove){
+                            Console.WriteLine("Invalid Move!");
+                        }
+                    }catch(Exception e){
+                        Console.WriteLine(e.Message);
+                    }
+                }
 
                 if(controller.UtilitiesIsOccupiedByOpponent(move, currentPiece)){
                     Piece pieceOvertaked = controller.GetPieceDataFromLocation(move);
                     controller.AddPiece2Prison(pieceOvertaked);
+                    controller.RemovePieceFromData(pieceOvertaked);
                     controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
                 }
                 else{
@@ -64,6 +76,8 @@ class Program{
                 
                 isValidMove = true;
             }
+            // Check for Checkmate
+            // Check for Check at the King, if its true, give warning
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
             foreach(Piece pie in controller.GetPiecesFromPrison()){
                 Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");

@@ -130,6 +130,15 @@ public class PlayersData{
             Console.WriteLine($"Piece not found.");
         }
     }
+    public void RemovePiece(Piece piecToRemove){
+        foreach(var player in _playersPieceData){
+            if(player.Value.Remove(piecToRemove)){
+                Console.WriteLine("Piece has been remove from the data!");
+            }
+        }
+        Console.WriteLine("Finish.");
+
+    }
 }
 
 
