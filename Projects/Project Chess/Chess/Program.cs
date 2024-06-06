@@ -86,6 +86,7 @@ class Program{
             foreach(var moveCheck in movesCheck2){
                 Console.WriteLine($"Check2 at : ({moveCheck.x},{moveCheck.y})");
             }
+            // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
             // 
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
             foreach(Piece pie in controller.GetPiecesFromPrison()){

@@ -179,7 +179,7 @@ public class GameController{
                 IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
                 foreach(var mov in eachPieceCurrentPossibleMove){
                     if(mov.ToPos.x == kingmove.ToPos.x && mov.ToPos.y == kingmove.ToPos.y){
-                        Console.WriteLine($"{currentInCheck.name} King is in Check!");
+                        Console.WriteLine($"{currentInCheck.name} King if move to ({kingmove.ToPos.x},{kingmove.ToPos.y})possible move will result in Check!");
                         yield return kingmove.ToPos;
                     }
                 }
