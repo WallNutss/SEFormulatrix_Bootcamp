@@ -78,6 +78,15 @@ class Program{
             }
             // Check for Checkmate
             // Check for Check at the King, if its true, give warning
+            IEnumerable<Coordinate> movesCheck = controller.UtilitiesKingCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
+            foreach(var moveCheck in movesCheck){
+                Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
+            }
+            IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
+            foreach(var moveCheck in movesCheck2){
+                Console.WriteLine($"Check2 at : ({moveCheck.x},{moveCheck.y})");
+            }
+            // 
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
             foreach(Piece pie in controller.GetPiecesFromPrison()){
                 Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");

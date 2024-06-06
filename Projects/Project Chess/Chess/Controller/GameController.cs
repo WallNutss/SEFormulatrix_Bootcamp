@@ -142,6 +142,48 @@ public class GameController{
         _playersData.RemovePiece(piece);
     }
 
+    /** THIS IS UTILITIES FOR BOARD STATE CHECKING EXCLUSING FOR KING**/
+    public IEnumerable<Coordinate> UtilitiesKingCheckGeneralStatus(){
+        foreach (var player in GetPlayersFromList()){
+            foreach (var coordinate in UtilitiesKingCheckStatus(player)){
+                yield return coordinate;
+            }
+        }
+    }
+
+
+    public IEnumerable<Coordinate> UtilitiesKingCheckStatus(IPlayer currentInCheck){
+        Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
+        IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
+        foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
+            IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
+            foreach(var mov in eachPieceCurrentPossibleMove){
+                if(mov.ToPos.x == currentInCheckKing.pos.x && mov.ToPos.y == currentInCheckKing.pos.y){
+                    Console.WriteLine($"{currentInCheck.name} King is in Check!");
+                    yield return mov.ToPos;
+                }
+            }
+        }
+
+    }
+
+    public IEnumerable<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer currentInCheck){
+        Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
+        IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
+        IEnumerable<Move> kingPossibleMoves = currentInCheckKing.GetMoves(currentInCheckKing.pos, this);
+
+        foreach(var kingmove in kingPossibleMoves){
+            foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
+                IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
+                foreach(var mov in eachPieceCurrentPossibleMove){
+                    if(mov.ToPos.x == kingmove.ToPos.x && mov.ToPos.y == kingmove.ToPos.y){
+                        Console.WriteLine($"{currentInCheck.name} King is in Check!");
+                        yield return kingmove.ToPos;
+                    }
+                }
+        }
+        }
+    }
 
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING**/
     public bool UtilitiesIsSquareEmpty(Coordinate location){
