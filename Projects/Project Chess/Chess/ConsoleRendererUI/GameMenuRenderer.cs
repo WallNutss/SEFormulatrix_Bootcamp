@@ -2,21 +2,15 @@ using System;
 
 namespace Chess.Views;
 
-    public class GameMenuRenderer : IComponent
+    public class GameMenuRenderer
     {
         public string ComponentName { get => "Header"; }
-        private string _header;
-
-        public GameMenuRenderer(string Title)
+        public void Invoke(string message)
         {
-
-            _header =
+            string _header =
                     "=============================================\n" +
-                    $"**            {Title}                     **\n" +
+                    $"**            {message}                     **\n" +
                     "=============================================\n";
-        }
-        public void Invoke()
-        {
             Console.WriteLine(_header);
         }
     }

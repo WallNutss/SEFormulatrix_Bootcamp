@@ -32,11 +32,10 @@ public class GameController{
     }
 
     public void PreGameStart(){
-        GameMenuRenderer PreGameViews = new("Pre Game");
-        PreGameViews.Invoke();
+        SetGameStatus(GameStatus.NOT_STARTED);
         InputHelper.InputPlayers().ForEach((IPlayer player)=> SetUserNamePlayer(player));
-        PlayerListView PlayerListView = new(GetPlayersFromList());
-        PlayerListView.Invoke();        
+        PlayerListView PlayerListView = new();
+        PlayerListView.Invoke(GetPlayersFromList());        
     }
 
     public void StartGame(){
@@ -53,7 +52,8 @@ public class GameController{
         return new Coordinate(xy[0],xy[1]);
     }
 
-    public static string GetUserInput(){
+    public static string GetUserInput(string message){
+            Console.WriteLine(message);
             return Console.ReadLine() ?? string.Empty;
     }
     public async Task RefreshBoardAsync(ManualResetEvent stopSignal){
@@ -63,6 +63,7 @@ public class GameController{
         await Task.Delay(500);
         }
     }
+
     public void MovePiece(IPlayer player, Coordinate toPos, int pieceID){
         Piece piece = GetPieceData(player,pieceID);
         UpdatePiecePosition(piece, toPos);
@@ -77,11 +78,16 @@ public class GameController{
             currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerB).First<IPlayer>();
         }
     }
-    public void PossibleMoves(IPlayer player, Piece piece){
+    public IEnumerable<Move> GetPossibleMoves(IPlayer player, int pieceID){
         // return the possible move based on those criteria
+        Piece currentPiece = GetPieceData(player,pieceID);
+        return currentPiece.GetMoves(currentPiece.pos, this);
         // piece.PieceType? return directions
         //  var PossibeMovesPossible move based on those direction ? Return list of Coordinate it can takee
-        Direction one = Direction.moveDirection[DirectionMoveType.North];
+        
+    }
+    public bool IsThisValidPossibleMove(IEnumerable<Move> moves, Coordinate choice){
+        return moves.Any(p => p.ToPos.x == choice.x && p.ToPos.y == choice.y);
     }
     
     public void SetUserNamePlayer(IPlayer player){
@@ -173,13 +179,12 @@ public class GameController{
         Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
         IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
         IEnumerable<Move> kingPossibleMoves = currentInCheckKing.GetMoves(currentInCheckKing.pos, this);
-
         foreach(var kingmove in kingPossibleMoves){
             foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
                 IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
                 foreach(var mov in eachPieceCurrentPossibleMove){
                     if(mov.ToPos.x == kingmove.ToPos.x && mov.ToPos.y == kingmove.ToPos.y){
-                        Console.WriteLine($"{currentInCheck.name} King if move to ({kingmove.ToPos.x},{kingmove.ToPos.y})possible move will result in Check!");
+                        Console.WriteLine($"if {currentInCheck.name} King move to ({kingmove.ToPos.x},{kingmove.ToPos.y}) it possibly will result in Check!");
                         yield return kingmove.ToPos;
                     }
                 }
@@ -218,6 +223,9 @@ public class GameController{
                 return false;
             }
         }
+    }
+    public bool UtiliesAreThereNoPossibleMoves(IEnumerable<Move> moves){
+        return !moves.Any();
     }
     public bool UtilitiesCanMoveTo(Coordinate toPos){
         return UtilitiesIsSquareEmpty(toPos) && UtilitiesIsInsideBoard(toPos);
