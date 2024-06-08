@@ -61,9 +61,9 @@ class Program{
                 while(!isValidPossibleMove){
                     try{
                         //Console.SetCursorPosition(0, 20);
-                        Console.WriteLine("Enter your move (e.g., 2,4):");
+                        // Console.WriteLine("Enter your move (e.g., 2,4):");
                         // Console.SetCursorPosition(0, 21);
-                        var moveString = GameController.GetUserInput();
+                        var moveString = GameController.GetUserInput("Enter your move (e.g., 2,4):");
 
                         if(moveString == "q"){
                             goto REPEATOUTERLOOP;
