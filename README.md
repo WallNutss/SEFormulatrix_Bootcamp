@@ -970,8 +970,28 @@ NLog like this steps
 
 
 
+### 23th Day
+Today let's talk about all kind of design pattern. Human have been in live in civilized manner, where we brick-by-brick together building and working in one task to make it faster and more beautiful. So, our predecessor have build our way into it. Then, many people before us already solve it, so preventing 'reinvent the wheel', design pattern is typically used to build it so in order other people to understand in more efficiently.
+
+There are so many design pattern out there, and with design pattern we can build our code more efficient by following this trail or more organized.
+
+
+| Creational | Structural | Behavioral |
+| ---------- | ---------- | ---------- |
+| Singleton  | Facade     | Iterator   |
+| Prototype  | Proxy      | Observer   |
+| Builder    |            | Mediator   |
+| Factory    |            | State      |
+
+
+So, disclaimer first. This doesn't mean that if we learn this, we have to constraint ourself with following a spesific pattern, rather than that we learn to recognize what is the problem, and may our problem can be solve with the design that commonly appears like above. So may our code or our construction can be improve by this bunch of patterns
+
+<b>Strategy Pattern</b>
 
 
 
+<b>Factory Pattern</b>
 
 
+
+<b>Facade Pattern</b>
