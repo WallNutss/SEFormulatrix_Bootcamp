@@ -37,6 +37,13 @@ class Program{
                 var idRe = GameController.GetUserInput();
                 int idRead = Convert.ToInt32(idRe);
 
+                if(idRead == 4){
+                    IEnumerable<Coordinate> kingMoveCheck = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentPlayer());
+                    foreach(var m in kingMoveCheck){
+                        Console.WriteLine($"Possible Check at ({m.x},{m.y})");
+                    }
+                }
+
                 // Try to calculate the possible Moves
                 Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), idRead);
                 IEnumerable<Move> moves = currentPiece.GetMoves(currentPiece.pos, controller);
@@ -54,6 +61,10 @@ class Program{
                         Console.WriteLine("Enter your move (e.g., 2,4):");
                         // Console.SetCursorPosition(0, 21);
                         var moveString = GameController.GetUserInput();
+
+                        if(moveString == "q"){
+                            goto REPEATOUTERLOOP;
+                        }
                         move = GameController.ConvertStringToIntArrayCoordinate(moveString);
                         isValidPossibleMove = moves.Any(p => p.ToPos.x == move.x && p.ToPos.y == move.y);
                         if(!isValidPossibleMove){
@@ -92,8 +103,8 @@ class Program{
             foreach(Piece pie in controller.GetPiecesFromPrison()){
                 Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");
             }
+        REPEATOUTERLOOP : continue;
         }
-
     }
 
     private static async Task AnimateLoading(string message, int durationSeconds){

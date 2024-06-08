@@ -18,6 +18,17 @@ public class Coordinate : IPosition{
         Console.WriteLine("Get Adjacent of the Square? What is this function?");
     }
 
+    public override bool Equals(object obj){
+        if (obj is Coordinate other){
+            return x == other.x && y == other.y;
+        }
+        return false;
+    }
+
+    public override int GetHashCode(){
+        return HashCode.Combine(x, y);
+    }
+
     public static bool operator ==(Coordinate left, Coordinate right){
         return EqualityComparer<Coordinate>.Default.Equals(left,right);
     }
