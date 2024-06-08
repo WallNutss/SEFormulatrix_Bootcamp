@@ -14,16 +14,18 @@ class Program{
     static void Main(){
         // Constructing the player default data positions, starting with the coordinates
         GameController controller = new();
+        GameMenuRenderer GameMenuViews = new();
         
         controller.PreGameStart();
+        GameMenuViews.Invoke($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
+
         controller.StartGame();
 
-        // AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",10).Wait();
+        // AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",2).Wait();
 
         while(controller.GetGameStatus() == GameStatus.GAME_START){
             // Console.Clear();
-            GameMenuRenderer StartGameViews = new($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
-            StartGameViews.Invoke();
+            GameMenuViews.Invoke($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
 
             controller.board.PrintBoard(controller.GetPlayerPieceCollection()); 
             Console.WriteLine($"{AddColor.Message($"{controller.GetCurrentPlayer().name}'s",controller.GetCurrentPlayer().playerType)} turn");
@@ -34,10 +36,7 @@ class Program{
 
             bool isValidMove = false;
             while(!isValidMove){
-                // Console.SetCursorPosition(0, 18);
-                Console.WriteLine("Enter the ID pieces you want to move (e.g., 1):");
-                // Console.SetCursorPosition(0, 19);
-                var idRe = GameController.GetUserInput();
+                var idRe = GameController.GetUserInput("Enter the ID pieces you want to move (e.g., 1):");
                 int idRead = Convert.ToInt32(idRe);
                 
                 if(idRead == 4){
@@ -70,7 +69,8 @@ class Program{
                             goto REPEATOUTERLOOP;
                         }
                         move = GameController.ConvertStringToIntArrayCoordinate(moveString);
-                        isValidPossibleMove = moves.Any(p => p.ToPos.x == move.x && p.ToPos.y == move.y);
+
+                        isValidPossibleMove = controller.IsThisValidPossibleMove(moves, move);
                         if(!isValidPossibleMove){
                             Console.WriteLine("Invalid Move!");
                         }
@@ -88,18 +88,14 @@ class Program{
                 else{
                     controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
                 }
-                
-                isValidMove = true;
+                isValidMove = isValidPossibleMove;
             }
             // Check for Checkmate
+            
             // Check for Check at the King, if its true, give warning
-            IEnumerable<Coordinate> movesCheck = controller.UtilitiesKingCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
-            foreach(var moveCheck in movesCheck){
-                Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
-            }
             IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
             foreach(var moveCheck in movesCheck2){
-                Console.WriteLine($"Check2 at : ({moveCheck.x},{moveCheck.y})");
+                Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
             }
             // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
             // This section will be ideal to check wheter the King is unable to run or not
