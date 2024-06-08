@@ -169,22 +169,33 @@ public class GameController{
     }
 
     // This is for checking if king possible move will chain another check status
-    public IEnumerable<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer currentInCheck){
+    public List<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer currentInCheck){
         Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
         IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
         IEnumerable<Move> kingPossibleMoves = currentInCheckKing.GetMoves(currentInCheckKing.pos, this);
-
+        List<Coordinate> kingInDangerMoves = new List<Coordinate>();
         foreach(var kingmove in kingPossibleMoves){
             foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
                 IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
                 foreach(var mov in eachPieceCurrentPossibleMove){
                     if(mov.ToPos.x == kingmove.ToPos.x && mov.ToPos.y == kingmove.ToPos.y){
-                        Console.WriteLine($"{currentInCheck.name} King if move to ({kingmove.ToPos.x},{kingmove.ToPos.y})possible move will result in Check!");
-                        yield return kingmove.ToPos;
+                        // Console.WriteLine($"{currentInCheck.name} King if move to ({kingmove.ToPos.x},{kingmove.ToPos.y})possible move will result in Check!");
+                        // yield return kingmove.ToPos;
+                        kingInDangerMoves.Add(kingmove.ToPos);
                     }
                 }
+            }
         }
+        return kingInDangerMoves;
+    }
+    public bool UtilitiesCheckCheckmateStatus(IEnumerable<Move> kingMoves, List<Coordinate> kingMoveCheck){
+        List<Coordinate> kingMovesList =  new List<Coordinate>();
+        foreach(var km in kingMoves){
+            kingMovesList.Add(km.ToPos);
         }
+
+        return kingMovesList.SequenceEqual(kingMoveCheck);
+
     }
 
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING**/

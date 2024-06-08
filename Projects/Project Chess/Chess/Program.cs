@@ -29,6 +29,9 @@ class Program{
             Console.WriteLine($"{AddColor.Message($"{controller.GetCurrentPlayer().name}'s",controller.GetCurrentPlayer().playerType)} turn");
 
             // Demo just try move something
+            List<Coordinate> kingMoveCheck = null!;
+            IEnumerable<Move> moves = null!;
+
             bool isValidMove = false;
             while(!isValidMove){
                 // Console.SetCursorPosition(0, 18);
@@ -36,22 +39,23 @@ class Program{
                 // Console.SetCursorPosition(0, 19);
                 var idRe = GameController.GetUserInput();
                 int idRead = Convert.ToInt32(idRe);
-
+                
                 if(idRead == 4){
-                    IEnumerable<Coordinate> kingMoveCheck = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentPlayer());
+                    kingMoveCheck = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentPlayer()).Distinct().ToList();
                     foreach(var m in kingMoveCheck){
-                        Console.WriteLine($"Possible Check at ({m.x},{m.y})");
+                        Console.WriteLine($"{controller.GetCurrentPlayer().name} King if move will be a Possible Check at ({m.x},{m.y})");
                     }
                 }
 
                 // Try to calculate the possible Moves
                 Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), idRead);
-                IEnumerable<Move> moves = currentPiece.GetMoves(currentPiece.pos, controller);
+                moves = currentPiece.GetMoves(currentPiece.pos, controller);
                 int iterationCount = 0;
                 foreach(var s in moves){
                     Console.WriteLine($"Move {iterationCount}: Pos=({s.ToPos.x},{s.ToPos.y})");
                     iterationCount++;
                 }
+                
                 // PossibbleMoves(currentPiece) // Console this output
                 bool isValidPossibleMove = false;
                 Coordinate move = null!;
@@ -98,7 +102,17 @@ class Program{
                 Console.WriteLine($"Check2 at : ({moveCheck.x},{moveCheck.y})");
             }
             // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
-            // 
+            // This section will be ideal to check wheter the King is unable to run or not
+            
+            List<Coordinate> kingMoveChecks = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer())).Distinct().ToList();
+
+            Piece KingOpponentPiece = controller.GetPieceData(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()), 4);
+            IEnumerable<Move> kingMoves = KingOpponentPiece.GetMoves(KingOpponentPiece.pos, controller);
+
+            bool checkmate = controller.UtilitiesCheckCheckmateStatus(kingMoves,kingMoveChecks);
+            Console.WriteLine($"Checkmate? {checkmate}");
+
+            // So before I switch current Player, I need to check the current game status
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
             foreach(Piece pie in controller.GetPiecesFromPrison()){
                 Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");
