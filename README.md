@@ -980,8 +980,8 @@ There are so many design pattern out there, and with design pattern we can build
 | ---------- | ---------- | ---------- |
 | Singleton  | Facade     | Iterator   |
 | Prototype  | Proxy      | Observer   |
-| Builder    |            | Mediator   |
-| Factory    |            | State      |
+| Builder    | Adapter    | Mediator   |
+| Factory    | Bridge     | State      |
 
 
 So, disclaimer first. This doesn't mean that if we learn this, we have to constraint ourself with following a spesific pattern, rather than that we learn to recognize what is the problem, and may our problem can be solve with the design that commonly appears like above. So may our code or our construction can be improve by this bunch of patterns
@@ -990,8 +990,263 @@ So, disclaimer first. This doesn't mean that if we learn this, we have to constr
 
 
 
-<b>Factory Pattern</b>
+<b>Factory Pattern</b>  
+From a book of 'Head First Design Pattern' define Factory mathod as
+```
+defines an interface for creating an object, but let's subclassed decided which class to instantiate
+```
+
+So, I hope I get it right, So with Factory Method pattern, we <u>set aside</u> our responsibilites of creating <u>new</u> object to another subclass or other class. In nutshell, we still need to store those object somewhere, but the <u>instantiation</u> responsibilites will be shifted elswhere. So like this
+
+```csharp
+// So instead of this
+Person manager = new("Magoda",31);
+// We do this
+Person manager = PeopleFactory.CreateManger("Magoda", 31);
+
+// Where....
+public PeopleFactory{
+    CreateManager(string name, int age){
+        peopleType type = peopleType.Manager;
+        return new Manager(name, age, type);
+    }
+}
+```
+
+But hey? Isnt it just old plain encapsulation?  
+A : it is true (in my tiny knowledge)
+
+But let's think about this way. Suppose you want a shoe. Of course you want a brand <u>new</u> shoes. You know you need a sol, a leather, and bunch of ties and string to make one of those.  
+```csharp
+.... want shooes = new Shoes(leather sol, ties)
+```
+But you just know the abstraction of it, do you know how much leather will be needed to make those shose? or how long the string will be? Sometimes, <u>instantiation</u> is better off the foreground and be managed by special class for creating those shoes. Thats why, factory pattern fill those requirements because we want to make shoees where we need some kind of logic or calculation before we create those shoes! Rather than put all that like this
+```csharp
+LeatherType type = LeatherType.Animal
+int SolLength;
+if(type == LeatherType.Animal){
+    SolLength = 10;
+}
+Shoes myShoes = new Shoes(type, SolLength)
+```
+
+Instead, We can make a special class with job functioning create those classes for us
+```csharp
+// I want leather shoes, but Joey want Vegetation shoes, no prob!
+Shoes myShoes = ShoesFactory.CreateShoes(LeatherType.Animal);
+Shoes JoeyShoes = ShoesFactory.CreateShoes(LeatherType.Vegetation);
+
+// Where
+public ShoesFactory{
+    CreateShoes(LeatherType type){
+        switch(type){
+            case LeatherType.Animal:
+                int solLength = 10;
+                int tiesLength = 20;
+                return new ShoesAnimal(solLength, tiesLength);
+            case LeatherType.Vegetation:
+                int solLength = 40;
+                int tiesLength = 5;
+                return new ShoesVegetation(solLength, tiesLength);
+        }
+    }
+}
+```
+
+So I think there it is for the Factory Pattern, in [here](./Day%2023/FactoryPattern/) I have build some example of creating pieces for Chess in the patter of a Factory. While I do recognize the benefits of Factory pattern is in my opinion is to be having a <u>centralized</u> class creation, I think the cons of this it will be create more complexicity to the program when it comes to create a class. Some of them include a question, what happen if I need this class and there is no much logic here, Do I need to encapsulated it again in the factory? Isn't it bit waste of resources?
+
+Anyways here's the general class UML diagram of the Factory Pattern
+```mermaid
+classDiagram
+    IPieceFactory <|.. PieceFactory : Implementation
+    IShoes <|.. ShoesAnimal : Implementation
+    IShoes <|.. ShoesVegetation : Implementation
+    PieceFactory *-- ShoesAnimal : Composite
+    PieceFactory *-- ShoesVegetation : Composite
+    
+
+    class IPieceFactory{
+        <<interface>>
+        CreateLeather() Shoes
+        CreateVegetation() Shoes
+        CreateShoes(LeatherType type) Shoes
+    }
+    class PieceFactory{
+        CreateLeather() Shoes
+        CreateVegetation() Shoes
+        CreateShoes(LeatherType type) Shoes
+    }
+
+    class IShoes{
+        <<interface>>
+        int SolLength ~get; set;~
+        int tiesLength ~get; set;~
+        LeatherType leatherType
+    }
+    class ShoesAnimal{
+        int SolLength ~get; set;~
+        int tiesLength ~get; set;~
+        LeatherType leatherType
+        Shoesleather()
+    }
+    class ShoesVegetation{
+        int SolLength ~get; set;~
+        int tiesLength ~get; set;~
+        LeatherType leatherType
+        Shoesleather()
+    }
+```
+
+I leave it to you again, myself future and you, another reader.
+
+<b>Facade Pattern</b>  
+Ok now lets move on to Facade Design Pattern. Facade Design pattern is a structural pattern, so what that means is how we structure the code of our program to look like. From a book of 'Head First Design Pattern' define Facade Pattern as
+```
+Provides a unified interface to a set of interface in a subsystem. Facade defines a higher-level interface that makes the subsystem easier to use
+```
+
+So bear with me. So, a facade design pattern provides us, a more high-level abstraction view or more general view of the system to interact with rather the complete system. So in a nutshell, maybe our program has a lot of subclasses of subprogram need to be run in order to make our function of the program, maybe do a then b, but before b you need c. So we can replace those function rather calling it one-by-one, we can make <u>high level abstraction</u> where we combine those subclasses into one single face or a <u>facade</u>.
+
+Not impressed or believe me yet? Ok let's start with a dumb idea. Lets say, we as an Electrical Engineer have build a advance robot to cook us a Fried Rice(yes I knowwwww this is an outdated version, bear with me). We have calculated and make cool things, like robot need to prepare the ingredients, then the robot need to prepare the tools like heating the pan, wash the tools, and the robot need to cook the ingredients in approtiate time and manner. Okay cool, but here's the thing. All those 3 things need to be <u>started</u> or called, right? In order to make delicious fried rice by robot, we need to <u>manually</u> each set those three subsystem on sequentially to make this work! So first the robot need to get the Ingrediaents, then chopping up the carrots, weight the rice, and then it need to heat the pan, apply butter/oil, set the heat to approtiate manner, etc. We need to called those action one-by-one!
+
+```csharp
+public Program{
+    static void Main(){
+
+    }
+}
+
+public RobotPrepareIngredients{
+        Oil oil;
+    public void RobotSetIngredients(){
+        Oil oil = 10 //ml
+        // do
+    }
+    public void RobotGetIngredients(){
+        // do
+    }
+    public void RobotWashIngredients(){
+        // do
+    }
+}
+public RobotPrepareTools{
+    public void RobotSetTools(){
+        // do
+    }
+    public void RobotHeatingPan(Oil oil){
+        // do
+    }
+}
+public RobotCookFriedRice{
+    public void RobotCook(){
+        // do
+    }
+    public void RobotPutIngredientToPan(){
+        // do
+    }
+    public void RobotPutSeasoningsToPan(){
+        // do
+    }
+}
+```
+
+So it's a lot of work! Because we have programmed the robot, why we need to know all of that to just cook a rice? What if our robot got famous, and someone want to buy our robot? So, thats why a facade pattern exist. How about we make a general instruction to interact with so our customer doesnt have to deal all above? That's why, with just of an click, the program will tell the robot what it need to do! The clients will just need to know when to Start and when to Stop, and let the program calculate it for us. This is life stress free.
+
+So let us again go back to our previous example of Chess. Let say we want to build a chess. But we want this chess to be adaptive! We want them to be able to be called in any system. That means, we need to build some sort like an API or a like a facade to have a simple interface to deal with rather than all of that. For the sake of simplicty, let's just use one facade and 3 main subsystem, which is The Factory, The Prison, and The data. So, I want a simple interface that can start dividing the pieces, where it stored the data to the list, and I can add or get info the piece I sent to the prison. Where we can simulate the `program.cs` as our facade caller and `gameControl.cs` act as a facade.
+
+
+```csharp
+public Program{
+    static void Main(){
+        GameControl gameFacade = new();
+
+        // Getting list based color? No need to interact with factory
+        // Just throgh facade
+        List<Piece> BlackPieces = gameFacade.GetPieces(ColorType.Black);
+
+        // Save the data?
+        gameFacade.SaveData(BlackPieces);
+
+        // Send id to prison?
+        Piece GetCurrentPiece = gameFacade.GetPieceInformation(id);
+        gameFacade.SendToPrison(GetCurrentPiece);
+    }
+}
+```
+
+So thats it, like above all the subclasses of FactoryClassPiece, Data Class, and Prison Class functionality has been reorganized in the facade, so we just need to called it and the facade will do the rest. For further illustration, here are the class UML diagram for it
+
+```mermaid
+classDiagram
+    Piece <|.. Pawn : Implementation
+    Piece <|.. Knight : Implementation
+
+    PieceFactory *-- Pawn : Composite
+    PieceFactory *-- Knight : Composite
+
+    Knight "1" *-- "16" Coordinate : Composite
+    Pawn "1" *-- "16" Coordinate : Composite
+
+    Prison *-- Piece : Composite
+    DataPieces *-- Piece : Composite
+
+    GameControl *-- PieceFactory : Composite
+    GameControl *-- DataPieces : Composite
+    GameControl *-- Prison : Composite
+
+    class GameControl{
+        GameControl()
+        +SetPiecesForEachPlayer(ColorType) void
+        +SaveWhitePlayerPieces(List~Piece~) void
+        +SaveBlackPlayerPieces(List~Piece~) void
+        +RemoveWhitePieceFromData(Piece) void
+        +RemoveBlackPieceFromData(Piece) void
+        +GetPieceInformation(ColorType) List~Piece~
+        +GetWhitePieceInformation(int id) Piece
+        +GetBlackPieceInformation(int id) Piece
+        +AddPieceToPrison(Piece piece) void
+        +RemovePieceFromPrison(Piece piece) void
+    }
+    class PieceFactory{
+        MakeConcretePawn() Piece
+        MakeConcreteKnight() Piece
+        MakePieces(ColorType color) List~Piece~
+    }
+    class Piece{
+        <<abstract>>
+        pieceID
+        PieceType pieceType
+        IPosition Position
+    }
+    class Pawn{
+        pieceID
+        PieceType pieceType
+        IPosition Position
+        + GetInfoPiece() Piece
+    }
+    class Knight{
+        pieceID
+        PieceType pieceType
+        IPosition Position
+        + GetInfoPiece() Piece
+    }
+
+    class Prison{
+        _capturedPieces List~Piece~
+    }
+    class DataPieces{
+        _playerWhitePieces List~Piece~
+        _playerBlackPieces List~Piece~
+    }
+    class Coordinate{
+        x int
+        y int
+        +GetHashCode() int
+    }
+```
+  
+    
+yeah as you can see, under the Game Control, there are commplicated things such as design factory pieces, we can call it through facade. so that's it, hope it helps a bit. You can see the example of the code [here](./Day%2023/FacadePattern/). See you again next time!
 
 
 
-<b>Facade Pattern</b>
