@@ -502,6 +502,9 @@ flowchart LR
     A --> C["CLR(Common Language Runtime)"]
     C --> D["GC(Garbage collector)"]
     B --> E["Dll"]
+    D --> F["Mark"]
+    D --> G["Sweep"]
+    D --> H["Compact"]
 ```
 
 GC triggers automatically if program memory cross the thresshold systme internally set. So before GC will run, all objects will have tagged of Gen 0. But GC can be resource intensive because when GC run, it will freeze the world and can negatively impact the performance of the program. 
@@ -1249,4 +1252,30 @@ classDiagram
 yeah as you can see, under the Game Control, there are commplicated things such as design factory pieces, we can call it through facade. so that's it, hope it helps a bit. You can see the example of the code [here](./Day%2023/FacadePattern/). See you again next time!
 
 
+### 25th Day
+Today we re-learn about Disposable, Unmanaged Resources, and another topics. So this is what I want to build it again
 
+so lets say we have this code
+```csharp
+static void Main(){
+    using(FileStream fileStream1 = File.OpenRead("./text1.txt")){
+    byte[] bytes = new byte[24];
+    UTF8Encoding tmp = new UTF8Encoding(true);
+    int readLine;
+    while((readLine = fileStream1.Read(bytes,0,bytes.Length))>0){
+        Console.WriteLine("=========================================================================");
+        Console.WriteLine(tmp.GetString(bytes,0,readLine));
+        Console.WriteLine("=========================================================================");
+    }
+    }
+}
+```
+with sugar syntax 'using', using will automatically call by default the method of `Dispose` that Filestream already have. So it is more safe to use syntax using when handling an Unmanaged Resources such as in this example, is FileStream.
+
+```csharp
+Log.Info($"{Player} has move to {position}"); // This is string interpolation log
+Log.Info("{Player} has move to {position}", Player, position); // This is structured logging
+```
+
+
+Then lets talk about ASP.NET
