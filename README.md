@@ -977,7 +977,7 @@ Today we gonna learn about Entity Framework. So what is this creature? So accord
 Entity Framework (EF) is an object-relational mapper that enables .NET developers to work with relational data using domain-specific objects. It eliminates the need for most of the data-access code that developers usually need to write.
 ```
 
-So, from the definition above, EF is C# thing where we define a class as the exact clone framework of the database mapped to the class object in the C# program. With Entity framework, we save the data into the quaryable object in the C# program. So we do not need to know about the query languange of the database can use the Entity framework to Create,Read,Update, and Delete data from/to database. So, in order to use an Entity Framework, we need to do something first.
+So, from the definition above, EF is C# thing where we define a class as the exact clone framework of the database mapped to the class object in the C# program. With Entity framework, we save the data into the quaryable object in the C# program. So we do not need to know about the query languange of the database. Instead we can use the Entity framework to Create,Read,Update, and Delete data from/to database. So, in order to use an Entity Framework, we need to do something first.
 
 First we need to install the necessary pacakge to connect from our C# program to the database. Thankfully, C# Microsoft already provides tons of package/API to connect to various database such as SQLite, SQL Server, PostgreSQL, NoSQL, and etc. To have this pacakge we must install them first into our projects. So go to your path folder projects and type this. In this case, I'm in `.\Day 22\EntityFramework`
 
@@ -993,7 +993,7 @@ Ok so because we know that we want to use database format sqlite3, we need to in
 Because the [database](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/northwindextended/Northwind.Sqlite3.sql) are still in their sql script file as you can see the name is `Northwind.Sqlite3.sql` not `Northwind.db` we need to <u>build</u> the database first to actually use them in their actual format. So still in our workstation because I put the database there, we can type in the terminal
 
 ```bash
-sqlite3 "Database Name.format" --init "Location of the Database"
+sqlite3 "Database Name.format" --init "Location of the Database script format"
 ```
 So,
 ```bash
@@ -1016,7 +1016,130 @@ So the task is, where we place the program to connect to the database, where to 
 ├── Program.cs (Instantiate databse program so we can use connect() method)
 ```
 
+So lets say we have initialize the database and want to read the tables of Categories. So EF basically how we want to mapped between tables of the database into our newly build object. So lets say I want to access the table of `Categories` in the table of Northwind Database, we shall make the matchmaking of table name `Category.cs`. There are unique point in this one. So in the table of Category in Northwind.db. 
 
+| CategoryID | CategoryName | Description |
+| ---------- | ------------ | ----------- |
+| 1          | Beverages    | Soft Drinks |
+| 2          | Condiments   | Sweet       |
+| 3          | Convections  | Deserts     |
+| etc        | etc          | etc         |
+
+And there is unique point in this case, based on [this](https://erikej.github.io/efcore/2020/04/26/ef-core-pluralization.html), and [this](https://github.com/Humanizr/Humanizer). It said
+```
+EF Core 3 supports pluralization by convention, and allows you to enable and customize it. When pluralization is enabled, you will by convention get pluralized DbSet and navigation property name.
+```
+So, EF will <u>automatically convert</u> pluralization to single names. So those table above are name `Categories`. So when we register our mapped object to our desired tables in this line
+
+```csharp
+public DbSet<Category> Categories {get;set;}
+```
+This DbSet functionality from the EF Core will <u>automatically</u> tried to search the form pluralization of `Category` which is `Categories` that <u>is found</u> in the names of the table found in the sqlite3. So, it will automatically know who is the Primary Key in the tables without us explicitly type it in the program. Just like this.
+
+
+```csharp
+using System;
+
+public class Category{
+    public int CategoryID {get; set;} // The name in the model [MUST] match the name of column in the table database
+    public string? CategoryName {get; set;}
+    public string? Description { get; set; }
+}
+```
+
+But, if in some cases, the table names is an irregular word, the EF Core is not going to work right? Or we want a totally different name model in our object compared to the name of the table. We can use the Data Attribute provided by the C# System Functionality. We also need to explicitly tell the DbSet who is the primary key to also match the database. Just like this
+```csharp
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+[Table("Categories")]
+public class Categories{
+    [Key]
+    public int CategoryID {get; set;} // The name in the model [MUST] match the name of column in the table database
+    public string? CategoryName {get; set;}
+    public string? Description { get; set; }
+}
+```
+
+Just like above, because we want to map it to the table name `Categories`, we define the table namespace using the data annotations. And to define the key of this table, we can use the `[Key]` data annotation just before the field in the question. So in my code, I will adhered the rules and make it just following the recomendation, which is using the Humanizer.
+
+
+Ok So I want to provide of how to CRUD using EF. With the example of it I will try it on the Northwind Database on the categories table. 
+
+<b>Read data</b>
+Ok it's pretty easy actually to read some data of some tables.Because we already build the model of the tabel itself, we can run this type of command to read the spesific table, which is in this case is like this
+
+```csharp
+    using (NorthWind db = new()){
+        // So first we just access the Categories simply
+        // by db.Categories, this will work because we have set it
+        // on the DbContext at the Northwind.cs file
+        List<Category> categories = db.Categories.ToList();
+
+        // Just enumerate them and you done, you can acesss each row of the data by simply category.
+        foreach (var category in categories){
+            Console.WriteLine(category.CategoryName);
+        }
+    }
+```
+
+
+<b>Create/Add data</b>  
+So, to actually need to add new data/row data to the existing column or table, we can do that actually realy the same way as we read the data itself. So the step is actually we tried to acess the data off from the tables, store it on the object in our program, then after that we can staged them in the object db connection then push it to the database to handle. So the code is like this
+
+```csharp
+    using(NorthWind db = new()){
+        // Create new instances of the model
+        Category categories = new();
+        // Hold the data to temp object in the program
+        categories.CategoryName = "Coffee";
+        categories.Description = "Nescafe, Arabica, and Jamaica";
+
+        // Move the data from the object to db object
+        db.Categories.Add(categories);
+
+        // Save or push the data to the database
+        db.SaveChanges();
+        Console.WriteLine("{0} with description of {1} has been added to database!", categories.CategoryName, categories.Description);
+    }
+```
+
+<b>Update data</b>   
+Ok now to actually update a spesific row data inside the tables, the way we do it is really similar of how we want to add a new row data into the tables. The difference is when we store the spesific row data that we want to update, we just can immediately push the data back to the sqlite3 databse after we change the content of the data. This is because the database will handle the rest. So, to update a data, a simple code to do it is like this 
+
+```csharp
+    using(NorthWind db = new()){
+
+    // Try to search particular row that have the name of Produce
+    Category categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Category>();
+    // You can also filter the data using their unique individual ID like this
+    // Category categories = db.Categories.Find(9);
+
+    // Change the data of the particular filter data spesific
+    categories.Description = "This Warminod is getting edited";
+
+    // Update the data, no need to like db.Categories.Add / any syntax that has the same meaning like db.Categories.Update
+    // Just push it immediately
+    db.SaveChanges();
+}
+```
+
+<b>Delete data</b>  
+While we have smooth run on the CRU(Create, Read, Update), it is not so easy when Deleting Data from the Database especially when it come to SQL. SQL have this concept Primary Key and Foreign key where spesifically with Foreign Key, we can use another tables as a value refeence to other some tables. So, if the tables we want to talk about for this example the `Categories`, where the CategoryID was used as FOREIGN KEy in another tables, we need also to delete other row data that used the CategoryID as their value. So it is a little bit tricky and I will update this docs ooce I found how to do it, because now I'm stuck
+
+So, lets contine with Database First, then Code First. or should I say DataFirstCodeFirst. For building database from ground zero in C#, there are three main package that we need to make it happens, which is
+```csharp
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Sqlite;
+using Microsoft.EntityFrameworkCore.Design;
+```
+
+So now go sucker and download three of them
+```bash
+dotnet-ef migrations add "commit message"
+dotnet-ef database update
+```
 
 
 ### 23th Day
