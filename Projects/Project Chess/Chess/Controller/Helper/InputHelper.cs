@@ -25,8 +25,5 @@ public static class InputHelper{
 
 
         return new List<IPlayer> { Player1, Player2 };
-    }
-    // public static void<T> InputGeneral(){
-
-    // }
+    }   
 }

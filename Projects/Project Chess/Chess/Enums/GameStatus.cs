@@ -8,5 +8,6 @@ public enum GameStatus{
     GAME_START,
     GAME_PLAYING,
     GAME_FINISHED,
+    GAME_STALEMATE,
     None,
 }

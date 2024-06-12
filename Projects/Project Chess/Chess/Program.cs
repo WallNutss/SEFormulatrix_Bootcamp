@@ -8,6 +8,7 @@ using Chess.GameControl;
 using Chess.Render;
 using Chess.Views;
 using Chess.Pieces;
+using Chess.GameControl.Helper;
 
 
 class Program{
@@ -20,7 +21,6 @@ class Program{
         GameMenuViews.Invoke($"{controller.GetGameStatus().ToString().Replace('_',' ')}");
 
         controller.StartGame();
-
         // AnimateLoading($"{controller.GetGameStatus().ToString().Replace('_',' ')}",2).Wait();
 
         while(controller.GetGameStatus() == GameStatus.GAME_START){
@@ -36,10 +36,9 @@ class Program{
 
             bool isValidMove = false;
             while(!isValidMove){
-                var idRe = GameController.GetUserInput("Enter the ID pieces you want to move (e.g., 1):");
-                int idRead = Convert.ToInt32(idRe);
-                
-                if(idRead == 4){
+                int IDRead = ConsoleInformation.GetUserInput("Enter the ID pieces you want to move (e.g., 1):").ConvertStringToInt();
+
+                if(IDRead == 4){
                     kingMoveCheck = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentPlayer()).Distinct().ToList();
                     foreach(var m in kingMoveCheck){
                         Console.WriteLine($"{controller.GetCurrentPlayer().name} King if move will be a Possible Check at ({m.x},{m.y})");
@@ -47,7 +46,7 @@ class Program{
                 }
 
                 // Try to calculate the possible Moves
-                Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), idRead);
+                Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), IDRead);
                 moves = currentPiece.GetMoves(currentPiece.pos, controller);
                 int iterationCount = 0;
                 foreach(var s in moves){
@@ -60,15 +59,11 @@ class Program{
                 Coordinate move = null!;
                 while(!isValidPossibleMove){
                     try{
-                        //Console.SetCursorPosition(0, 20);
-                        // Console.WriteLine("Enter your move (e.g., 2,4):");
-                        // Console.SetCursorPosition(0, 21);
-                        var moveString = GameController.GetUserInput("Enter your move (e.g., 2,4):");
-
-                        if(moveString == "q"){
+                        var moveInput = ConsoleInformation.GetUserInput("Enter your move (e.g., 2,4):\nType'q' to escape and pick new piece!");
+                        if(moveInput == "q"){
                             goto REPEATOUTERLOOP;
                         }
-                        move = GameController.ConvertStringToIntArrayCoordinate(moveString);
+                        move = moveInput.ConvertStringToCoordinate();
 
                         isValidPossibleMove = controller.IsThisValidPossibleMove(moves, move);
                         if(!isValidPossibleMove){
@@ -80,37 +75,39 @@ class Program{
                 }
 
                 if(controller.UtilitiesIsOccupiedByOpponent(move, currentPiece)){
-                    Piece pieceOvertaked = controller.GetPieceDataFromLocation(move);
-                    controller.AddPiece2Prison(pieceOvertaked);
-                    controller.RemovePieceFromData(pieceOvertaked);
-                    controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
+                    Piece capturedPiece = controller.GetPieceDataFromLocation(move);
+                    controller.PieceCapture(currentPiece, capturedPiece);
                 }
                 else{
-                    controller.MovePiece(controller.GetCurrentPlayer(), move, idRead);
+                    controller.MovePiece(currentPiece, move);
                 }
                 isValidMove = isValidPossibleMove;
             }
             // Check for Checkmate
-            
-            // Check for Check at the King, if its true, give warning
-            IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
-            foreach(var moveCheck in movesCheck2){
-                Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
-            }
-            // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
-            // This section will be ideal to check wheter the King is unable to run or not
-            
-            List<Coordinate> kingMoveChecks = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer())).Distinct().ToList();
+            controller.CheckmateManagerSytemAssesor();
 
-            Piece KingOpponentPiece = controller.GetPieceData(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()), 4);
-            IEnumerable<Move> kingMoves = KingOpponentPiece.GetMoves(KingOpponentPiece.pos, controller);
 
-            bool checkmate = controller.UtilitiesCheckCheckmateStatus(kingMoves,kingMoveChecks);
-            Console.WriteLine($"Checkmate? {checkmate}");
+            Console.ReadKey();
+            
+            // // Check for Check at the King, if its true, give warning
+            // IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
+            // foreach(var moveCheck in movesCheck2){
+            //     Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
+            // }
+            // // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
+            // // This section will be ideal to check wheter the King is unable to run or not
+            
+            // List<Coordinate> kingMoveChecks = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer()).Distinct().ToList();
+
+            // Piece KingOpponentPiece = controller.GetPieceData(controller.GetCurrentOpponentPlayer(), 4);
+            // IEnumerable<Move> kingMoves = KingOpponentPiece.GetMoves(KingOpponentPiece.pos, controller);
+
+            // bool checkmate = controller.UtilitiesCheckCheckmateStatus(kingMoves,kingMoveChecks);
+            // Console.WriteLine($"Checkmate? {checkmate}");
 
             // So before I switch current Player, I need to check the current game status
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
-            foreach(Piece pie in controller.GetPiecesFromPrison()){
+            foreach(Piece pie in controller.GetListPieceFromPrison()){
                 Console.WriteLine($"Piece : {pie.piecesType}, ID : {pie.pieceID}");
             }
         REPEATOUTERLOOP : continue;
