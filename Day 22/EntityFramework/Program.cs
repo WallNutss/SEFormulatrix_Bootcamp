@@ -1,5 +1,8 @@
-﻿class Program {
+﻿using Microsoft.EntityFrameworkCore;
+
+class Program {
     static void Main() {
+        // Test Connection to the Database
         using (NorthWind db = new()){
             bool isActive = db.Database.CanConnect();
             Console.WriteLine(isActive);
@@ -9,7 +12,7 @@
             }
 
         }
-
+        // Accesing another tables which is the Regions
         using (NorthWind db = new()){
             List<Regions> regions = db.Regions.ToList();
             foreach (var region in regions){
@@ -18,55 +21,56 @@
 
         }
 
-        // // Try to create individual data
+        // Try to create individual data
         // using(NorthWind db = new()){
-        //     Categories categories = new();
+        //     Category categories = new();
         //     // Hold the data to temp object in the program
-        //     categories.CategoryName = "Warmindo";
-        //     categories.Description = "Warung Bu Yayuk is the best, Makan ayam bakar";
+        //     categories.CategoryName = "Coffee";
+        //     categories.Description = "Nescafe, Arabica, and Jamaica";
 
         //     // Move the data from the object to db object
         //     db.Categories.Add(categories);
 
         //     // Save the data
         //     db.SaveChanges();
-
-        //     // what is the difference between those two?
+        //     Console.WriteLine("{0} with description of {1} has been added to database!", categories.CategoryName, categories.Description);
         // }
         
         // Try to update some data from the name
         //     using(NorthWind db = new()){
 
-        //     Try to search particular row that have the name of Produce
-        //     Categories categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Categories>();
+        //     // Try to search particular row that have the name of Produce
+        //     Category categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Category>();
 
-        //     Change the data of the particular filter data spesific
+        //     // Change the data of the particular filter data spesific
         //     categories.Description = "This Warminod is getting edited";
 
-        //     Update the data
+        //     // Update the data
         //     db.SaveChanges();
         // }
 
         // // Try to find spesific categories data through ID
         // using(NorthWind db = new()){
-        //     Categories categories = db.Categories.Find(9);
+        //     Category categories = db.Categories.Find(9);
 
         //     // Try to console it
-        //     Console.WriteLine($"Categorie name : {categories.CategoryName}, ID : {categories.CategoryId}, Description : {categories.Description}");
+        //     Console.WriteLine($"Categorie name : {categories.CategoryName}, ID : {categories.CategoryID}, Description : {categories.Description}");
         // }
 
-        // Try to delete some data, I'll try to delete Warmindo again
-        // using(NorthWind db = new()){
+        // Try to delete some data row category, I'll try to delete Warmindo again
+        using(NorthWind db = new()){
 
-        //     // Try to search particular row that have the name of Produce
-        //     Categories categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Categories>();
-
-        //     // Temporarly hold the queries
-        //     db.Remove(categories);
-
-        //     // Update the data
-        //     db.SaveChanges();
-        // }
+            // Try to search particular row that have the name of Produce
+            Category? category = db.Categories.FirstOrDefault(c => c.CategoryID == 15);
+        
+            if (category != null){
+                db.Categories.Remove(category);
+                db.SaveChanges();
+                Console.WriteLine("Data Category Has been Deleted");
+            }
+            // Update the data
+            db.SaveChanges();
+        }
 
 
     }

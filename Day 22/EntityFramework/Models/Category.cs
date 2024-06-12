@@ -5,4 +5,7 @@ public class Category{
     public int CategoryID {get; set;} // The name in the model [MUST] match the name of column in the table database
     public string? CategoryName {get; set;}
     public string? Description { get; set; }
+
+    // To declare the relation between each model/tables in the database
+    public ICollection<Products>? Products {get;set;}
 }
