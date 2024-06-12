@@ -971,6 +971,52 @@ NLog like this steps
     }
     ```
 
+### 22th Day
+Today we gonna learn about Entity Framework. So what is this creature? So according Bill Gates Microsoft
+```
+Entity Framework (EF) is an object-relational mapper that enables .NET developers to work with relational data using domain-specific objects. It eliminates the need for most of the data-access code that developers usually need to write.
+```
+
+So, from the definition above, EF is C# thing where we define a class as the exact clone framework of the database mapped to the class object in the C# program. With Entity framework, we save the data into the quaryable object in the C# program. So we do not need to know about the query languange of the database can use the Entity framework to Create,Read,Update, and Delete data from/to database. So, in order to use an Entity Framework, we need to do something first.
+
+First we need to install the necessary pacakge to connect from our C# program to the database. Thankfully, C# Microsoft already provides tons of package/API to connect to various database such as SQLite, SQL Server, PostgreSQL, NoSQL, and etc. To have this pacakge we must install them first into our projects. So go to your path folder projects and type this. In this case, I'm in `.\Day 22\EntityFramework`
+
+```bash
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+```
+
+so `Microsoft.EntityFrameworkCore` is the base library for database connection, where because we want to use this [database](https://code.google.com/archive/p/northwindextended/downloads) where the format is sqlite3. We can further donwload the spesific package which is `Microsoft.EntityFrameworkCore.Sqlite`.
+
+Ok so because we know that we want to use database format sqlite3, we need to install some tools to support the visualization and the need of information of it. There are some tools for viewing and building the shematics of this db, which is first we can install sqlite3 terminal cli to our workstation. You can see the sqlite3 tutorial installation [here](https://www.youtube.com/watch?v=L3FwRRx6bqo) for the installation. 
+
+Because the [database](https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/northwindextended/Northwind.Sqlite3.sql) are still in their sql script file as you can see the name is `Northwind.Sqlite3.sql` not `Northwind.db` we need to <u>build</u> the database first to actually use them in their actual format. So still in our workstation because I put the database there, we can type in the terminal
+
+```bash
+sqlite3 "Database Name.format" --init "Location of the Database"
+```
+So,
+```bash
+sqlite3 Northwind.db --init Northwind.Sqlite3.sql
+```
+
+We can also install additional tools in the project workstation like this
+```bash
+dotnet tool install dotnet-ef --global
+```
+
+
+So we all now set, and we can now connect our databse using the original Microsoft database API, which is this `Entity Framework`.
+
+So the task is, where we place the program to connect to the database, where to <u>model</u> our tables in program to match the database. And to combine all of those to connect the databse and having fun with the data. Here the simple structure of the EF.
+
+```
+├── Model (The name of the each column of the table to match the database)
+├── Database (The program to set initial properties to prepare connection to database itself) 
+├── Program.cs (Instantiate databse program so we can use connect() method)
+```
+
+
 
 
 ### 23th Day
