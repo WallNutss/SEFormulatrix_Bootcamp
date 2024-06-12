@@ -8,6 +8,7 @@ using Chess.Pieces;
 using Chess.Views;
 using Chess.GameControl.Helper;
 using Chess.Prisons;
+using Chess.GameControl.GameMechanism;
 using System.IO.Compression;
 
 namespace Chess.GameControl;
@@ -23,14 +24,17 @@ public class GameController{
     public int numOfPiecesPerPlayer = 16;
     public GameStatus gameStatus {get;private set;}
     public ManualResetEvent stopSignal {get;set;}
+    public CheckmateManager checkmateManager;
     public GameController(){
         board = new Board();
         _playersData = new PlayersData();
         prison = new Prison();
         gameStatus = GameStatus.NOT_STARTED;
+        checkmateManager = new CheckmateManager();
         stopSignal = new ManualResetEvent(false);
     }
 
+    // GameController -  Game State
     public void PreGameStart(){
         SetGameStatus(GameStatus.NOT_STARTED);
         InputHelper.InputPlayers().ForEach((IPlayer player)=> SetUserNamePlayer(player));
@@ -46,6 +50,17 @@ public class GameController{
     public void StopGame(){
         SetGameStatus(GameStatus.GAME_FINISHED);
     }
+    public GameStatus GetGameStatus(){
+        return gameStatus;
+    }
+    public void SetGameStatus(GameStatus status){
+        // Console.WriteLine($"Game has been change into {status}");
+        gameStatus = status;
+    }
+
+
+    // Function helper for making it easir, like IO System, Input Console Handler, and 
+    // 
     public static Coordinate ConvertStringToIntArrayCoordinate(string input)
     {
         int[] xy = input.Split(',').Select(int.Parse).ToArray();
@@ -63,63 +78,46 @@ public class GameController{
         await Task.Delay(500);
         }
     }
-
-    public void MovePiece(IPlayer player, Coordinate toPos, int pieceID){
-        Piece piece = GetPieceData(player,pieceID);
-        UpdatePiecePosition(piece, toPos);
-    }
-    
     // GameController - Player Function
-    public void SwitchPlayerTurn(IPlayer player){
-        if(player.playerType == PlayerType.PlayerA){
-            currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerA).First<IPlayer>();
-        }
-        else if(player.playerType == PlayerType.PlayerB){
-            currentPlayer =  GetPlayersFromList().Where(p => p.playerType != PlayerType.PlayerB).First<IPlayer>();
-        }
-    }
-    public IEnumerable<Move> GetPossibleMoves(IPlayer player, int pieceID){
-        // return the possible move based on those criteria
-        Piece currentPiece = GetPieceData(player,pieceID);
-        return currentPiece.GetMoves(currentPiece.pos, this);
-        // piece.PieceType? return directions
-        //  var PossibeMovesPossible move based on those direction ? Return list of Coordinate it can takee
-        
-    }
-    public bool IsThisValidPossibleMove(IEnumerable<Move> moves, Coordinate choice){
-        return moves.Any(p => p.ToPos.x == choice.x && p.ToPos.y == choice.y);
-    }
-    
-    public void SetUserNamePlayer(IPlayer player){
-        GetPlayersFromList().Where(p => p.playerType == player.playerType).First<IPlayer>().SetName(player.name);
-    }
-
-    public IPlayer GetPlayer(IPlayer player){
-        return _playersData.GetAllPlayerFromPlayersList().Where(p => p.playerID == player.playerID).First<IPlayer>();
-    }
     public IPlayer GetPlayer(PlayerType playerType){
         return _playersData.GetAllPlayerFromPlayersList().Where(p => p.playerType == playerType).First<IPlayer>();
     }
-
-    // GameController -  Game State
-    public GameStatus GetGameStatus(){
-        return gameStatus;
-    }
-    public void SetGameStatus(GameStatus status){
-        // Console.WriteLine($"Game has been change into {status}");
-        gameStatus = status;
+    public void SwitchPlayerTurn(IPlayer player){
+        if(player.playerType == PlayerType.PlayerA){
+            currentPlayer =  GetPlayer(PlayerType.PlayerB);
+        }
+        else if(player.playerType == PlayerType.PlayerB){
+            currentPlayer =  GetPlayer(PlayerType.PlayerA);
+        }
     }
     public IPlayer GetCurrentPlayer(){
         return currentPlayer;
     }
-    public IPlayer GetCurrentOpponentPlayer(IPlayer current){
-        return current.playerType switch{
+    public IPlayer GetCurrentOpponentPlayer(){
+        return currentPlayer.playerType switch{
             PlayerType.PlayerA => GetPlayer(PlayerType.PlayerB),
             PlayerType.PlayerB => GetPlayer(PlayerType.PlayerA),
             _ => null!
         };
     }
+    public void SetUserNamePlayer(IPlayer player){
+        GetPlayersFromList().Where(p => p.playerType == player.playerType).First<IPlayer>().SetName(player.name);
+    }
 
+
+
+    // GameController - Pieces Function
+    public void MovePiece(Piece piece, Coordinate toPos){
+        UpdatePiecePosition(piece, toPos);
+    }
+    public IEnumerable<Move> GetPossibleMoves(IPlayer player, int pieceID){
+        // return the possible move based on those criteria
+        Piece currentPiece = GetPieceData(player,pieceID);
+        return currentPiece.GetMoves(currentPiece.pos, this);
+    }
+    public bool IsThisValidPossibleMove(IEnumerable<Move> moves, Coordinate choice){
+        return moves.Any(p => p.ToPos.x == choice.x && p.ToPos.y == choice.y);
+    }
 
     // Method to access the Player Data
     public Dictionary<IPlayer,List<Piece>> GetPlayerPieceCollection(){
@@ -151,57 +149,20 @@ public class GameController{
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING EXCLUSING FOR KING**/
     // This is for general status check, will iterate each king in each player side
     public IEnumerable<Coordinate> UtilitiesKingCheckGeneralStatus(){
-        foreach (var player in GetPlayersFromList()){
-            foreach (var coordinate in UtilitiesKingCheckStatus(player)){
-                yield return coordinate;
-            }
-        }
+        return checkmateManager.UtilitiesKingCheckGeneralStatus(this);
     }
 
     // This is for checking if one side of player requesting check status on its own side
     public IEnumerable<Coordinate> UtilitiesKingCheckStatus(IPlayer currentInCheck){
-        Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
-        IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
-        foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
-            IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
-            foreach(var mov in eachPieceCurrentPossibleMove){
-                if(mov.ToPos.x == currentInCheckKing.pos.x && mov.ToPos.y == currentInCheckKing.pos.y){
-                    Console.WriteLine($"{currentInCheck.name} King is in Check!");
-                    yield return mov.ToPos;
-                }
-            }
-        }
-
+        return checkmateManager.UtilitiesKingCheckStatus(currentInCheck, this);
     }
-
+    
     // This is for checking if king possible move will chain another check status
     public List<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer currentInCheck){
-        Piece currentInCheckKing = GetPieceData(currentInCheck, 4);
-        IPlayer opponentPlayer = GetCurrentOpponentPlayer(currentInCheck);
-        IEnumerable<Move> kingPossibleMoves = currentInCheckKing.GetMoves(currentInCheckKing.pos, this);
-        List<Coordinate> kingInDangerMoves = new List<Coordinate>();
-        foreach(var kingmove in kingPossibleMoves){
-            foreach(Piece piece in GetPlayerPieceCollection()[opponentPlayer]){
-                IEnumerable<Move> eachPieceCurrentPossibleMove = piece.GetMoves(piece.pos, this);
-                foreach(var mov in eachPieceCurrentPossibleMove){
-                    if(mov.ToPos.x == kingmove.ToPos.x && mov.ToPos.y == kingmove.ToPos.y){
-                        // Console.WriteLine($"{currentInCheck.name} King if move to ({kingmove.ToPos.x},{kingmove.ToPos.y})possible move will result in Check!");
-                        // yield return kingmove.ToPos;
-                        kingInDangerMoves.Add(kingmove.ToPos);
-                    }
-                }
-            }
-        }
-        return kingInDangerMoves;
+        return checkmateManager.UtilitiesKingPossibleCheckStatus(currentInCheck, this);
     }
     public bool UtilitiesCheckCheckmateStatus(IEnumerable<Move> kingMoves, List<Coordinate> kingMoveCheck){
-        List<Coordinate> kingMovesList =  new List<Coordinate>();
-        foreach(var km in kingMoves){
-            kingMovesList.Add(km.ToPos);
-        }
-
-        return kingMovesList.SequenceEqual(kingMoveCheck);
-
+        return checkmateManager.UtilitiesCheckCheckmateStatus(kingMoves, kingMoveCheck);
     }
 
     /** THIS IS UTILITIES FOR BOARD STATE CHECKING**/
@@ -213,10 +174,6 @@ public class GameController{
     public bool UtilitiesIsOccupiedByOpponent(Coordinate location, Piece pieceRequester){
         try{
             Piece pieceAtLocation = GetPiecesList().Where(p => p.pos.x == location.x && p.pos.y == location.y).First<Piece>();
-            // Console.WriteLine(pieceAtLocation.pieceColor.ToString() + "," + pieceAtLocation.piecesType.ToString() + "," + pieceAtLocation.pieceID.ToString());
-            // PlayerType playertype = (piece.pieceColor == ColorType.Black) ? PlayerType.PlayerB : PlayerType.PlayerA;
-            // Console.WriteLine(playertype);
-            // int index =  this.playersData.GetListPiece().FindIndex(p => p.pos.x == location.x && p.pos.y == location.y);//  &&  != requester.playerType);
             return pieceRequester.pieceColor != pieceAtLocation.pieceColor ? true : false;
         }catch(Exception){
             return false;
@@ -244,11 +201,17 @@ public class GameController{
     }
 
     // Prison
-    public void AddPiece2Prison(Piece pieceTaken){
-        prison.AddPiece(pieceTaken);
+    public void AddPieceToPrison(Piece capturedPiece){
+        prison.AddPiece(capturedPiece);
+        RemovePieceFromData(capturedPiece);
     }
-    public List<Piece> GetPiecesFromPrison(){
+    public List<Piece> GetListPieceFromPrison(){
         return prison.GetCapturedPieces();
     }
 
+    // Piece Functionality
+    public void PieceCapture(Piece capturingPiece, Piece capturedPiece){
+        MovePiece(capturingPiece, capturedPiece.pos);
+        AddPieceToPrison(capturedPiece);
+    }
 }
