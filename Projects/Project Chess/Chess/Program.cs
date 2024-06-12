@@ -84,22 +84,26 @@ class Program{
                 isValidMove = isValidPossibleMove;
             }
             // Check for Checkmate
-            
-            // Check for Check at the King, if its true, give warning
-            IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
-            foreach(var moveCheck in movesCheck2){
-                Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
-            }
-            // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
-            // This section will be ideal to check wheter the King is unable to run or not
-            
-            List<Coordinate> kingMoveChecks = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer()).Distinct().ToList();
+            controller.CheckmateManagerSytemAssesor();
 
-            Piece KingOpponentPiece = controller.GetPieceData(controller.GetCurrentOpponentPlayer(), 4);
-            IEnumerable<Move> kingMoves = KingOpponentPiece.GetMoves(KingOpponentPiece.pos, controller);
 
-            bool checkmate = controller.UtilitiesCheckCheckmateStatus(kingMoves,kingMoveChecks);
-            Console.WriteLine($"Checkmate? {checkmate}");
+            Console.ReadKey();
+            
+            // // Check for Check at the King, if its true, give warning
+            // IEnumerable<Coordinate> movesCheck2 = controller.UtilitiesKingCheckGeneralStatus();
+            // foreach(var moveCheck in movesCheck2){
+            //     Console.WriteLine($"Check at : ({moveCheck.x},{moveCheck.y})");
+            // }
+            // // controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer(controller.GetCurrentPlayer()));
+            // // This section will be ideal to check wheter the King is unable to run or not
+            
+            // List<Coordinate> kingMoveChecks = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentOpponentPlayer()).Distinct().ToList();
+
+            // Piece KingOpponentPiece = controller.GetPieceData(controller.GetCurrentOpponentPlayer(), 4);
+            // IEnumerable<Move> kingMoves = KingOpponentPiece.GetMoves(KingOpponentPiece.pos, controller);
+
+            // bool checkmate = controller.UtilitiesCheckCheckmateStatus(kingMoves,kingMoveChecks);
+            // Console.WriteLine($"Checkmate? {checkmate}");
 
             // So before I switch current Player, I need to check the current game status
             controller.SwitchPlayerTurn(controller.GetCurrentPlayer());
