@@ -1,0 +1,46 @@
+using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+public class TokoKelontong : DbContext{
+    // Setting up the entity of the models
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    // public DbSet<OrderDetail> OrderDetails { get; set; }
+
+    // Configuring intiial database, where to save it
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
+        optionsBuilder.UseSqlite("Data Source=./kelontong.db");
+    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder){
+        // Building the relation of each DbSet
+        // From microsoft
+        // A DbSet can be used to query and save instances of Customer
+
+        // Model creation of Customer
+        modelBuilder.Entity<Customer>(customer =>{
+            customer.HasKey(column => column.CustomerID); // Primary Key
+            customer.Property(column => column.CustomerName).HasColumnType("TEXT"); // Property configuration
+            customer.HasMany(column => column.Orders) // One-to-many relationship
+                    .WithOne(order => order.Customer) // One Order can only have one Customer (Customer ID)
+                    .HasForeignKey(order => order.CustomerID);
+        });
+
+        // Model creation of Product
+        modelBuilder.Entity<Product>(product =>{
+            product.HasKey(column => column.ProductID);
+            product.Property(column => column.ProductName).HasColumnType("TEXT");
+            product.Property(column => column.Description).HasColumnType("TEXT");
+            // product.OwnsOne(column => column.OrderDetail);
+        });
+
+        // Model creation of Order
+        modelBuilder.Entity<Order>(order =>{
+            order.HasKey(column => column.OrderID);
+            order.Property(column => column.OrderDescription).HasColumnType("TEXT");
+            // When wanna try adding details of the order, OrderDetails
+        });
+    }  
+}

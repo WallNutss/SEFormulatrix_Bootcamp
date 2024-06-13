@@ -1,0 +1,29 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 2 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet  restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Day 27\BenchmarkingTesting\bin\Release\net8.0\7dae3ce3-9102-4192-9889-48f094e65e8e
+// command took 1.65 sec and exited with 0
+// start dotnet  build -c Release --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Day 27\BenchmarkingTesting\bin\Release\net8.0\7dae3ce3-9102-4192-9889-48f094e65e8e
+// command took 4.2 sec and exited with 0
+// ***** Done, took 00:00:06 (6.03 sec)   *****
+// Found 2 benchmarks:
+//   StringVsStringBuilderBenchmark.MyString: DefaultJob
+//   StringVsStringBuilderBenchmark.MyStringBuilder: DefaultJob
+
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: StringVsStringBuilderBenchmark.MyString: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 7dae3ce3-9102-4192-9889-48f094e65e8e.dll --anonymousPipes 1460 1312 --benchmarkName StringVsStringBuilderBenchmark.MyString --job Default --benchmarkId 0 in D:\Pasca ITS\Formulatrix+\Software Eng Bootcamp\Day 27\BenchmarkingTesting\bin\Release\net8.0\7dae3ce3-9102-4192-9889-48f094e65e8e\bin\Release\net8.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// BenchmarkDotNet v0.13.12
+// Runtime=.NET 8.0.4 (8.0.424.16909), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 447000.00 ns, 447.0000 us/op

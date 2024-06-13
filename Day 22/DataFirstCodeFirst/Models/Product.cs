@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
+[Table("Products")]
 public class Product{
     [Key]
     public int ProductID { get; set; }

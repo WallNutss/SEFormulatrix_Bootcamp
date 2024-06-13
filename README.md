@@ -1128,18 +1128,36 @@ Ok now to actually update a spesific row data inside the tables, the way we do i
 <b>Delete data</b>  
 While we have smooth run on the CRU(Create, Read, Update), it is not so easy when Deleting Data from the Database especially when it come to SQL. SQL have this concept Primary Key and Foreign key where spesifically with Foreign Key, we can use another tables as a value refeence to other some tables. So, if the tables we want to talk about for this example the `Categories`, where the CategoryID was used as FOREIGN KEy in another tables, we need also to delete other row data that used the CategoryID as their value. So it is a little bit tricky and I will update this docs ooce I found how to do it, because now I'm stuck
 
-So, lets contine with Database First, then Code First. or should I say DataFirstCodeFirst. For building database from ground zero in C#, there are three main package that we need to make it happens, which is
+So, lets contine with Database First, then Code First. or should I say DataFirstCodeFirst. Why concept of building the databse first is crucial rather than programming the program first. This opinion holds by some talks in the book title 'Getting Real'
+```
+Too many apps start with a program-first mentality. That's a bad idea. Programming is the heaviest component of building an app, meaning it's the most expensive and hardest to change. Instead, start by designing first.
+Design is relatively light. A paper sketch is cheap and easy to change. html designs are still relatively simple to modify (or throw out). That's not true of programming. Designing first keeps you flexible. Programming first fences you in and sets you up for additional costs.
+```
+
+So, if the database has been build, the program can simply fit to the structure. So, for building database from ground zero in C#, there are three main package that we need to make it happens, which is
 ```csharp
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore.Design;
 ```
 
-So now go sucker and download three of them
+So now go sucker and download three of them first
 ```bash
 dotnet-ef migrations add "commit message"
 dotnet-ef database update
 ```
+
+
+
+When building the database, here is the command line
+
+```bash
+dotnet-ef migrations add "commit-message"
+dotnet-ef database update
+
+```
+
+
 
 
 ### 23th Day
@@ -1447,4 +1465,21 @@ Log.Info("{Player} has move to {position}", Player, position); // This is struct
 ```
 
 
-Then lets talk about ASP.NET
+<s>Then lets talk about ASP.NET</s>
+
+
+### 27th Day
+Today, the learning materials is all about Bencmarking. There is full article about it [here](https://benchmarkdotnet.org/articles/guides/getting-started.html) from their official API. From the microsoft studio, they define Benchmarking as
+
+```
+Benchmarking is a systematic approach to measuring the performance of code by executing it under controlled conditions and analyzing key metrics such as execution time, memory usage, and CPU utilization.
+```
+So if we want to know, for this example, benchmarking are often use to test different method and compared their actual use. We use bencmarking tools for this. For benchmarking in C#, there is a package called Dot Net Benchmarking. So, to use this package we can install it through terminal or we can use NuGet Application Extension in the Visual Studio Code
+
+```bash
+dotnet add package BenchmarkDotNet
+```
+
+After installing the Benchmarking tools, we need to design the program to receive the performance analyse using the tools. So, to use it, we mark the program with the mark them with the  <u>Benchmark attribute.</u> attribute.
+
+
