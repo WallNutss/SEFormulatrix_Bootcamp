@@ -9,5 +9,5 @@ public class Product{
     public int ProductPrice { get; set; }
 
     // Declare the relation between each model/table in the database
-    // public OrderDetail OrderDetail { get; set; }
+    public IEnumerable<OrderDetail> OrderDetail { get; set; } = null!;
 }

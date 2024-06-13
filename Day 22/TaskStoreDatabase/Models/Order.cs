@@ -10,5 +10,5 @@ public class Order{
 
     // Declare the relation between each model/table in the database
     public Customer Customer {get;set;} = null!;
-    // public OrderDetail OrderDetail { get; set; }
+    public IEnumerable<OrderDetail> OrderDetail { get; set; } = null!;
 }

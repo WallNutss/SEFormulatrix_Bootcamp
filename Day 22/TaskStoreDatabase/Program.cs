@@ -110,9 +110,9 @@ public class Program{
                 OrderDescription = "Buy another 1x Fresh Bananas and 7x Wacky Wheat Bread"
             };
             try{
-                conn.AddOrder(order, customer.CustomerID);
+                conn.AddOrder(order, 4);
             }catch(Exception e){
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
             }
         }
 

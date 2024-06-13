@@ -8,5 +8,5 @@ public class Customer{
     public string CustomerName { get; set; } = null!;
 
     // Declare the relation between each model/table in the database
-    public ICollection<Order> Orders {get;set;} = null!;
+    public IEnumerable<Order> Orders {get;set;} = null!;
 }

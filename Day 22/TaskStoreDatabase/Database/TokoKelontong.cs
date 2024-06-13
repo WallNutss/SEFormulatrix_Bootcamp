@@ -8,7 +8,7 @@ public class TokoKelontong : DbContext{
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
-    // public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<OrderDetail> OrderDetails { get; set; }
 
     // Configuring intiial database, where to save it
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
@@ -33,14 +33,27 @@ public class TokoKelontong : DbContext{
             product.HasKey(column => column.ProductID);
             product.Property(column => column.ProductName).HasColumnType("TEXT");
             product.Property(column => column.Description).HasColumnType("TEXT");
-            // product.OwnsOne(column => column.OrderDetail);
+            product.HasMany(column => column.OrderDetail)
+                   .WithOne(orderdetail => orderdetail.Products)
+                   .HasForeignKey(orderdetail => orderdetail.ProductID);
         });
 
         // Model creation of Order
         modelBuilder.Entity<Order>(order =>{
             order.HasKey(column => column.OrderID);
             order.Property(column => column.OrderDescription).HasColumnType("TEXT");
+            order.HasMany(column => column.OrderDetail)
+                 .WithOne(orderdetail => orderdetail.Orders)
+                 .HasForeignKey(orderdetail => orderdetail.OrderID);
             // When wanna try adding details of the order, OrderDetails
         });
+
+        // Model creation of Order Detail
+        modelBuilder.Entity<OrderDetail>(orderdetail =>{
+            orderdetail.HasKey(column => column.OrderID);
+            orderdetail.HasKey(column => column.ProductID);
+        });
+
+
     }  
 }
