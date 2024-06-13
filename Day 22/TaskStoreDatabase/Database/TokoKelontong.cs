@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 public class TokoKelontong : DbContext{
     // Setting up the entity of the models
-    public DbSet<Customer> Customers { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Customer> Customers { get; set; } // Customer here is the name of the Table
+    public DbSet<Product> Products { get; set; } // Products here is the name of the Table
+    public DbSet<Order> Orders { get; set; } // Orders here is the name of the table
     public DbSet<OrderDetail> OrderDetails { get; set; }
 
     // Configuring intiial database, where to save it
@@ -50,8 +50,7 @@ public class TokoKelontong : DbContext{
 
         // Model creation of Order Detail
         modelBuilder.Entity<OrderDetail>(orderdetail =>{
-            orderdetail.HasKey(column => column.OrderID);
-            orderdetail.HasKey(column => column.ProductID);
+            orderdetail.HasKey(orderdetail=> new { orderdetail.OrderID, orderdetail.ProductID });
         });
 
 

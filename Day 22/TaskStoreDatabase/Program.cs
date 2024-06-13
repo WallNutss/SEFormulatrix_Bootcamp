@@ -104,25 +104,64 @@ public class Program{
 
         // Trying to add data order
         // Where it had from order side, many-to-one relationship with customer
-        using(dbConnection conn = new()){
-            Customer customer = conn.GetSpesificCustomer(1);
-            Order order = new Order{
-                OrderDescription = "Buy another 1x Fresh Bananas and 7x Wacky Wheat Bread"
-            };
-            try{
-                conn.AddOrder(order, 4);
-            }catch(Exception e){
-                Console.WriteLine(e.InnerException.Message);
-            }
-        }
+        // using(dbConnection conn = new()){
+        //     Customer customer = conn.GetSpesificCustomer(2);
+
+        //     Order order = new Order{
+        //         OrderDescription = "It is for meal prep on Saturday"
+        //     };
+        //     List<ProductWithQuantity> productWithQuantitiesOrder = new List<ProductWithQuantity>{
+        //         new ProductWithQuantity{
+        //             Products = conn.GetProduct(5),
+        //             Quantity = 2
+        //         },
+        //         new ProductWithQuantity{
+        //             Products = conn.GetProduct(2),
+        //             Quantity = 14
+        //         },
+        //     };
+            
+        //     try{
+        //         conn.AddOrderWithDetails(productWithQuantitiesOrder,order,customer.CustomerID);
+        //     }catch(Exception e){
+        //         Console.WriteLine(e.Message);
+        //     }
+        // }
 
         // Try to read list of products and list of customer
+        // using(dbConnection conn = new()){
+        //     conn.ReadListProducts();
+        //     Console.WriteLine("=================");
+        //     conn.ReadListCustomers();
+        // }
+
+        // Try to read list of order history of each Customer
         using(dbConnection conn = new()){
-            conn.ReadListProducts();
+            Console.WriteLine("List of Order made by Customer");
             Console.WriteLine("=================");
-            conn.ReadListCustomers();
+            conn.ReadCustomerOrders();
         }
+
+        // Delete Data about spesific Order of Product
+        // using(dbConnection conn = new()){
+        //     Console.WriteLine("=================");
+        //     conn.RemoveOrder(7);
+        // }
+
+        // Update, in this usecase I'm gonna update the just the product
+        // Because I'm to lazy to make the endpoint for the other tables
+        // using(dbConnection conn = new()){
+        //     conn.UpdateProduct(2, null, null, 9145);
+        // }
     }
 }
 
+public class OrderProductWithQuantity{
+    public Order order {get;set;} = null!;
+    public List<ProductWithQuantity> productWithQuantities {get;set;} = null!;
+}
 
+public class ProductWithQuantity{
+    public Product Products {get;set;} = null!;
+    public int Quantity {get;set;}
+}

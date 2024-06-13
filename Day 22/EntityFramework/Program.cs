@@ -37,17 +37,17 @@ class Program {
         // }
         
         // Try to update some data from the name
-        //     using(NorthWind db = new()){
+            using(NorthWind db = new()){
 
-        //     // Try to search particular row that have the name of Produce
-        //     Category categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Category>();
+            // Try to search particular row that have the name of Produce
+            Category categories = db.Categories.Where(data => data.CategoryName == "Warmindo").First<Category>();
 
-        //     // Change the data of the particular filter data spesific
-        //     categories.Description = "This Warminod is getting edited";
+            // Change the data of the particular filter data spesific
+            categories.Description = "This Warminod is getting edited";
 
-        //     // Update the data
-        //     db.SaveChanges();
-        // }
+            // Update the data
+            db.SaveChanges();
+        }
 
         // // Try to find spesific categories data through ID
         // using(NorthWind db = new()){

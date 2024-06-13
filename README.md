@@ -1141,20 +1141,118 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore.Design;
 ```
 
-So now go sucker and download three of them first
-```bash
-dotnet-ef migrations add "commit message"
-dotnet-ef database update
+So now go sucker and download three of them first. Ok, so after finish downloading them, put all those package in the code that was used to connect our program to the future database we want to build. Especially `using Microsoft.EntityFrameworkCore.Design` because when we try to build our database and not include that, it will throw an error, so don't forget!. So, the mentality of Database-First is to build the database first then the program. In this case, I will try to make a store Indonesia System, which is `Toko Kelontong` inventory system. To make it really simple for this example, I'm just gonna add the system about it customer data, the product data, and the customer order list data. So, for easier visualization, I have made simple visualization about the table I want to build.
+
+<p align="center">
+  <img width="89%" src="./doc/DocERDKelontong.jpg">
+</p>
+
+| The Relation                                                                     |
+| -------------------------------------------------------------------------------- |
+| One Order will only have one Customer, but One Customer will have many order     |
+| One Order will have many product there also One Product could be in many product |
+
+As you can see, Orders<-->Products have `*--*` or many-to-many relationship. Because typically SQL or table database do not support many-to-many relationship, there is a need of another table to relate those two altogether, and thats how OrderDetails comes in.
+
+Anyways, we can start with building it's model. So first, Customer. As you can see, Customer table will have data about their ID and their name. Where it have relation with Order where it used it CustomerID as a <u>reference</u> or FOREIGN KEY. So, in the model, we can build it like this and use Data Table Annotation to make it explicitly known.
+
+```csharp
+[Table("Customers")] // Table Annotation
+public class Customer{
+    [Key]
+    public int CustomerID { get; set; }
+    public string CustomerName { get; set; } = null!;
+
+    // Declare the relation between each model/table in the database
+    public IEnumerable<Order> Orders {get;set;} = null!;
+}
+```
+As you can see, the syntax with `[]` point to Data Table Annotation, I know [that](https://erikej.github.io/efcore/2020/04/26/ef-core-pluralization.html) there EF is automatically will try to look for the pluralization of our Model Class, but explictly tell it like that will make good behaviour to <u>tell others that this is the PRIMARY KEY and this is THE TABLE NAME CUSTOMER</u>. All the other tables are set the same as the above that to separate them from it's own original data and its relationship with other model/tables. For the Order Details, the examples are shown below
+
+```csharp
+[Table("OrderDetails")]
+public class OrderDetail{
+    [Key, ForeignKey("Orders")]
+    public int OrderID { get; set; } // Will become the primary key and at the same time
+    [Key, ForeignKey("Products")]
+
+                                      // Foreign Key
+    public int ProductID { get; set; }// Will become the primary key and at the same time
+                                      // Foreign Key
+    public int ProductQuantity {get;set;} // Each individual product quantity
+
+    // Declare the relation between each model/table in the database
+    public Order Orders {get;set;} = null!;
+    public Product Products {get;set;} = null!;
+}
 ```
 
+So because OrderID and ProductID act as PRIMARY KEY and FOREIGN KEY at the same time, the data table annotation are shown like above. Ok, now moving on to the database model building and creation. For this, FluentAPI was used for this case, so move on to the `Kelontong.cs` where this file was used to connect, create, and build the database. As you can see for the Customer model
+
+```csharp
+// Model creation of Customer
+modelBuilder.Entity<Customer>(customer =>{
+    customer.HasKey(column => column.CustomerID); // Primary Key
+    customer.Property(column => column.CustomerName).HasColumnType("TEXT"); // Property configuration
+    customer.HasMany(column => column.Orders) // One-to-many relationship
+            .WithOne(order => order.Customer) // One Order can only have one Customer (Customer ID)
+            .HasForeignKey(order => order.CustomerID);
+});
+```
+
+Where in here, we can also set the model properties by `HasKey` for setting the PrimaryKey, `Property` for it fields properties edit, and {`HasMany`,`WithOne`} to set the relation between models. As for setting `HasForeignKey` will only work after we set the relation with each program. so if there is no setting for the HasMany or WithOne, we cannot set the FOREIGN KEY to anohter class. I will also included the model building for the OrderDetails model.
 
 
-When building the database, here is the command line
+```csharp
+// Model creation of Order Detail
+modelBuilder.Entity<OrderDetail>(orderdetail =>{
+    orderdetail.HasKey(orderdetail=> new { orderdetail.OrderID, orderdetail.ProductID });
+});
+```
+
+So, as you can see, the build of OrderDetails only has little configuration, and there is no setting up for the relation. Does't orderDetails relate to two tables/models? Which is the Order and the Products? Well because in FluentAPI, when defining the relationship of between tables, we can put the relation information on one of the tables! So,
+
+```csharp
+// Model creation of Product
+modelBuilder.Entity<Product>(product =>{
+    product.HasKey(column => column.ProductID);
+    product.Property(column => column.ProductName).HasColumnType("TEXT");
+    product.Property(column => column.Description).HasColumnType("TEXT");
+    product.HasMany(column => column.OrderDetail)
+            .WithOne(orderdetail => orderdetail.Products)
+            .HasForeignKey(orderdetail => orderdetail.ProductID);
+});
+```
+
+as you can see, because table Product has defined the relation between OrderDetail here, it is optional to put it in the ModelBuilder of orderDetails. So, I think that's it for the database model building. After we finish the rest, to When building the database, the command line for that is this
 
 ```bash
 dotnet-ef migrations add "commit-message"
 dotnet-ef database update
+```
 
+After running the command line in the terminal, the database successfully build if the notification is sucessfull and .db is shown in the file explorer. As for the CRUD Method is to far long to be shown in this doc, all the CRUD method have been uploaded [here](./Day%2022/TaskStoreDatabase/dbConnection.cs), with well completly harmless comments so you can understand it. So after some tweeking, here are some of the reading of the database of List of Orders that was made by each custsomer.
+
+```text
+Database is connected
+List of Order made by Customer
+=================
+List of Order made by Customer
+1 : John Fon Due
+    OrderID8   ID4   Brown Rice                Quantity:12  Price:    40000
+    OrderID8   ID7   Olive Oil                 Quantity:10  Price:   130000
+=================
+2 : Milk A Fountaine
+    OrderID9   ID3   Chicken Breast            Quantity:20  Price:    85000
+    OrderID9   ID6   Cheddar Chuckles Cheese   Quantity:2   Price:    70000
+    OrderID10  ID3   Chicken Breast            Quantity:4   Price:    85000
+    OrderID10  ID9   Wacky Wheat Bread         Quantity:20  Price:    35000
+    OrderID10  ID10  Eggs                      Quantity:15  Price:    45000
+    OrderID11  ID4   Brown Rice                Quantity:14  Price:    40000
+    OrderID11  ID5   Broccoli                  Quantity:2   Price:    30000
+    OrderID11  ID10  Eggs                      Quantity:8   Price:    45000
+    OrderID12  ID5   Broccoli                  Quantity:2   Price:    30000
+=================
 ```
 
 
@@ -1481,5 +1579,8 @@ dotnet add package BenchmarkDotNet
 ```
 
 After installing the Benchmarking tools, we need to design the program to receive the performance analyse using the tools. So, to use it, we mark the program with the mark them with the  <u>Benchmark attribute.</u> attribute.
+
+
+Ok then lets move on to the API.
 
 
