@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers(); // How tf this know the class of CategoryController
+builder.Services.AddDbContext<TokoKelontong>(opt=>{
+    opt.UseSqlite("Data Source=../../Day 22/TaskStoreDatabase/kelontong.db");
+});
 
 var app = builder.Build();
 
