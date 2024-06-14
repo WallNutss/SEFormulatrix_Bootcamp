@@ -1,6 +1,0 @@
-@dwada_HostAddress = http://localhost:5190
-
-GET {{dwada_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
