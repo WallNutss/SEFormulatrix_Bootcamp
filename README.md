@@ -1578,9 +1578,163 @@ So if we want to know, for this example, benchmarking are often use to test diff
 dotnet add package BenchmarkDotNet
 ```
 
-After installing the Benchmarking tools, we need to design the program to receive the performance analyse using the tools. So, to use it, we mark the program with the mark them with the  <u>Benchmark attribute.</u> attribute.
+After installing the Benchmarking tools, we need to design the program to receive the performance analyse using the tools. So, to use it, we mark the program with the mark them with the <u>Benchmark attribute.</u> attribute, like `[Benchmarking]`, `[MemoryDiagnoser]`, `[Params]`. In this example, I will try to diagnoze and analyze the usecase of `String` and `Stringbuilder` when appending string in iteration.
 
 
-Ok then lets move on to the API.
+```csharp
+class Program{
+    static void Main(){
+        BenchmarkRunner.Run<StringVsStringBuilderBenchmark>(); // We pass the class as the parameter of the benchmark
+    }
+}
+
+
+[MemoryDiagnoser] // To get the result of how much memory allocated and GC has been triggered
+public class StringVsStringBuilderBenchmark{
+    [Params(100,1000,1000,100000)] // To varies of some variable to achieve multiple resutl based on this 
+                                   // in this case, we want to test multiple iteration each with ther own result
+    public int iteration;
+    [Benchmark] // Benchmark Tag
+    public string MyString(){
+        string str = String.Empty;
+        for(int i=0;i<iteration;i++){
+            str += i;
+        }
+        return str;
+    }
+
+    [Benchmark] // Benchmark Tag
+    public string MyStringBuilder(){
+        StringBuilder strbuilder = new();
+        for(int i=0;i<iteration;i++){
+            strbuilder.Append(i);
+        }
+        return strbuilder.ToString();
+    }
+}
+```
+
+As you can see, when define the method we want to analyze, in the method above, we put the Benchmark Tag `[Benchmark]` so that the Benchmark package now that this method are the target of the method/functin we want to analyze. After that, The BenchmarkRunner.Run<Md5VsSha256>() call the benchmarks that we have set previously and prints results to the console.
+
+So, because Bencmark run on the RELEASE version of the program(our program by default are in the <u>DEBUG</u>), we must built the program in the Release configuration by doing this
+
+```bash
+dotnet run -c Release
+```
+
+So, just wait until the benchmark are done! Here are an example of output from the above benchmark
+| Method          | iteration | Mean               | Error             | StdDev            | Gen0          |
+|---------------- |---------- |-------------------:|------------------:|------------------:|--------------:|
+| MyString        | 100       |         1,864.5 ns |          37.26 ns |          52.24 ns |        9.9716 |
+| MyStringBuilder | 100       |           528.1 ns |          10.43 ns |          12.81 ns |        0.6113 |
+| MyString        | 1000      |       139,895.6 ns |       2,772.47 ns |       3,081.60 ns |     1356.9336 |
+| MyStringBuilder | 1000      |         4,619.1 ns |          80.54 ns |          71.40 ns |        7.0190 |
+| MyString        | 100000    | 8,569,666,153.3 ns | 121,221,862.69 ns | 113,391,005.58 ns | 11878000.0000 |
+| MyStringBuilder | 100000    |       991,810.8 ns |      16,387.90 ns |      14,527.44 ns |      248.0469 |
+
+  
+<b>Ok then lets move on to the API.</b>  
+So, in C#, especially in ASP.Net we can build a server-side web-application framework designed for web development to produce dynamic web pages. So, if we talk about server-side web application, there must be an API paralell to it. API stands for Application Programming Intreface where it simply it was a a way for two or more computer programs or components to communicate with each other with totally different background/system environment to each other.
+
+In C#, we can build this server-side web-application using their original C# framework. We can use the extension SOLUTION:EXPLORER where the steps are similar when creating the console app, which is `Add New Project` --> Choose`ASP.NET Core Web API`. Or using the dotnet cli in the terminal
+
+```bash
+dotnet new "webapi" -lang "C#" -n "ProjectName" -o "CSPROJName"
+```
+
+So, our project is basically an example of backend server where it was trying to serve some api to handle request from many. When building the webapi, the crucial part to actually run the server or the minimum requirements are below
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddControllers(); // How tf this know the class of CategoryController
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.MapControllers();
+app.Run();
+```
+
+variable builder are the class instantiation of the web api we need. Its like hapi framework(if you don't know, it was a backend framework using Javascript like express). Where the `builder.Services` registers all the services required want to run in the web application, such us the `builder.Services.AddControllers()` where it was register the service for the controller including routing, model binding, and etc.
+
+As the service are being build, especially the AddController(), it is a service to discover the controller. The story is this, During the application's startup process, ASP.NET Core uses reflection to discover all the controller classes in the application. A controller class is typically a class that inherits from `ControllerBase`. Based on microsoft, Reflection is this
+
+```
+enable you to obtain information about loaded assemblies and the types defined within them, such as classes, interfaces, and value types (that is, structures and enumerations)
+```
+So, because of that we can/system can implicitly tell our controller where because this binding information caused by `ControllerBase` inheritance. And after that, we can go to our endpoints builder. As discussed before, ASP.NET can know our controller <u>if it</u> inherites from `ControllerBase`, so our code for building the endpoints are this
+
+
+```csharp
+[Route("api/[controller]")] // Default package for this attribute
+                            // Microsoft.AspNetCore.Mvc
+                            // This attribute is called Class-Level Attribute
+[ApiController]
+public class CategoryController : ControllerBase{
+    [HttpGet]
+    public IActionResult GetCategoryResult(){
+        return Ok("This is category Endpoint");
+    }
+}
+```
+
+So in `[Route("api/[controller]")]` is how we set our endpoints look like, this is the start of how the route map will look like, where this endpoints will add to our exisiting base url which is `localhost/5020/---`. [controller] is a placeholder or the token that was used by the package of Microsoft.AspNetCore.mvc as a literal string in the route that gets replaced with the controller name, minus the "Controller" suffix (i.e., Category). This configuration was available at the source code of the package in [here](https://github.com/dotnet/aspnetcore/blob/3f1acb59718cadf111a0a796681e3d3509bb3381/src/Mvc/Mvc.Core/src/ApplicationModels/ApplicationModelFactory.cs#L78C34-L78C43) on var result. So, if you put it like this `[Route("api/[kontroller]")]` or this `[Route("api/[connection]")]` the app will fail to be builed, because the default of the token placeholder is only this `action, controller`. So you can set up the route varies like this
+
+```csharp
+[Route("api/[controller]")]
+[Route("api/[action]")]
+
+// If you dont want to use the placeholder and use custom endpoints, this will work
+[Route("api/kontroller")]
+[Route("api/endpoint")]
+[Route("api/kategori")]
+[Route("endpoints")]
+```
+But what if we what to make a different end points where the first one return `"This is category Endpoint"` now I want to return `Hello My Sweet Child~`, you can do this
+
+```csharp
+[Route("api/[controller]")] // Default package for this attribute
+                            // Microsoft.AspNetCore.Mvc
+                            // This attribute is called Class-Level Attribute
+[ApiController]
+public class CategoryController : ControllerBase{
+    [HttpGet]
+    public IActionResult GetCategoryResult(){
+        return Ok("This is category Endpoint");
+    }
+    [Route("v2")]
+    [HttpGet]
+    public IActionResult GetCategoryResult2(){
+        return Ok("Hello My Sweet Child~");
+    }
+}
+```
+
+So there will be two endpoints now, the root class-level api endpoints `localhost:port/api/category` and it's continuation `localhost:port/api/controller/v2`. Butttt, how the our application our godly <s>bill gates</s> ASP.NET Web API knew our api endpoints that we build?!? So, at the startup after the services know where is the controller because of the reflection, ASP.NET will know those endpoints if we put `app.MapControllers()` at our main program. Where what it does is basically tied those endpoint to the URL, enabling ASP.NET Core to route incoming HTTP requests to the appropriate controller actions based on the route attributes. So you can `dotnet run`, and to see your api works, you can see it in here `localhost:port/swagger` if you enable app.swagger(). So that's it!!! Here are the snapshot of the server running in the local environment
+
+<p align="center">
+  <img width="89%" src="./doc/dotnetapisc.png">
+</p>
+
+BUTTTT, Do it like this is boring, Soo we can utilize our databse project previously where we can thinker our database in the `Day 22/TaskStoreDatabase/kelontong.db`using various endpoints. So the task for this is this  
+1. Building the project
+2. Migrate the models of the database to this projecty workstation
+3. Building the models
+4. Setting up the DbContext on the Web Api to initialize the database
+
+
 
 
