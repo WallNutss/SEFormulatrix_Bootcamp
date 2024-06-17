@@ -36,18 +36,24 @@ class Program{
 
             bool isValidMove = false;
             while(!isValidMove){
-                int IDRead = ConsoleInformation.GetUserInput("Enter the ID pieces you want to move (e.g., 1):").ConvertStringToInt();
+                int pieceID = ConsoleInformation.GetUserInput("Enter the ID pieces you want to move (e.g., 1):").ConvertStringToInt();
 
-                if(IDRead == 4){
+                Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), pieceID);
+                // Special treatment to King to restrict it moves when it is in Danger
+                if(pieceID == 4){
                     kingMoveCheck = controller.UtilitiesKingPossibleCheckStatus(controller.GetCurrentPlayer()).Distinct().ToList();
                     foreach(var m in kingMoveCheck){
                         Console.WriteLine($"{controller.GetCurrentPlayer().name} King if move will be a Possible Check at ({m.x},{m.y})");
                     }
+                    // Try to restrict or move out any possible move that makes king in Check out of global moves
+                    IEnumerable<Move> kingMoves = currentPiece.GetMoves(currentPiece.pos, controller);
+                    moves = controller.UtilitiesGetMovesNotInCoordinates(kingMoves, kingMoveCheck);
+                }else{
+                    // Try to calculate the possible Moves of any other pieces beside king
+                    moves = currentPiece.GetMoves(currentPiece.pos, controller);
                 }
 
-                // Try to calculate the possible Moves
-                Piece currentPiece = controller.GetPieceData(controller.GetCurrentPlayer(), IDRead);
-                moves = currentPiece.GetMoves(currentPiece.pos, controller);
+                // Print out the moves available of possible move it can reach, if king Add restriction to it!
                 int iterationCount = 0;
                 foreach(var s in moves){
                     Console.WriteLine($"Move {iterationCount}: Pos=({s.ToPos.x},{s.ToPos.y})");
@@ -86,6 +92,7 @@ class Program{
             // Check for Checkmate
             controller.CheckmateManagerSytemAssesor();
 
+            // Keyboard pause so player can see for a minute how been checks and who is in danger
             Console.ReadKey();
 
             // So before I switch current Player, I need to check the current game status

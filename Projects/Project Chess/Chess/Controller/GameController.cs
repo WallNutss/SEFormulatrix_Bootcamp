@@ -58,7 +58,6 @@ public class GameController{
         gameStatus = status;
     }
 
-
     // Function helper for making it easir, like IO System, Input Console Handler, and 
     // 
     public static Coordinate ConvertStringToIntArrayCoordinate(string input)
@@ -160,37 +159,58 @@ public class GameController{
     // This is for general status check, will iterate each king in each player side
     public void CheckmateManagerSytemAssesor(){
         // Check is the opponnet king is in check?
-        if(checkmateManager.UtilitiesIsItCheck(this)){
-            // Where the check come from?
-            Coordinate? sourceCoordinateMakeKingCheck = checkmateManager.UtilitiesGetCheckCausingMoves(this);
-            // Piece that was responsible for this Check
-            Piece pieceResponsible = GetPieceDataFromLocation(sourceCoordinateMakeKingCheck);
-
-            if(!checkmateManager.UtilitiesDoesKingHavePossibleMove(this) && sourceCoordinateMakeKingCheck != null){
-                // This will run if the king cannot move to possible moves it have
-                if(!checkmateManager.UtilitiesCanOpponentPlayerPiecesMoveToKingDangerSquares(this, pieceResponsible)){
-                    Console.WriteLine($"{GetCurrentOpponentPlayer().name} king is in check and cannot move other than moving you own pieces to block the check!");
-                    // Getting the possible other piece move mentioned can do
-                    List<Piece> pieceBlock = checkmateManager.UtilitiesGetOwnPiecesToBlockCheck(this, pieceResponsible);
-                    // Move this pieces
-                }else{
-                    // If there is no piece can block the check
-                    // Is there a piece that can remove the threat?
-                    if(checkmateManager.UtilitiesCanOpponentPlayerPieceRemoveThePieceResponsible(this, pieceResponsible)){
-                        // this will run if there is a piece that can remove the piece that was responsible
-                        Console.WriteLine($"{GetCurrentOpponentPlayer().name} king is in check and cannot move other than moving you own pieces to remove the threat!");
-                        List<Piece> pieceBlock = checkmateManager.UtilitiesGetOpponentPlayerPiecesToRemoveThePieceResponsible(this, pieceResponsible);
-                    }else{
-                        // If there is no, then
-                        Console.WriteLine($"{GetCurrentOpponentPlayer().name}, Its a checkmate!");
-                    }
-                }
-            }else{
-                Console.WriteLine($"This is still not a checkmate {GetCurrentOpponentPlayer().name}, please move your king while you can");
-            }
-        }else{
+        if (!checkmateManager.UtilitiesIsItCheck(this)){
             Console.WriteLine($"Not a Checkmate for {GetCurrentOpponentPlayer().name}");
+            return;
         }
+
+        // If statements above get continued, then it is true that the opponent player is in check because current player action then
+        // Also get the source of the check
+        Coordinate sourceCoordinateMakeKingCheck = checkmateManager.UtilitiesGetCheckCausingMoves(this);
+        if (!checkmateManager.UtilitiesDoesKingHavePossibleMove(this) && sourceCoordinateMakeKingCheck == null){
+            Console.WriteLine($"This is still not a checkmate {GetCurrentOpponentPlayer().name}, please move your king while you can");
+            return;
+        }
+
+        // Get the piece responsible for the check
+        Piece pieceResponsible = GetPieceDataFromLocation(sourceCoordinateMakeKingCheck);
+
+        // Check if the king has possible moves
+        if (checkmateManager.UtilitiesDoesKingHavePossibleMove(this)){
+            Console.WriteLine($"This is still not a checkmate {GetCurrentOpponentPlayer().name}, please move your king while you can");
+            return;
+        }
+
+        // Check if any piece can block the check
+        if (checkmateManager.UtilitiesCanOpponentPlayerPiecesMoveToKingDangerSquares(this, pieceResponsible)){
+            Console.WriteLine($"{GetCurrentOpponentPlayer().name} king is in check and cannot move other than moving your own pieces to block the check!");
+            List<Piece> piecesToBlockCheck = checkmateManager.UtilitiesGetOwnPiecesToBlockCheck(this, pieceResponsible);
+            // Move these pieces
+            foreach(var piece in piecesToBlockCheck){
+                Console.WriteLine($"Piece to block -- Piece : {piece.piecesType}, ID : {piece.pieceID} from ({piece.pos.x},{piece.pos.y})");
+            }
+            return;
+        }
+        // Check if any piece can remove the threat
+        if (checkmateManager.UtilitiesCanOpponentPlayerPieceRemoveThePieceResponsible(this, pieceResponsible)){
+            Console.WriteLine($"{GetCurrentOpponentPlayer().name} king is in check and cannot move other than moving your own pieces to remove the threat!");
+            List<Piece> piecesToRemoveThreat = checkmateManager.UtilitiesGetOpponentPlayerPiecesToRemoveThePieceResponsible(this, pieceResponsible);
+            // Move these pieces
+            foreach(var piece in piecesToRemoveThreat){
+                Console.WriteLine($"Piece to remove the threat -- Piece : {piece.piecesType}, ID : {piece.pieceID} from ({piece.pos.x},{piece.pos.y}");
+            }
+            return;
+        }
+
+        // And if all of those above condition still failed, then there is only one conclusion
+        // If no pieces can block or remove the threat, it's checkmate
+        Console.WriteLine($"{GetCurrentOpponentPlayer().name}, it's a checkmate!");
+    }
+
+    public IEnumerable<Move> UtilitiesGetMovesNotInCoordinates(IEnumerable<Move> moves, List<Coordinate> coordinates){
+        // Filter moves whose ToPos is not in the given list of coordinates
+        var result = moves.Where(move => !coordinates.Contains(move.ToPos)).ToList();
+        return result;
     }
 
     public IEnumerable<Coordinate> UtilitiesKingPossibleCheckStatus(IPlayer player){

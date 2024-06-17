@@ -91,6 +91,6 @@ public class PieceFactory: IPieceFactory{
                 }
                 break;
         }
-    return pieces;
+        return pieces;
     }
 }
