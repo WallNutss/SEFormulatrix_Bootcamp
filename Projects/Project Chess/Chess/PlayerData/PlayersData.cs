@@ -3,16 +3,24 @@ using Chess.Pieces;
 using Chess.Enums;
 using Chess.Boards;
 using Chess.Players;
+using Chess.PiecesFactory;
 
 namespace Chess.PlayerDatas;
 
 public class PlayersData{
     private List<IPlayer> _players;
+    private PieceFactory _pieceFactory;
     private Dictionary<IPlayer, List<Piece>> _playersPieceData;
     public int numOfPiecesPerPlayer;
+    private static readonly Dictionary<PlayerType, ColorType> _playerPieceColor = new(){
+        {PlayerType.PlayerA, ColorType.White},          
+        {PlayerType.PlayerB, ColorType.Black},          
+    };
+
     public PlayersData(){
         numOfPiecesPerPlayer = 16;
         _players = new List<IPlayer>();
+        _pieceFactory = new PieceFactory();
         _playersPieceData = new Dictionary<IPlayer, List<Piece>>();
         InitializeData();
     }
@@ -21,78 +29,17 @@ public class PlayersData{
         // Default Game Players Starters
         IPlayer player1 = new Player(1, "Player-A", PlayerType.PlayerA);
         IPlayer player2 = new Player(2, "Player-B", PlayerType.PlayerB);
+
         // Adding the Player to the List of Players
         SetPlayersListData(new List<IPlayer>(){player2,player1});
-        List<Piece> pieces = _SetupPiecesInitialPosition(_InitializePieces());
-        
-        _SetInitialPlayersData(pieces);
+        _InitializePieces();
     }
 
-    private List<Piece> _InitializePieces(){
-        List<Piece> pieces = new();
-        for(int p=1;p<3;p++){
-            ColorType pieceColor = p==1 ? ColorType.Black : ColorType.White;
-            for(int i=1;i<=numOfPiecesPerPlayer;i++){
-                Coordinate position = new Coordinate(0,0);   
-                if(i==1 || i==8){
-                    pieces.Add(new Rook(i,pieceColor,position));
-                }
-                else if(i==2 || i==7){
-                    pieces.Add(new Knight(i,pieceColor, position));
-                }
-                else if(i==3 || i==6){
-                    pieces.Add(new Bishop(i,pieceColor, position));
-                }
-                else if(i==4){
-                    pieces.Add(new King(i,pieceColor,position));
-                }
-                else if(i==5){
-                    pieces.Add(new Queen(i,pieceColor,position));
-                }
-                else{
-                    pieces.Add(new Pawn(i, pieceColor,position));
-                }
-            }
-        }
-        return pieces;
-    }
-
-    private void _SetInitialPlayersData(List<Piece> pieces){
-        foreach(IPlayer player in GetAllPlayerFromPlayersList()){
-            if(player.playerType == PlayerType.PlayerB){
-                List<Piece> piecesBlack = pieces.Where(p => p.pieceColor == ColorType.Black).ToList();
-                AddPlayerPieceCollectionData(player, piecesBlack);  
-            }else if(player.playerType == PlayerType.PlayerA){
-                List<Piece> piecesWhite = pieces.Where(p => p.pieceColor == ColorType.White).ToList();
-                AddPlayerPieceCollectionData(player, piecesWhite);  
-            }
-        }
-    }
-
-    private List<Piece> _SetupPiecesInitialPosition(List<Piece> pieces){
-        int i = 1;
-        int swapper = 8;
-        for(int y=1;y<=8;y++){
-            for(int x=1;x<=8;x++){
-                if(y==1){
-                    (pieces[i-1].pos.x,pieces[i-1].pos.y) = (x,y);
-                    i++;
-                }
-                else if(y==2){
-                    (pieces[i-1].pos.x,pieces[i-1].pos.y) = (x,y);
-                    i++;
-                }
-                else if(y==7){
-                    (pieces[i+swapper-1].pos.x,pieces[i+swapper-1].pos.y) = (x,y);
-                    i++;
-                }
-                else if(y==8){
-                    (pieces[i-swapper-1].pos.x,pieces[i-swapper-1].pos.y) = (x,y);
-                    i++;
-                }
-            }
-        }
-        return pieces;
+    private void _InitializePieces(){
+        foreach(IPlayer player in _players){
+            List<Piece> pieces = _pieceFactory.MakePieces(_playerPieceColor[player.playerType]);
+            AddPlayerPieceCollectionData(player, pieces);
+        }   
     }
 
     // Method read and write for the _player list

@@ -116,7 +116,6 @@ public class GameController{
     }
 
 
-
     // GameController - Pieces Function
     public void MovePiece(Piece piece, Coordinate toPos){
         UpdatePiecePosition(piece, toPos);
