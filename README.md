@@ -1819,7 +1819,7 @@ As you can see, it work really like general casting, but a little bit different.
 <p align="center">==================================================</p>
 
 Lastly for today, then lets talk next about MVC. From wikipedia, the definition of the MVC is
-```
+```text
 Model–view–controller (MVC) is a software design pattern commonly used for developing user interfaces that divides the related program logic into three interconnected elements. These elements are the internal representations of information (the model), the interface (the view) that presents information to and accepts it from the user, and the controller software linking the two.
 ```
 <p align="center">
@@ -1848,6 +1848,28 @@ app.MapControllerRoute(
 ```
 
 What this do, this app is a builder, where the function spesifically is for when the web app is running and it is in default form which is `localhost:port`, it will redirect with a pattern, which is from the <u>Controller</u>, which is HomeController, where if the action is equal to the Index. will run.
+
+**Question:  
+1. How the code in the `CategoryController` nor in the `HomeController`, when OK I agreed when the page is in certain url know which page is going to be returned? Like this
+    ```csharp
+    public class CategoryController : Controller{
+        public IActionResult Index(){
+            List<Category> categories = _db.Categories.ToList();
+            return View(categories);
+        }
+    }
+    ```
+    OK so I know that in previous `prgoram.cs`, we already define the pattern such as using `{controller=Home}/{action=Index}/{id?}` like this. Ok, so this called "Ok so I want some class that has or inherited the controller class, where if there is another continuation of it, refere to each of its method in that class" like that lah. But here's the problem, say that we set the url to `localhost:port/Home/Category` or just this `localhost:port/Category` so this will refer to CategoryController because it was mapped as controller in the builder services. But, how it can refer the the View Folder and search the exact name of the controller method? If, I tried to name the spesific folder view not Controller but maybe like `Kategori`, it will output like this
+
+    <p align="center">
+        <img width="89%" src="doc/01mvcday28.png"">
+    </p>
+
+    <b>So, the question is, how the heck the controller of the program know where is the page located?</b>
+
+
+2.
+
 
 
 
