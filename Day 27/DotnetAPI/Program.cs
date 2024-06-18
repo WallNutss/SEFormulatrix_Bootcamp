@@ -8,7 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers(); // How tf this know the class of CategoryController
 builder.Services.AddDbContext<TokoKelontong>(opt=>{
-    opt.UseSqlite("Data Source=../../Day 22/TaskStoreDatabase/kelontong.db");
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();
