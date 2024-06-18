@@ -1736,5 +1736,121 @@ BUTTTT, Do it like this is boring, Soo we can utilize our databse project previo
 4. Setting up the DbContext on the Web Api to initialize the database
 
 
+### 28th Day
+As previous day, we learn to build our own web API. Today is the extension of this lecture/study, which is setting startups for the web API. What if when we want to test our database connection the API, based on our previous knowledge, we need to change the location of our database <u>hardcoded</u> in the `program.cs`. But what if our application will grow? Each user will need their own database tables because the data is flexible? Based on this problem, the solution is to separate the configuration of the database separated from the sqlite services builder. That is to save all those data configuration in the `appsettings.json`.
+
+But why is that? Well we have already answer that question in our story building before. That is <u>Whaf if we need to change the location of our database, or maybe need to change the database format? Maybe to PostgreSQL or NoSQL?</u>. With `appsettings.json`, we can be more flexible of our configuration and store more data about our program settings. Such as maybe storing multiple datastring connection with different types of database. So, in below example, I will put two connection which is our local sqlite3 database and another one is another postgresql database.
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection" : "Data Source=../../Day 22/TaskStoreDatabase/kelontong.db",
+    "PostgreSQLConnection" : "Host=192.168.137.1;Port=5432;Database=postgres;Username=postgres;Password=password"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
+```
+As you can see above, in the key `Default Connection`, I put the address of my sqlite3 database, and another `PostgreSQLConnection`. What I said that we can be more flexible is what if there is another database we want to try? Let say another MySQL Server? We can just put another data string connection in the json and we are ready to go. The how we can access those connection is really easy. We use the builder services of the configuration services. Just like this
+
+```csharp
+builder.Services.AddDbContext<TokoKelontong>(opt=>{
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+```
+Where as you can see, if you want to use the PostgreSQL, you can do this
+```csharp
+builder.Services.AddDbContext<TokoKelontong>(opt=>{
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection"));
+});
+```
+<p align="center">==================================================</p>
+
+Then, lets talk about AutoMapper. What is this thing? Automapper is simply an automation to maps between classes. As you can see in previous problem, if we just return `Customer` class to the user, there will be some inconviniences which is the value of Order will be <u>null</u>. That's why we make another class which is `CustomerDTO` where DTO stands for Data Transfer Object! Where in Customer DTO, it will exlude the Order field, so it more representable to the user. But here is the catch! We have to this transfer manually to transfer the object. Like this
+```csharp
+// it will container customer.ID, customer.name, customer.order
+Customer customer1 = new();
+
+// If I want the customer.name and customer.ID to the CustemerDTO Class, I need to do this
+CustemerDTO customer2 = new(){
+    id = customer1.id,
+    name = customer1.name,
+};
+```
+
+And this is the pain in the as, what if we have the method to do this instead? That's why automapper exist. It is to easy ourlife in transfer object to another object, but the catch is the name that wnat to be transfered to another need to be the same name! So how we use them, the automapper. First we need to install the package itself, you can get in the NuGet Package, or simply install it through the dotnet cli by this
+
+```bash
+dotnet add package AutoMapper
+```
+
+after that, we simply need to configure the mapper itself in the class
+```csharp
+using System;
+using AutoMapper;
+
+public class Mapper : Profile{
+    public Mapper(){
+        // Map between Customer to Customer DTO and via verse
+        CreateMap<CustomerDTO, Customer>().ReverseMap();
+        // Map between Product to Product DTO and via verse
+        CreateMap<ProductDTO, Product>().ReverseMap();
+        // Map between Order to Order DTO and via verse
+        CreateMap<OrderDTO, Order>().ReverseMap();
+    }   
+}
+```
+As you can see, I have make create the mapping between each DTO's to their corresponding object. So if I want to achieve the same thing as above, I simply do this
+
+```csharp
+Public Mapper mp = new Mapper();
+Customer customer1 = new();
+
+// If I want the customer.name and customer.ID to the CustemerDTO Class, I need to do this
+CustemerDTO customer2 = mp.Map<CustomerDTO>(customer);
+```
+As you can see, it work really like general casting, but a little bit different. So there you have it for the automapper. More example you can see [here](./Day%2028/DotnetAPIExt/) at Day 28 Work Folder
+
+<p align="center">==================================================</p>
+
+Lastly for today, then lets talk next about MVC. From wikipedia, the definition of the MVC is
+```
+Model–view–controller (MVC) is a software design pattern commonly used for developing user interfaces that divides the related program logic into three interconnected elements. These elements are the internal representations of information (the model), the interface (the view) that presents information to and accepts it from the user, and the controller software linking the two.
+```
+<p align="center">
+  <img width="89%" src="https://i.pinimg.com/originals/f6/00/77/f600770e5516c3da4e82675275048351.png">
+</p>
+
+Where in MVC structure, model was responsible for the(in this case, commonly was the database) representation of the information. Where the view present the information to the user and will user take action to. Where the last is the controller where it combine those two. In C#, we can build this MVC web-application using their original C# framework. We can use the extension SOLUTION:EXPLORER where the steps are similar when creating the console app, which is `Add New Project` --> Choose`ASP.NET Core Web App(Model View Controller)`. Or using the dotnet cli in the terminal
+
+```bash
+dotnet new "mvc" -lang "C#" -n "Project Name" -o "CSPROJ name" 
+```
+
+In the original creation of the this Web App C#, we are displayed with pre-configured folder, which is Properties, wwwroot, Controllers, Models, and Views. Such as the function of the each folder
+1. Properties --> To store configuration settings, such as database configuration, endpoints set up, etc
+2. wwwroot --> Static file like icon, images
+3. Controller --> This will responsible what to do when website redirect to another URL
+4. Model --> Idk what is this
+5. Views --> This is responsible for viewing the data based on the controller action
+
+But, Joy how tf this run? So if you see in the `program.cs`, you will see this piece of code
+
+```csharp
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+```
+
+What this do, this app is a builder, where the function spesifically is for when the web app is running and it is in default form which is `localhost:port`, it will redirect with a pattern, which is from the <u>Controller</u>, which is HomeController, where if the action is equal to the Index. will run.
+
+
+
+
 
 

@@ -10,7 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Mapper));
 builder.Services.AddControllers(); // How tf this know the class of CategoryController
 builder.Services.AddDbContext<TokoKelontong>(opt=>{
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 var app = builder.Build();

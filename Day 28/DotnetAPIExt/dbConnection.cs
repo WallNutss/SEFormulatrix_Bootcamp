@@ -1,10 +1,13 @@
 using System;
+using AutoMapper;
 
 public class dbConnection : IDisposable{
     public TokoKelontong db;
+    public IMapper mp;
     private bool disposed = false;
-    public dbConnection(TokoKelontong database){
+    public dbConnection(TokoKelontong database, IMapper mapper){
         db = database;
+        mp = mapper;
     }
     public void CanConnect(){
         bool isConnect = db.Database.CanConnect();
@@ -231,17 +234,9 @@ public class dbConnection : IDisposable{
             foreach(var orderDetail in orderDetails){
                 // Get Product
                 Product product = db.Products.Find(orderDetail.ProductID);
-                ProductDTO productDTO = new(){
-                    ProductName = product.ProductName,
-                    Description = product.Description,
-                    ProductPrice = product.ProductPrice
-                };
+                ProductDTO productDTO = mp.Map<ProductDTO>(product);
 
-                orderDTOs.Add(new OrderDTO(){
-                    OrderID = order.OrderID,
-                    OrderDescription = order.OrderDescription,
-                    Product = productDTO
-                });
+                orderDTOs.Add(mp.Map<OrderDTO>(order));
             }
         }
         return orderDTOs;
