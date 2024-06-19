@@ -1,28 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<Category>
 
 <div class="text-center">
     <h1 class="display-4">This is Category Table display!</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-@model List<Category>
+<div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Category" asp-action="Create">Add Category</a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Category ID</th >
+            <th scope="col">No</th >
             <th scope="col">Category Name</th>
             <th scope="col">Description</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var i in Model){
-            <tr>
-                <th>@i.CategoryID</th>
-                <th>@i.CategoryName</th>
-                <th>@i.Description</th>
-            </tr>
+        @{
+            int iteration = 1;
+            foreach (var i in Model){
+                <tr>
+                    <th>@iteration</th>
+                    <th>@i.CategoryName</th>
+                    <th>@i.Description</th>
+                    <th><a type="button" class="btn btn-info" asp-controller="Category" asp-action="Edit" asp-route-id="@i.CategoryID">Edit</a></th>
+                    <th><a type="button" class="btn btn-danger" asp-controller="Category" asp-action="Delete" asp-route-id="@i.CategoryID">Delete</a></th>
+                </tr>
+                iteration++;
+            }
         }
     </tbody>
 </table>

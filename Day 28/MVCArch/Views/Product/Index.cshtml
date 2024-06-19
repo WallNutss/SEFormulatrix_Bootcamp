@@ -1,0 +1,35 @@
+﻿@model List<Product>
+
+<div class="text-center">
+    <h1 class="display-4">This is Products Table display!</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-area="" asp-controller="Product" asp-action="Add">Add Product</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Product ID</th >
+            <th scope="col">Product Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model){
+            <tr>
+                <th>@i.ProductID</th>
+                <th>@i.ProductName</th>
+                <th>@i.Description</th>
+                <th>@i.ProductPrice</th>
+                <th>@i.Category.CategoryName</th>
+                <th><a type="button" class="btn btn-info" asp-controller="Product" asp-action="Edit" asp-route-id="@i.ProductID">Edit</a></th>
+                <th><a type="button" class="btn btn-danger" asp-controller="Product" asp-action="Delete" asp-route-id="@i.ProductID">Delete</a></th>
+            </tr>
+        }
+    </tbody>
+</table>

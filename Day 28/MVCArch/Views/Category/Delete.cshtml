@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit category!</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@model Category
+<p>Edit Category</p>
+<form method="post">
+    <input type="hidden" asp-for="CategoryID" class="form-control">
+    <label>Category Name</label>
+    <input type="disabled" asp-for="CategoryName" class="form-control">
+    <label>Description</label>
+    <input type="disabled" asp-for="Description" class="form-control">
+
+    <button type="submit" value="submit">Delete</button>
+    <button type="submit" value="submit" asp-controller="Category" asp-action="Index">Not Delete</button>
+</form>
+
